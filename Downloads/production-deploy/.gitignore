@@ -1,0 +1,60 @@
+# Ignore WordPress core files
+/wp-admin/
+/wp-includes/
+/index.php
+/license.txt
+/readme.html
+/wp-activate.php
+/wp-blog-header.php
+/wp-comments-post.php
+/wp-config-sample.php
+/wp-cron.php
+/wp-links-opml.php
+/wp-load.php
+/wp-login.php
+/wp-mail.php
+/wp-settings.php
+/wp-signup.php
+/wp-trackback.php
+/xmlrpc.php
+
+# Ignore sensitive configuration files
+wp-config.php
+.env
+.htaccess
+php.ini
+.user.ini
+web.config
+
+# Ignore user-generated content and backups
+/wp-content/uploads/
+/wp-content/cache/
+/wp-content/upgrade/
+/wp-content/blogs.dir/
+/database/production_database_backup.sql
+*.sql
+*.sql.gz
+*.zip
+*.tar.gz
+*.bak
+*.backup
+
+# Ignore log files
+*.log
+error_log
+
+# Ignore development-related files
+/node_modules/
+/vendor/
+.DS_Store
+.idea/
+.vscode/
+npm-debug.log
+yarn-error.log
+
+# Ignore other generated or report files
+sitemap.xml
+sitemap.xml.gz
+/PACKAGE_VERIFICATION.txt
+/docs/CLEANUP_COMPLETION_REPORT.md
+/docs/UNUSED_IMAGES_REPORT.md
