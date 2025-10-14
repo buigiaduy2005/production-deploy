@@ -359,6 +359,52 @@
 </header>
 
 <script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Mobile menu toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mainNav = document.querySelector('.main-navigation');
+    if (menuToggle && mainNav) {
+        menuToggle.addEventListener('click', function () {
+            mainNav.classList.toggle('active');
+        });
+    }
+
+    // Submenu dropdown toggle
+    const menuItemsWithChildren = document.querySelectorAll('.menu-item-has-children > a');
+    menuItemsWithChildren.forEach(function (menuLink) {
+        menuLink.addEventListener('click', function (e) {
+            // For touch devices or small screens, prevent link on first tap
+            if (window.innerWidth <= 768 || 'ontouchstart' in window) {
+                const parentLi = this.parentElement;
+                // If the submenu is not open, prevent the link and open it
+                if (!parentLi.classList.contains('submenu-open')) {
+                    e.preventDefault();
+                    // Close other open submenus
+                    document.querySelectorAll('.menu-item-has-children.submenu-open').forEach(function(item) {
+                        if(item !== parentLi) {
+                           item.classList.remove('submenu-open');
+                        }
+                    });
+                    parentLi.classList.add('submenu-open');
+                } else {
+                    // If the submenu is already open, let the link work
+                    parentLi.classList.remove('submenu-open');
+                }
+            }
+        });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.menu-item-has-children')) {
+            document.querySelectorAll('.menu-item-has-children.submenu-open').forEach(function(item) {
+                item.classList.remove('submenu-open');
+            });
+        }
+    });
+});
+
+
 // Header scroll effect
 window.addEventListener('scroll', function() {
     const header = document.getElementById('site-header');
