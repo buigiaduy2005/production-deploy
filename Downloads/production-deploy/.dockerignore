@@ -1,0 +1,36 @@
+# Docker ignore file for Virical WordPress project
+
+# Git
+.git
+.gitignore
+
+# Documentation
+README.md
+docs/
+*.md
+
+# Scripts (keep only necessary ones)
+scripts/
+setup-local.sh
+docker-setup.sh
+
+# Database files (will be copied separately)
+database/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Temporary files
+tmp/
+temp/
+

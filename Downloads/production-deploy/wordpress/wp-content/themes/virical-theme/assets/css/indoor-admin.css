@@ -1,0 +1,268 @@
+/**
+ * Indoor Admin Styles
+ * Admin interface styles for Indoor management
+ */
+
+.indoor-admin-wrap {
+    margin-top: 20px;
+}
+
+.indoor-admin-wrap .tab-content {
+    background: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    border: 1px solid #ccd0d4;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+}
+
+/* Form Styles */
+.category-form-container,
+.product-form-container {
+    background: #f9f9f9;
+    padding: 20px;
+    margin-bottom: 30px;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+}
+
+.category-form-container h3,
+.product-form-container h3 {
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/* Image Upload Styles */
+.image-upload-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.image-preview {
+    width: 200px;
+    min-height: 100px;
+    border: 2px dashed #ccc;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f9f9f9;
+    position: relative;
+}
+
+.image-preview img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.image-preview:empty::after {
+    content: "No image selected";
+    color: #999;
+    font-style: italic;
+}
+
+/* List Table Styles */
+.categories-list-container,
+.products-list-container {
+    margin-top: 30px;
+}
+
+.categories-list-container h3,
+.products-list-container h3 {
+    margin-bottom: 15px;
+}
+
+.drag-handle {
+    cursor: move;
+    text-align: center;
+    font-size: 18px;
+    color: #999;
+}
+
+.drag-handle:hover {
+    color: #333;
+}
+
+.sortable-item.ui-sortable-helper {
+    background: #fff;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    opacity: 0.9;
+}
+
+.sortable-item.ui-sortable-placeholder {
+    background: #f0f0f0;
+    visibility: visible !important;
+    border: 2px dashed #ccc;
+}
+
+/* Status Badge */
+.status-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-badge.status-active {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-badge.status-inactive {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Filter Styles */
+.products-filter {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.products-filter select {
+    min-width: 200px;
+}
+
+/* Notice Messages */
+.notice-message {
+    margin-left: 10px;
+    font-weight: 600;
+}
+
+.notice-message.success {
+    color: #46b450;
+}
+
+.notice-message.error {
+    color: #dc3232;
+}
+
+/* Spinner */
+.spinner {
+    float: none;
+    margin-left: 10px;
+}
+
+.spinner.is-active {
+    visibility: visible;
+}
+
+/* Product Row */
+.product-row.hidden {
+    display: none;
+}
+
+.no-image,
+.no-link {
+    color: #999;
+    font-style: italic;
+}
+
+/* Responsive */
+@media screen and (max-width: 782px) {
+    .image-upload-container {
+        flex-direction: column;
+    }
+    
+    .image-preview {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .wp-list-table {
+        font-size: 12px;
+    }
+    
+    .wp-list-table .button-small {
+        font-size: 11px;
+        padding: 3px 8px;
+    }
+}
+
+/* Edit Mode */
+.category-form-container.edit-mode h3,
+.product-form-container.edit-mode h3 {
+    color: #0073aa;
+}
+
+.category-form-container.edit-mode,
+.product-form-container.edit-mode {
+    background: #fff3cd;
+    border-color: #ffc107;
+}
+
+/* Cancel Button */
+.cancel-edit-btn {
+    display: none;
+}
+
+.edit-mode .cancel-edit-btn {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+/* Action Buttons */
+.button-small {
+    margin-right: 5px !important;
+}
+
+.delete-category-btn,
+.delete-product-btn {
+    color: #a00;
+}
+
+.delete-category-btn:hover,
+.delete-product-btn:hover {
+    color: #fff;
+    background: #a00;
+    border-color: #a00;
+}
+
+/* Table Headers */
+.wp-list-table thead th {
+    font-weight: 600;
+}
+
+/* Hover Effects */
+.sortable-item:hover {
+    background-color: #f7f7f7;
+}
+
+.upload-image-btn,
+.remove-image-btn {
+    margin-top: 5px;
+}
+
+.remove-image-btn {
+    color: #a00;
+}
+
+/* Form Table */
+.form-table th {
+    width: 150px;
+    font-weight: 600;
+}
+
+.form-table td {
+    padding: 15px 10px;
+}
+
+.form-table input[type="text"],
+.form-table input[type="url"],
+.form-table select,
+.form-table textarea {
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-table .description {
+    margin-top: 5px;
+    color: #666;
+    font-style: italic;
+}

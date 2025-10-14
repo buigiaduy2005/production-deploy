@@ -1,0 +1,64 @@
+services:
+  # MySQL Database
+  db:
+    image: mysql:8.0
+    container_name: virical_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: virical_db
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress_password
+      MYSQL_ROOT_PASSWORD: root_password
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./database:/docker-entrypoint-initdb.d
+    ports:
+      - "3307:3306"
+    networks:
+      - virical_network
+
+  # WordPress Application
+  wordpress:
+    build: .
+    container_name: virical_wordpress
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress_password
+      WORDPRESS_DB_NAME: virical_db
+      WORDPRESS_DEBUG: 1
+    volumes:
+      - ./wordpress:/var/www/html
+      - wordpress_data:/var/www/html/wp-content
+    depends_on:
+      - db
+    networks:
+      - virical_network
+
+  # phpMyAdmin for database management
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: virical_phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: wordpress
+      PMA_PASSWORD: wordpress_password
+    depends_on:
+      - db
+    networks:
+      - virical_network
+
+volumes:
+  db_data:
+  wordpress_data:
+
+networks:
+  virical_network:
+    driver: bridge
+

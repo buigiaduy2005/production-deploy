@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Scene Selector Design</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 40px;
+        }
+        
+        .demo-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #2d3748;
+        }
+        
+        .design-option {
+            margin-bottom: 60px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+        
+        h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        
+        /* Design 1: Custom Dropdown with Icons */
+        .scene-selector-v1 {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        .scene-selector-v1 .selected-scene {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .scene-selector-v1 .selected-scene:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.15);
+        }
+        
+        .scene-selector-v1 .selected-scene.active {
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+        
+        .scene-selector-v1 .scene-icon {
+            font-size: 24px;
+            margin-right: 12px;
+        }
+        
+        .scene-selector-v1 .scene-name {
+            flex: 1;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .scene-selector-v1 .dropdown-arrow {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .scene-selector-v1 .selected-scene.active .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .scene-selector-v1 .scene-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            margin-top: 8px;
+            padding: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        
+        .scene-selector-v1 .scene-options.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .scene-selector-v1 .scene-option {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .scene-selector-v1 .scene-option:hover {
+            background: #f7fafc;
+            transform: translateX(4px);
+        }
+        
+        .scene-selector-v1 .scene-option.selected {
+            background: #eef2ff;
+            color: #667eea;
+        }
+        
+        .scene-selector-v1 .scene-option .scene-icon {
+            font-size: 20px;
+            margin-right: 12px;
+            opacity: 0.8;
+        }
+        
+        .scene-selector-v1 .scene-option .scene-info {
+            flex: 1;
+        }
+        
+        .scene-selector-v1 .scene-option .scene-info .name {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 2px;
+        }
+        
+        .scene-selector-v1 .scene-option .scene-info .description {
+            font-size: 12px;
+            color: #718096;
+        }
+        
+        /* Design 2: Radio Button Style */
+        .scene-selector-v2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .scene-selector-v2 .scene-radio {
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .scene-selector-v2 .scene-radio:hover {
+            border-color: #cbd5e0;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .scene-selector-v2 .scene-radio.selected {
+            background: #eef2ff;
+            border-color: #667eea;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+        }
+        
+        .scene-selector-v2 .scene-radio input {
+            display: none;
+        }
+        
+        .scene-selector-v2 .scene-radio .icon {
+            font-size: 20px;
+            margin-right: 8px;
+        }
+        
+        .scene-selector-v2 .scene-radio .name {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 14px;
+        }
+        
+        .scene-selector-v2 .scene-radio.selected .name {
+            color: #667eea;
+        }
+        
+        /* Design 3: Slider Style */
+        .scene-selector-v3 {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .scene-slider {
+            display: flex;
+            background: #f7fafc;
+            border-radius: 16px;
+            padding: 4px;
+            position: relative;
+        }
+        
+        .scene-slider .slider-bg {
+            position: absolute;
+            background: white;
+            border-radius: 12px;
+            height: calc(100% - 8px);
+            top: 4px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .scene-slider .scene-item {
+            flex: 1;
+            padding: 12px 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .scene-slider .scene-item .icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+        
+        .scene-slider .scene-item .name {
+            font-size: 12px;
+            font-weight: 600;
+            color: #718096;
+            transition: all 0.3s ease;
+        }
+        
+        .scene-slider .scene-item.active .icon {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        
+        .scene-slider .scene-item.active .name {
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>🎨 Thiết kế Combobox Cảnh Mới</h1>
+        
+        <!-- Design 1 -->
+        <div class="design-option">
+            <h2>Design 1: Custom Dropdown với Icons & Mô tả</h2>
+            <div class="scene-selector-v1">
+                <div class="selected-scene" onclick="toggleDropdown(this)">
+                    <span class="scene-icon">🏠</span>
+                    <span class="scene-name">Mặc định</span>
+                    <svg class="dropdown-arrow" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <div class="scene-options">
+                    <div class="scene-option selected">
+                        <span class="scene-icon">🏠</span>
+                        <div class="scene-info">
+                            <div class="name">Mặc định</div>
+                            <div class="description">Ánh sáng cân bằng</div>
+                        </div>
+                    </div>
+                    <div class="scene-option">
+                        <span class="scene-icon">📖</span>
+                        <div class="scene-info">
+                            <div class="name">Đọc sách</div>
+                            <div class="description">Ánh sáng trắng, tập trung</div>
+                        </div>
+                    </div>
+                    <div class="scene-option">
+                        <span class="scene-icon">🎬</span>
+                        <div class="scene-info">
+                            <div class="name">Xem phim</div>
+                            <div class="description">Ánh sáng dịu, ấm áp</div>
+                        </div>
+                    </div>
+                    <div class="scene-option">
+                        <span class="scene-icon">🎉</span>
+                        <div class="scene-info">
+                            <div class="name">Tiệc tùng</div>
+                            <div class="description">Màu sắc sống động</div>
+                        </div>
+                    </div>
+                    <div class="scene-option">
+                        <span class="scene-icon">🧘</span>
+                        <div class="scene-info">
+                            <div class="name">Thư giãn</div>
+                            <div class="description">Ánh sáng nhẹ nhàng</div>
+                        </div>
+                    </div>
+                    <div class="scene-option">
+                        <span class="scene-icon">😴</span>
+                        <div class="scene-info">
+                            <div class="name">Ngủ</div>
+                            <div class="description">Ánh sáng mờ, dịu</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Design 2 -->
+        <div class="design-option">
+            <h2>Design 2: Radio Button Grid</h2>
+            <div class="scene-selector-v2">
+                <label class="scene-radio selected">
+                    <input type="radio" name="scene" value="default" checked>
+                    <span class="icon">🏠</span>
+                    <span class="name">Mặc định</span>
+                </label>
+                <label class="scene-radio">
+                    <input type="radio" name="scene" value="reading">
+                    <span class="icon">📖</span>
+                    <span class="name">Đọc sách</span>
+                </label>
+                <label class="scene-radio">
+                    <input type="radio" name="scene" value="movie">
+                    <span class="icon">🎬</span>
+                    <span class="name">Xem phim</span>
+                </label>
+                <label class="scene-radio">
+                    <input type="radio" name="scene" value="party">
+                    <span class="icon">🎉</span>
+                    <span class="name">Tiệc tùng</span>
+                </label>
+                <label class="scene-radio">
+                    <input type="radio" name="scene" value="relax">
+                    <span class="icon">🧘</span>
+                    <span class="name">Thư giãn</span>
+                </label>
+                <label class="scene-radio">
+                    <input type="radio" name="scene" value="sleep">
+                    <span class="icon">😴</span>
+                    <span class="name">Ngủ</span>
+                </label>
+            </div>
+        </div>
+        
+        <!-- Design 3 -->
+        <div class="design-option">
+            <h2>Design 3: Slider Tab Style</h2>
+            <div class="scene-selector-v3">
+                <div class="scene-slider">
+                    <div class="slider-bg" style="width: 16.66%; left: 0;"></div>
+                    <div class="scene-item active" data-scene="default">
+                        <div class="icon">🏠</div>
+                        <div class="name">Mặc định</div>
+                    </div>
+                    <div class="scene-item" data-scene="reading">
+                        <div class="icon">📖</div>
+                        <div class="name">Đọc sách</div>
+                    </div>
+                    <div class="scene-item" data-scene="movie">
+                        <div class="icon">🎬</div>
+                        <div class="name">Xem phim</div>
+                    </div>
+                    <div class="scene-item" data-scene="party">
+                        <div class="icon">🎉</div>
+                        <div class="name">Party</div>
+                    </div>
+                    <div class="scene-item" data-scene="relax">
+                        <div class="icon">🧘</div>
+                        <div class="name">Thư giãn</div>
+                    </div>
+                    <div class="scene-item" data-scene="sleep">
+                        <div class="icon">😴</div>
+                        <div class="name">Ngủ</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Design 1: Custom Dropdown
+        function toggleDropdown(element) {
+            const dropdown = element.parentElement;
+            const options = dropdown.querySelector('.scene-options');
+            element.classList.toggle('active');
+            options.classList.toggle('show');
+        }
+        
+        document.querySelectorAll('.scene-selector-v1 .scene-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const selector = this.closest('.scene-selector-v1');
+                const selected = selector.querySelector('.selected-scene');
+                const icon = this.querySelector('.scene-icon').textContent;
+                const name = this.querySelector('.name').textContent;
+                
+                selected.querySelector('.scene-icon').textContent = icon;
+                selected.querySelector('.scene-name').textContent = name;
+                
+                document.querySelectorAll('.scene-selector-v1 .scene-option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                
+                selected.classList.remove('active');
+                selector.querySelector('.scene-options').classList.remove('show');
+            });
+        });
+        
+        // Design 2: Radio Buttons
+        document.querySelectorAll('.scene-radio input').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.querySelectorAll('.scene-radio').forEach(r => r.classList.remove('selected'));
+                this.parentElement.classList.add('selected');
+            });
+        });
+        
+        // Design 3: Slider
+        document.querySelectorAll('.scene-slider .scene-item').forEach((item, index) => {
+            item.addEventListener('click', function() {
+                const slider = this.parentElement;
+                const bg = slider.querySelector('.slider-bg');
+                const items = slider.querySelectorAll('.scene-item');
+                
+                items.forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                
+                const width = 100 / items.length;
+                bg.style.width = width + '%';
+                bg.style.left = (width * index) + '%';
+            });
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.scene-selector-v1')) {
+                document.querySelectorAll('.selected-scene').forEach(s => s.classList.remove('active'));
+                document.querySelectorAll('.scene-options').forEach(o => o.classList.remove('show'));
+            }
+        });
+    </script>
+</body>
+</html>

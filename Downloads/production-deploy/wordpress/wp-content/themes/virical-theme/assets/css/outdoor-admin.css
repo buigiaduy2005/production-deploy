@@ -1,0 +1,414 @@
+/**
+ * Outdoor Admin Styles
+ */
+
+.outdoor-admin-wrap {
+    margin-top: 20px;
+}
+
+.outdoor-admin-wrap h1 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.outdoor-admin-wrap h1 .dashicons {
+    font-size: 30px;
+    width: 30px;
+    height: 30px;
+}
+
+/* Nav Tabs */
+.outdoor-admin-wrap .nav-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.outdoor-admin-wrap .nav-tab .dashicons {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+/* Tab Content */
+.tab-content {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ccd0d4;
+    border-top: none;
+    margin-top: -1px;
+}
+
+/* Section Header */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    margin: 0;
+}
+
+/* Filter Bar */
+.filter-bar {
+    background: #f1f1f1;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+.filter-bar label {
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+/* Table Styles */
+.outdoor-admin-wrap table {
+    margin-top: 0;
+}
+
+.outdoor-admin-wrap .wp-list-table th {
+    font-weight: 600;
+}
+
+.drag-handle {
+    cursor: move;
+    text-align: center;
+}
+
+.drag-handle .dashicons {
+    color: #999;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+.sortable-list.ui-sortable-helper {
+    opacity: 0.8;
+}
+
+.sortable-list tr.ui-sortable-placeholder {
+    background: #f9f9f9;
+    border: 2px dashed #ddd;
+    visibility: visible !important;
+}
+
+/* Status Badge */
+.status-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-badge.active {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-badge.inactive {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Image Upload Container */
+.image-upload-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 500px;
+}
+
+.image-preview {
+    min-height: 150px;
+    border: 2px dashed #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    text-align: center;
+    background: #f9f9f9;
+}
+
+.image-preview img {
+    max-width: 100%;
+    height: auto;
+    max-height: 300px;
+    border-radius: 4px;
+}
+
+.image-preview:empty::before {
+    content: 'No image selected';
+    color: #999;
+    line-height: 130px;
+}
+
+.no-image {
+    color: #999;
+    font-style: italic;
+}
+
+/* Modal Styles */
+.outdoor-modal {
+    position: fixed;
+    z-index: 100000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+.outdoor-modal.active {
+    display: block;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 30px;
+    border: 1px solid #888;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.close-modal {
+    color: #aaa;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: #000;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+/* Form Fields */
+.form-field {
+    margin-bottom: 20px;
+}
+
+.form-field label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.form-field input[type="text"],
+.form-field input[type="url"],
+.form-field textarea,
+.form-field select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.form-field textarea {
+    resize: vertical;
+}
+
+.form-field .description {
+    color: #666;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.form-field input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+/* Modal Footer */
+.modal-footer {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e1e1e1;
+    display: flex;
+    gap: 10px;
+}
+
+/* Layout Tab Styles */
+.layout-preview {
+    background: #fff;
+}
+
+.layout-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.layout-section {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background: #f9f9f9;
+}
+
+.layout-section .section-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.section-order {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background: #0073aa;
+    color: #fff;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+.layout-section h4 {
+    margin: 0;
+    flex: 1;
+}
+
+.badge {
+    background: #f0ad4e;
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.product-grid-preview {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.product-preview {
+    text-align: center;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+}
+
+.product-preview img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+.product-preview span {
+    font-size: 11px;
+    color: #666;
+}
+
+.layout-info {
+    background: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.layout-info h3 {
+    margin-top: 0;
+}
+
+.layout-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.layout-info li {
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.layout-info li:last-child {
+    border-bottom: none;
+}
+
+/* Button Styles */
+.button .dashicons {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.add-section-btn,
+.add-product-btn {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Responsive */
+@media screen and (max-width: 782px) {
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+        padding: 20px;
+    }
+    
+    .outdoor-admin-wrap .wp-list-table {
+        font-size: 12px;
+    }
+    
+    .outdoor-admin-wrap .wp-list-table th,
+    .outdoor-admin-wrap .wp-list-table td {
+        padding: 8px 5px;
+    }
+}
+
+/* Loading State */
+.spinner.is-active {
+    visibility: visible;
+    float: none;
+    margin: 0 10px;
+}
+
+/* Success/Error Messages */
+.outdoor-notice {
+    padding: 12px;
+    margin: 15px 0;
+    border-left: 4px solid;
+    background: #fff;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+}
+
+.outdoor-notice.success {
+    border-color: #46b450;
+    background: #ecf7ed;
+}
+
+.outdoor-notice.error {
+    border-color: #dc3232;
+    background: #fbeaea;
+}
