@@ -32,7 +32,6 @@ services:
       WORDPRESS_DEBUG: 1
     volumes:
       - ./wordpress:/var/www/html
-      - wordpress_data:/var/www/html/wp-content
     depends_on:
       - db
     networks:
@@ -56,7 +55,6 @@ services:
 
 volumes:
   db_data:
-  wordpress_data:
 
 networks:
   virical_network:

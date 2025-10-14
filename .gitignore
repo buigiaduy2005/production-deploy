@@ -58,3 +58,5 @@ sitemap.xml.gz
 /PACKAGE_VERIFICATION.txt
 /docs/CLEANUP_COMPLETION_REPORT.md
 /docs/UNUSED_IMAGES_REPORT.md
+/img/
+/wordpress/wp-content/uploads/

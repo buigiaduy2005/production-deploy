@@ -217,17 +217,25 @@ class ViricalRoutingManager {
         
         $rules = $this->wpdb->get_results($query);
         
-        // Process rules
         foreach ($rules as &$rule) {
-            // Decode JSON fields with empty string check
-            $rule->conditions = !empty($rule->conditions) ? json_decode($rule->conditions, true) : [];
-            $rule->meta_data = !empty($rule->meta_data) ? json_decode($rule->meta_data, true) : [];
-            
-            // Validate decoded data
-            if ($rule->conditions === null) {
+            // Decode JSON fields
+            if ($rule->conditions !== null) {
+                $rule->conditions = json_decode($rule->conditions, true);
+            } else {
                 $rule->conditions = [];
             }
-            if ($rule->meta_data === null) {
+
+            if ($rule->meta_data !== null) {
+                $rule->meta_data = json_decode($rule->meta_data, true);
+            } else {
+                $rule->meta_data = [];
+            }
+
+            // Validate decoded data
+            if (!is_array($rule->conditions)) {
+                $rule->conditions = [];
+            }
+            if (!is_array($rule->meta_data)) {
                 $rule->meta_data = [];
             }
         }
