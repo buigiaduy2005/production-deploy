@@ -534,7 +534,7 @@ body {
 .why-title {
     font-size: 28px;
     font-weight: 500;
-    color: #3e3e3e;
+    color: #000 !important;
     text-align: center;
     margin-bottom: 40px;
     letter-spacing: 1px;

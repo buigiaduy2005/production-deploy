@@ -8,6 +8,113 @@
 
 get_header(); ?>
 
+<style>
+/* Dark Theme Override */
+.smart-solutions-page, .smart-intro, .smart-features, .smart-technology, .smart-usecases, .smart-benefits {
+    background-color: #121212 !important;
+    color: #ffffff !important;
+}
+
+.smart-hero {
+    background: #000000 !important;
+}
+
+.smart-hero::before {
+    opacity: 0.1 !important;
+}
+
+.smart-hero-overlay {
+    background: rgba(0, 0, 0, 0.6) !important;
+}
+
+h1, h2, h3, h4 {
+    color: #ffffff !important;
+}
+
+p, .usecase-content ul li {
+    color: #bbbbbb !important;
+}
+
+.section-label {
+    color: #bbbbbb !important;
+}
+
+.feature-card, .usecase-card, .benefit-item, .tech-item-icon {
+    background-color: #1e1e1e !important;
+    border: 1px solid #333;
+}
+
+.benefit-item:hover {
+    background: #2a2a2a !important;
+}
+
+.smart-badge {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
+}
+
+.btn-primary {
+    background: #ffffff !important;
+    color: #121212 !important;
+}
+
+.btn-primary:hover {
+    background: #dddddd !important;
+    color: #121212 !important;
+}
+
+.btn-secondary {
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+.btn-secondary:hover {
+    background: #ffffff !important;
+    color: #121212 !important;
+}
+
+.smart-cta {
+    background: #000000 !important;
+}
+
+.btn-cta-primary {
+    background: #ffffff !important;
+    color: #121212 !important;
+}
+
+.btn-cta-secondary {
+    border-color: #ffffff !important;
+    color: #ffffff !important;
+}
+
+.usecase-overlay {
+    background: rgba(255, 255, 255, 0.9) !important;
+    color: #121212 !important;
+}
+
+.feature-icon {
+    background: #333 !important;
+}
+
+.smart-intro-list i, .cta-feature i {
+    color: #4CAF50 !important;
+}
+
+.usecase-content ul li::before {
+    color: #4CAF50 !important;
+}
+
+.benefit-number {
+    color: #4a4a4a !important;
+}
+
+.benefit-item:hover .benefit-number {
+    color: #6a6a6a !important;
+}
+
+</style>
+
 <div class="smart-solutions-page">
 
     <!-- Hero Section -->

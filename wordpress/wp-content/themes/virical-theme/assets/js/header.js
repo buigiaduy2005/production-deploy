@@ -11,16 +11,15 @@ jQuery(document).ready(function($) {
         }
     });
     
-    // mobile menu toggle - Sửa lỗi và đảm bảo hoạt động đúng
+    // mobile menu toggle
     $('.menu-toggle').on('click', function(e) {
         e.preventDefault();
-        console.log('Menu toggle clicked');
         $(this).toggleClass('active');
         $('.main-navigation').toggleClass('active');
         $('body').toggleClass('menu-open');
     });
     
-    // Dropdown menu handling for mobile and desktop
+    // Dropdown menu handling for mobile
     $('.menu-item-has-children > a').on('click', function(e) {
         if ($(window).width() <= 768) {
             e.preventDefault();

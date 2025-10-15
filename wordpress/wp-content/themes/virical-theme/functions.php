@@ -41,7 +41,7 @@ function virical_enqueue_scripts() {
     wp_enqueue_style('virical-style', get_stylesheet_uri(), array(), '1.0.0');
     
     // Theme scripts
-    wp_enqueue_script('virical-script', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), '1.0.0', true);
+    wp_enqueue_script('virical-header-script', get_template_directory_uri() . '/assets/js/header.js', array('jquery'), '1.0.1', true);
 }
 add_action('wp_enqueue_scripts', 'virical_enqueue_scripts');
 

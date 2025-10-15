@@ -28,20 +28,25 @@ if (!empty($product->category)) {
 
 // Consolidate all images. The featured image should be first.
 $all_images = [];
-if (!empty($product->featured_image_url) && $product->featured_image_url !== get_template_directory_uri() . '/assets/images/placeholder.jpg') {
-    $all_images[] = $product->featured_image_url;
+if (!empty($product->image_url) && $product->image_url !== get_template_directory_uri() . '/assets/images/placeholder.jpg') {
+    $all_images[] = $product->image_url;
 }
-if (!empty($product->image_gallery_urls)) {
-    foreach($product->image_gallery_urls as $url) {
-        if (!in_array($url, $all_images)) {
-            $all_images[] = $url;
+
+// Decode the gallery JSON and merge
+if (!empty($product->gallery_images)) {
+    $gallery_array = json_decode($product->gallery_images, true);
+    if (is_array($gallery_array)) {
+        foreach($gallery_array as $url) {
+            if (!in_array($url, $all_images)) {
+                $all_images[] = $url;
+            }
         }
     }
 }
 
 // If no images are found at all, use a placeholder.
 if (empty($all_images)) {
-    $all_images[] = get_template_directory_uri() . '/assets/images/default-product.jpg';
+    $all_images[] = get_template_directory_uri() . '/assets/images/project-1.jpg';
 }
 ?>
 
@@ -411,7 +416,7 @@ if (empty($all_images)) {
     font-weight: 300;
     text-align: center;
     margin-bottom: 50px;
-    color: #212529;
+    color: #000 !important;
     text-transform: uppercase;
     letter-spacing: 4px;
     position: relative;
@@ -664,7 +669,7 @@ if (empty($all_images)) {
 .related-product-name {
     font-size: 18px;
     font-weight: 500;
-    color: #212529;
+    color: #000 !important;
     margin-bottom: 10px;
 }
 
@@ -921,7 +926,7 @@ if (empty($all_images)) {
                             <div class="gallery-slide <?php echo $index === 0 ? 'active' : ''; ?>">
                                 <img src="<?php echo esc_url($image_url); ?>" 
                                      alt="<?php echo esc_attr($product->name); ?> - Image <?php echo $index + 1; ?>"
-                                     onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'no-image\'>Không có hình ảnh</div>';">
+                                     onerror="this.onerror=null; this.src='http://localhost:8080/wp-content/uploads/2025/01/10.1.png';">
                             </div>
                         <?php endforeach; ?>
                     </div>
@@ -937,7 +942,7 @@ if (empty($all_images)) {
                             <div class="gallery-thumb <?php echo $index === 0 ? 'active' : ''; ?>" onclick="currentSlide(<?php echo $index + 1; ?>)">
                                 <img src="<?php echo esc_url($image_url); ?>" 
                                      alt="<?php echo esc_attr($product->name); ?> - Thumb <?php echo $index + 1; ?>"
-                                     onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'no-image\'>No image</div>';">
+                                     onerror="this.onerror=null; this.src='http://localhost:8080/wp-content/uploads/2025/01/10.1.png';">
                             </div>
                         <?php endforeach; ?>
                     </div>
@@ -1132,7 +1137,7 @@ if (empty($all_images)) {
             
             <div class="applications-grid">
                 <div class="application-item">
-                    <img src="https://via.placeholder.com/400x250/f0f0f0/999999?text=Kh%C3%B4ng+gian+s%E1%BB%91ng" 
+                    <img src="<?php echo get_template_directory_uri() . '/assets/images/project-1.jpg'; ?>" 
                          alt="Không gian sống" 
                          class="application-image">
                     <div class="application-content">
@@ -1142,7 +1147,7 @@ if (empty($all_images)) {
                 </div>
                 
                 <div class="application-item">
-                    <img src="https://via.placeholder.com/400x250/f0f0f0/999999?text=V%C4%83n+ph%C3%B2ng" 
+                    <img src="<?php echo get_template_directory_uri() . '/assets/images/project-1.jpg'; ?>" 
                          alt="Văn phòng hiện đại" 
                          class="application-image">
                     <div class="application-content">
@@ -1152,7 +1157,7 @@ if (empty($all_images)) {
                 </div>
                 
                 <div class="application-item">
-                    <img src="https://via.placeholder.com/400x250/f0f0f0/999999?text=Showroom" 
+                    <img src="<?php echo get_template_directory_uri() . '/assets/images/project-1.jpg'; ?>" 
                          alt="Showroom & Cửa hàng" 
                          class="application-image">
                     <div class="application-content">
@@ -1184,7 +1189,7 @@ if (empty($all_images)) {
                 if (!empty($related_products)) {
                     foreach ($related_products as $related): ?>
                         <a href="<?php echo home_url('/san-pham/' . $related->slug . '/'); ?>" class="related-product-item">
-                            <?php $related_image_url = !empty($related->image_url) ? $related->image_url : 'https://via.placeholder.com/300x200/f0f0f0/999999?text=No+Image'; ?>
+                            <?php $related_image_url = !empty($related->image_url) ? $related->image_url : get_template_directory_uri() . '/assets/images/project-2.jpg'; ?>
                             <?php if (!empty($related_image_url)): ?>
                                 <img src="<?php echo esc_url($related_image_url); ?>" 
                                      alt="<?php echo esc_attr($related->name); ?>" 
@@ -1207,7 +1212,7 @@ if (empty($all_images)) {
                     // Show placeholder products if no related products found
                     for ($i = 1; $i <= 4; $i++): ?>
                         <div class="related-product-item" style="cursor: default;">
-                            <img src="https://via.placeholder.com/300x200/f0f0f0/999999?text=S%E1%BA%A3n+ph%E1%BA%A9m+<?php echo $i; ?>" 
+                            <img src="<?php echo get_template_directory_uri() . '/assets/images/project-2.jpg'; ?>" 
                                  alt="Sản phẩm mẫu <?php echo $i; ?>" 
                                  class="related-product-image">
                             <div class="related-product-info">

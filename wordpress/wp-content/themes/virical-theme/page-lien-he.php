@@ -228,10 +228,10 @@ get_header();
 }
 
 .page-header-section {
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    background: #000;
     color: white;
     text-align: center;
-    padding: 60px 0;
+    padding: 100px 0 60px 0;
 }
 
 .page-header-section .page-title {
@@ -262,7 +262,7 @@ get_header();
 .contact-form-section h2,
 .office-info-section h2 {
     font-size: 32px;
-    color: #1e3c72;
+    color: #000 !important;
     margin-bottom: 20px;
     font-weight: 600;
 }
@@ -321,12 +321,12 @@ get_header();
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #2a5298;
-    box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+    border-color: #000;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
 }
 
 .submit-button {
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    background: #000;
     color: white;
     padding: 18px 40px;
     border: none;
@@ -359,7 +359,7 @@ get_header();
 }
 
 .office-item.main-office {
-    border-left-color: #2a5298;
+    border-left-color: #000;
     background: linear-gradient(135deg, #f8f9ff 0%, #fff 100%);
 }
 
@@ -369,7 +369,7 @@ get_header();
 }
 
 .office-header h3 {
-    color: #1e3c72;
+    color: #000;
     font-size: 20px;
     margin: 0 0 20px 0;
     font-weight: 600;
@@ -379,7 +379,7 @@ get_header();
 }
 
 .main-badge {
-    background: #2a5298;
+    background: #000;
     color: white;
     padding: 4px 12px;
     border-radius: 15px;
@@ -396,7 +396,7 @@ get_header();
 
 .detail-item i {
     font-size: 16px;
-    color: #2a5298;
+    color: #000;
     margin-right: 15px;
     margin-top: 2px;
     width: 20px;
@@ -417,7 +417,7 @@ get_header();
 }
 
 .detail-content a {
-    color: #2a5298;
+    color: #000;
     text-decoration: none;
     font-weight: 500;
 }
@@ -428,7 +428,7 @@ get_header();
 
 /* Contact CTA */
 .contact-cta {
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    background: #000;
     color: white;
     padding: 30px;
     border-radius: 12px;
@@ -477,7 +477,7 @@ get_header();
 .section-title {
     text-align: center;
     font-size: 36px;
-    color: #1e3c72;
+    color: #000;
     margin-bottom: 50px;
     font-weight: 600;
 }

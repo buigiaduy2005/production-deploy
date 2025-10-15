@@ -5,8 +5,8 @@ require_once('wp-load.php');
 global $wpdb;
 
 // The incorrect and correct strings
-$incorrect_string = 'THIẾT KỄ SANG TRỌNG - TINH TẾ';
-$correct_string = 'THIẾT KẾ SANG TRỌNG - TINH TẾ';
+$incorrect_string = 'THIẾT KỄ';
+$correct_string = 'THIẾT KẾ';
 
 // Find posts with the incorrect string
 $posts = $wpdb->get_results($wpdb->prepare(
