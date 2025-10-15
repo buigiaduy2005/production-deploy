@@ -148,7 +148,7 @@ get_header(); ?>
                     <ul class="why-list">
                         <li><i class="fa fa-check-circle"></i> <strong>Bảo hành dài hạn</strong> lên đến 5 năm cho tất cả sản phẩm</li>
                         <li><i class="fa fa-check-circle"></i> <strong>Dịch vụ sau bán hàng</strong> chuyên nghiệp, nhanh chóng 24/7</li>
-                        <li><i class="fa fa-check-circle"></i> <strong>Giá cạnh tranh nhất</strong> với chính sách ưu đãi hấp dẫn cho dự án lớn</li>
+                        <li><i class="fa fa-check-circle"></i> <strong>Giá cạnh tranh nhất</strong>  chính sách ưu đãi hấp dẫn cho dự án lớn</li>
                     </ul>
                 </div>
             </div>
@@ -402,7 +402,7 @@ body {
 
 .section-subtitle {
     font-size: 18px;
-    color: #818181;
+    color: #000000;
     letter-spacing: 2px;
     margin-bottom: 10px;
     font-weight: 300;
@@ -410,7 +410,7 @@ body {
 
 .section-title {
     font-size: 36px;
-    color: #3e3e3e;
+    color: #000000 !important;
     font-weight: 400;
     letter-spacing: 3px;
     margin-bottom: 30px;
@@ -559,6 +559,7 @@ body {
     display: flex;
     align-items: flex-start;
     gap: 15px;
+    white-space: nowrap;
 }
 
 .why-list li i {
