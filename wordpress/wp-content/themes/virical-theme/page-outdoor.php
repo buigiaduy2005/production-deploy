@@ -111,7 +111,7 @@ foreach ($sections as $section) {
     
     .outdoor-section-title h2 {
         font-size: 2.5rem;
-        color: #333;
+        color: #000;
         text-transform: uppercase;
         letter-spacing: 2px;
         position: relative;
