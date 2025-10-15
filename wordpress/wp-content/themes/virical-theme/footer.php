@@ -57,8 +57,6 @@
                         <ul>
                             <li><a href="<?php echo home_url('/gioi-thieu/'); ?>">Về Chúng Tôi</a></li>
                             <li><a href="<?php echo home_url('/cong-trinh/'); ?>">Công Trình</a></li>
-                            <li><a href="<?php echo home_url('/catalogue/'); ?>">Catalogue</a></li>
-                            <li><a href="<?php echo home_url('/chinh-sach-bao-hanh/'); ?>">Chính Sách Bảo Hành</a></li>
                             <li><a href="<?php echo home_url('/lien-he/'); ?>">Liên Hệ</a></li>
                         </ul>
                     </div>
@@ -99,13 +97,7 @@
                     <div class="copyright">
                         <p>&copy; <?php echo date('Y'); ?> Virical. All Rights Reserved. | Designed by Virical Team</p>
                     </div>
-                    <div class="footer-links">
-                        <ul>
-                            <li><a href="<?php echo home_url('/chinh-sach-bao-mat/'); ?>">Chính sách bảo mật</a></li>
-                            <li><a href="<?php echo home_url('/dieu-khoan-su-dung/'); ?>">Điều khoản sử dụng</a></li>
-                            <li><a href="<?php echo home_url('/ho-tro/'); ?>">Hỗ trợ</a></li>
-                        </ul>
-                    </div>
+
                 </div>
             </div>
         </div>

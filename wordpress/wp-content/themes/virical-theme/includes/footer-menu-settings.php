@@ -253,8 +253,8 @@ function virical_get_default_footer_menus() {
         'product_menu_item_3' => array('title' => 'Đèn Downlight', 'url' => '/san-pham/den-downlight/'),
         'product_menu_item_4' => array('title' => 'Đèn Spotlight', 'url' => '/san-pham/den-spotlight/'),
         'product_menu_item_5' => array('title' => 'Đèn Ray', 'url' => '/san-pham/den-ray/'),
-        'resource_menu_item_1' => array('title' => 'Catalogue', 'url' => '/catalogue/'),
-        'resource_menu_item_2' => array('title' => 'Chính Sách Bảo Hành', 'url' => '/chinh-sach-bao-hanh/'),
+        'resource_menu_item_1' => array('title' => '', 'url' => ''),
+        'resource_menu_item_2' => array('title' => '', 'url' => ''),
         'resource_menu_item_3' => array('title' => '', 'url' => '')
     );
 }
