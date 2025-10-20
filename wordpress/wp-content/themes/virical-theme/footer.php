@@ -110,6 +110,8 @@
         color: #bbb;
         padding: 0;
         margin-top: 80px;
+        position: relative;
+        z-index: 60;
     }
 
     .footer-main {

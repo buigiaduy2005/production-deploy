@@ -320,35 +320,50 @@ function virical_products_add_page() {
 function virical_get_products($args = array()) {
     global $wpdb;
     $table_name = $wpdb->prefix . 'virical_products';
-    
+
     $defaults = array(
-        'status' => 'publish',
-        'limit' => -1,
+        'status'   => 'publish',
+        'limit'    => -1,
         'featured' => null,
-        'category' => null
+        'category' => null,
     );
-    
     $args = wp_parse_args($args, $defaults);
-    
-    $where = array("status = %s");
-    $values = array($args['status']);
-    
-    if ($args['featured'] !== null) {
-        $where[] = "is_featured = %d";
+
+    $where  = array();
+    $values = array();
+
+    if ( ! empty( $args['status'] ) ) {
+        $where[]  = 'status = %s';
+        $values[] = $args['status'];
+    }
+
+    if ( null !== $args['featured'] ) {
+        $where[]  = 'is_featured = %d';
         $values[] = $args['featured'] ? 1 : 0;
     }
-    
-    if ($args['category']) {
-        $where[] = "category = %s";
+
+    if ( ! empty( $args['category'] ) ) {
+        $where[]  = 'category = %s';
         $values[] = $args['category'];
     }
-    
-    $where_clause = implode(' AND ', $where);
-    $limit_clause = $args['limit'] > 0 ? "LIMIT {$args['limit']}" : '';
-    
-    $query = "SELECT * FROM $table_name WHERE $where_clause ORDER BY created_at DESC $limit_clause";
-    
-    return $wpdb->get_results($wpdb->prepare($query, $values));
+
+    $where_clause = '';
+    if ( ! empty( $where ) ) {
+        $where_clause = 'WHERE ' . implode(' AND ', $where);
+    }
+
+    $query = "SELECT * FROM {$table_name} {$where_clause} ORDER BY created_at DESC";
+
+    if ( $args['limit'] > 0 ) {
+        $query   .= ' LIMIT %d';
+        $values[] = (int) $args['limit'];
+    }
+
+    if ( empty( $values ) ) {
+        return $wpdb->get_results( $query );
+    }
+
+    return $wpdb->get_results( $wpdb->prepare( $query, $values ) );
 }
 
 // Shortcode để hiển thị sản phẩm

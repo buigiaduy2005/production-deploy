@@ -1,470 +1,190 @@
 <?php
-/**
- * Template Name: Products Page
- * 
- * @package Virical
- */
+/*
+Template Name: Giao Dien San Pham Hien Dai
+*/
 
 get_header();
 
 global $wpdb;
 
-// Get all active categories
-$categories = $wpdb->get_results("
-    SELECT * FROM {$wpdb->prefix}virical_product_categories 
+// --- DATA FETCHING ---
+$categories_table = $wpdb->prefix . 'virical_product_categories';
+$products_table = $wpdb->prefix . 'virical_products';
+
+$product_categories = $wpdb->get_results("
+    SELECT * FROM {$categories_table} 
     WHERE is_active = 1 
     ORDER BY sort_order, name
 ");
 
-// Get selected category from URL
-$selected_category = isset($_GET['category']) ? sanitize_text_field($_GET['category']) : '';
+$current_category_slug = isset($_GET['category']) ? sanitize_text_field($_GET['category']) : '';
 
-// Build query
-$query = "SELECT * FROM {$wpdb->prefix}virical_products WHERE is_active = 1";
-if ($selected_category) {
-    $query .= $wpdb->prepare(" AND category = %s", $selected_category);
+$sql_select = "SELECT * FROM {$products_table}";
+$sql_where = " WHERE is_active = 1";
+$sql_params = [];
+
+if ($current_category_slug) {
+    $sql_where .= " AND category = %s";
+    $sql_params[] = $current_category_slug;
 }
-$query .= " ORDER BY is_featured DESC, sort_order, id DESC";
+
+$sql_orderby = " ORDER BY is_featured DESC, sort_order, id DESC";
+
+$query = $sql_select . $sql_where . $sql_orderby;
+
+if (!empty($sql_params)) {
+    $query = $wpdb->prepare($query, $sql_params);
+}
 
 $products = $wpdb->get_results($query);
 
-// Group products by category if no filter
-$products_by_category = [];
-if (!$selected_category) {
-    foreach ($products as $product) {
-        $products_by_category[$product->category][] = $product;
-    }
-}
 ?>
 
+<script src="https://cdn.tailwindcss.com"></script>
 <style>
-/* Products Page Styles */
-:root {
-    --virical-gold: #d4af37;
-    --virical-dark: #1a1a1a;
-    --virical-light: #f8f8f8;
-}
-
-.products-page {
-    background-color: #000;
-    color: #fff;
-    min-height: 100vh;
-}
-
-/* Hero Section */
-.products-hero {
-    position: relative;
-    height: 60vh;
-    min-height: 400px;
-    background: url('https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1920') center/cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.products-hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.6);
-}
-
-.hero-content {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-}
-
-.hero-title {
-    font-size: 60px;
-    font-weight: 700;
-    letter-spacing: 8px;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-}
-
-.hero-subtitle {
-    font-size: 18px;
-    letter-spacing: 3px;
-    color: var(--virical-gold);
-}
-
-/* Ensure header stays on top */
-.site-header {
-    z-index: 1001 !important; /* Higher than navigation */
-}
-
-/* Product sections spacing */
-.products-section:first-of-type {
-    padding-top: 60px;
-}
-
-/* Products Grid */
-.products-section {
-    padding: 80px 0;
-    background: #000;
-}
-
-.section-header {
-    text-align: center;
-    margin-bottom: 60px;
-}
-
-.section-title {
-    font-size: 36px;
-    font-weight: 300;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-}
-
-.section-line {
-    width: 80px;
-    height: 2px;
-    background: var(--virical-gold);
-    margin: 0 auto;
-}
-
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.product-item {
-    background: var(--virical-dark);
-    border-radius: 8px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-}
-
-.product-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
-}
-
-.product-image {
-    position: relative;
-    width: 100%;
-    height: 300px;
-    overflow: hidden;
-}
-
-.product-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.product-item:hover .product-image img {
-    transform: scale(1.1);
-}
-
-.product-badge {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: var(--virical-gold);
-    color: #000;
-    padding: 5px 15px;
-    font-size: 12px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-weight: 600;
-}
-
-.product-info {
-    padding: 30px;
-}
-
-.product-category {
-    color: var(--virical-gold);
-    font-size: 12px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-}
-
-.product-name {
-    font-size: 20px;
-    font-weight: 500;
-    margin-bottom: 15px;
-    line-height: 1.4;
-}
-
-.product-description {
-    color: #999;
-    font-size: 14px;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-.product-features {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 20px 0;
-}
-
-.product-features li {
-    color: #888;
-    font-size: 13px;
-    padding: 5px 0;
-    padding-left: 20px;
-    position: relative;
-}
-
-.product-features li::before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    color: var(--virical-gold);
-}
-
-.product-price {
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--virical-gold);
-}
-
-.product-link {
-    display: inline-block;
-    margin-top: 20px;
-    color: var(--virical-gold);
-    text-decoration: none;
-    font-size: 14px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    position: relative;
-    padding-bottom: 5px;
-}
-
-.product-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: var(--virical-gold);
-    transition: width 0.3s ease;
-}
-
-.product-link:hover::after {
-    width: 100%;
-}
-
-/* No Products Message */
-.no-products {
-    text-align: center;
-    padding: 100px 20px;
-    color: #666;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .hero-title {
-        font-size: 36px;
-        letter-spacing: 4px;
-    }
-    
-    .filter-tabs {
-        gap: 15px;
-    }
-    
-    .filter-tab {
-        font-size: 12px;
-        padding: 8px 15px;
-    }
-    
-    .products-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-}
-
-/* Animations */
-.fade-in {
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeIn 0.8s ease forwards;
-}
-
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.product-item {
-    animation-delay: calc(var(--index) * 0.1s);
-}
+    .sidebar-content::-webkit-scrollbar { width: 5px; }
+    .sidebar-content::-webkit-scrollbar-track { background: #f1f1f1; }
+    .sidebar-content::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 5px; }
+    .sidebar-content::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
 </style>
 
-<main class="products-page">
-    <!-- Hero Section -->
-    <section class="products-hero">
-        <div class="hero-content fade-in">
-            <h1 class="hero-title">SẢN PHẨM</h1>
-            <p class="hero-subtitle">Giải pháp chiếu sáng hiện đại</p>
+<div class="bg-gray-50 font-sans">
+
+    <!-- Mobile Header -->
+    <header class="lg:hidden bg-white shadow-md sticky top-20 z-40">
+        <div class="container mx-auto flex items-center justify-between p-4">
+            <h1 class="text-xl font-bold text-black" style="color: black !important;">Sản phẩm</h1>
+            <button id="hamburger-button" class="text-gray-600 hover:text-gray-800 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
         </div>
-    </section>
+    </header>
 
-    <!-- Include Product Navigation Bar -->
-    <?php get_template_part('template-parts/product-navigation'); ?>
-
-    <!-- Products Display -->
-    <?php if ($selected_category): ?>
-        <!-- Single Category View -->
-        <section class="products-section">
-            <div class="container">
-                <?php if (!empty($products)): ?>
-                    <div class="products-grid">
-                        <?php foreach ($products as $index => $product): ?>
-                            <?php 
-                            $features = json_decode($product->features, true);
-                            ?>
-                            <div class="product-item fade-in" style="--index: <?php echo $index; ?>">
-                                <div class="product-image">
-                                    <img src="<?php echo esc_url($product->image_url); ?>" 
-                                         alt="<?php echo esc_attr($product->name); ?>">
-                                    <?php if ($product->is_featured): ?>
-                                        <span class="product-badge">Nổi bật</span>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-category">
-                                        <?php
-                                        $cat_name = '';
-                                        foreach ($categories as $cat) {
-                                            if ($cat->slug === $product->category) {
-                                                $cat_name = $cat->name;
-                                                break;
-                                            }
-                                        }
-                                        echo esc_html($cat_name);
-                                        ?>
-                                    </div>
-                                    <h3 class="product-name"><?php echo esc_html($product->name); ?></h3>
-                                    <p class="product-description"><?php echo esc_html($product->description); ?></p>
-                                    
-                                    <?php if (!empty($features)): ?>
-                                        <ul class="product-features">
-                                            <?php foreach (array_slice($features, 0, 3) as $feature): ?>
-                                                <li><?php echo esc_html($feature); ?></li>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                    <?php endif; ?>
-                                    
-                                    <?php if ($product->price): ?>
-                                        <div class="product-price">
-                                            <?php echo number_format($product->price, 0, ',', '.'); ?> VNĐ
-                                        </div>
-                                    <?php endif; ?>
-                                    
-                                    <a href="<?php echo home_url('/san-pham/' . $product->slug . '/'); ?>" class="product-link">Xem chi tiết →</a>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                <?php else: ?>
-                    <div class="no-products">
-                        <h3>Không có sản phẩm nào trong danh mục này</h3>
-                    </div>
-                <?php endif; ?>
+    <div class="container mx-auto lg:grid lg:grid-cols-[260px_1fr] lg:gap-x-8 relative pt-20">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="bg-white w-[260px] fixed top-0 left-0 h-full z-50 shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out lg:sticky lg:top-8 lg:translate-x-0 lg:shadow-none lg:border-r lg:border-gray-200 lg:h-auto self-start">
+            <div class="p-5 border-b border-gray-200 flex justify-between items-center">
+                <h3 class="text-lg font-bold text-gray-800">Danh Mục Sản Phẩm</h3>
+                <button id="close-sidebar-button" class="lg:hidden text-gray-500 hover:text-gray-700">
+                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
             </div>
-        </section>
-    <?php else: ?>
-        <!-- All Categories View -->
-        <?php foreach ($categories as $category): ?>
-            <?php if (isset($products_by_category[$category->slug]) && !empty($products_by_category[$category->slug])): ?>
-                <section class="products-section">
-                    <div class="section-header fade-in">
-                        <h2 class="section-title"><?php echo esc_html($category->name); ?></h2>
-                        <div class="section-line"></div>
-                    </div>
-                    
-                    <div class="products-grid">
-                        <?php foreach ($products_by_category[$category->slug] as $index => $product): ?>
-                            <?php 
-                            $features = json_decode($product->features, true);
-                            ?>
-                            <div class="product-item fade-in" style="--index: <?php echo $index; ?>">
-                                <div class="product-image">
-                                    <img src="<?php echo esc_url($product->image_url); ?>" 
-                                         alt="<?php echo esc_attr($product->name); ?>">
-                                    <?php if ($product->is_featured): ?>
-                                        <span class="product-badge">Nổi bật</span>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="product-info">
-                                    <h3 class="product-name"><?php echo esc_html($product->name); ?></h3>
-                                    <p class="product-description"><?php echo esc_html($product->description); ?></p>
-                                    
-                                    <?php if (!empty($features)): ?>
-                                        <ul class="product-features">
-                                            <?php foreach (array_slice($features, 0, 3) as $feature): ?>
-                                                <li><?php echo esc_html($feature); ?></li>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                    <?php endif; ?>
-                                    
-                                    <?php if ($product->price): ?>
-                                        <div class="product-price">
-                                            <?php echo number_format($product->price, 0, ',', '.'); ?> VNĐ
-                                        </div>
-                                    <?php endif; ?>
-                                    
-                                    <a href="<?php echo home_url('/san-pham/' . $product->slug . '/'); ?>" class="product-link">Xem chi tiết →</a>
-                                </div>
-                            </div>
+            <div class="sidebar-content max-h-[calc(100vh-68px)] overflow-y-auto">
+                <nav>
+                    <ul>
+                        <li class="border-b border-gray-200 last:border-b-0">
+                             <a href="<?php echo esc_url(home_url('/san-pham')); ?>" class="flex items-center justify-between p-4 hover:bg-gray-100 transition-colors duration-200 <?php echo empty($current_category_slug) ? 'bg-blue-50 text-blue-600' : 'text-gray-700'; ?>">
+                                <span class="font-semibold">Tất cả sản phẩm</span>
+                            </a>
+                        </li>
+                        <?php foreach ($product_categories as $category): ?>
+                        <li class="border-b border-gray-200 last:border-b-0">
+                            <a href="?category=<?php echo $category->slug; ?>" class="flex items-center justify-between p-4 hover:bg-gray-100 transition-colors duration-200 <?php echo $current_category_slug === $category->slug ? 'bg-blue-50 text-blue-600' : 'text-gray-700'; ?>">
+                                <span class="font-semibold"><?php echo $category->name; ?></span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </a>
+                        </li>
                         <?php endforeach; ?>
-                    </div>
-                </section>
-            <?php endif; ?>
-        <?php endforeach; ?>
-    <?php endif; ?>
-</main>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        
+        <!-- Overlay for mobile -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden"></div>
+
+        <!-- Main Content -->
+        <main class="py-8">
+            <div class="container mx-auto px-4">
+                <div class="hidden lg:block mb-8">
+                    <h1 class="text-4xl font-extrabold text-black" style="color: black !important;">Sản phẩm</h1>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-6">
+                    <?php if (!empty($products)):
+                        foreach ($products as $product): ?>
+                        <div class="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden group transform hover:-translate-y-1 transition-all duration-300 hover:shadow-lg flex flex-col">
+                            <a href="<?php echo home_url('/san-pham/' . $product->slug . '/'); ?>" class="block">
+                                <div class="aspect-square overflow-hidden">
+                                    <img src="<?php echo esc_url($product->image_url); ?>" alt="<?php echo esc_attr($product->name); ?>" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                                </div>
+                            </a>
+                            <div class="p-5 flex flex-col flex-grow">
+                                <div class="flex-grow">
+                                                                    <a href="<?php echo home_url('/san-pham/' . $product->slug . '/'); ?>">
+                                                                        <h3 class="text-gray-900 font-bold text-lg h-14 overflow-hidden mb-2" style="color: black !important;"><?php echo esc_html($product->name); ?></h3>
+                                                                    </a>
+                                    <?php if (!empty($product->description)): ?>
+                                        <p class="text-gray-600 text-sm mb-4"><?php echo esc_html($product->description); ?></p>
+                                    <?php endif; ?>
+
+                                    <?php
+                                    if (!empty($product->features)) {
+                                        $features = json_decode($product->features, true);
+                                        if (is_array($features)) {
+                                            echo '<ul class="text-sm text-gray-600 list-disc list-inside mb-4">';
+                                            foreach ($features as $feature) {
+                                                echo '<li>' . esc_html($feature) . '</li>';
+                                            }
+                                            echo '</ul>';
+                                        }
+                                    }
+                                    ?>
+                                </div>
+
+                                <div class="flex items-baseline mb-4">
+                                    <span class="text-gray-600 font-semibold">Liên hệ</span>
+                                </div>
+                                <a href="<?php echo home_url('/san-pham/' . $product->slug . '/'); ?>" class="w-full text-center block bg-white text-gray-800 border-2 border-gray-800 rounded-md py-2 px-4 font-semibold hover:bg-gray-800 hover:text-white transition-all duration-300">
+                                    Xem chi tiết
+                                </a>
+                            </div>
+                        </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <div class="col-span-full text-center py-12">
+                            <p class="text-gray-500 text-lg">Không tìm thấy sản phẩm nào.</p>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Floating Contact Buttons -->
+    <div class="fixed right-4 top-1/2 -translate-y-1/2 space-y-3 z-30">
+        <a href="#" class="w-14 h-14 bg-blue-500 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-600 transition-colors">
+            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 2.55 1 4.93 2.66 6.7l-1.5 5.48 5.63-1.48c1.69.93 3.6 1.44 5.58 1.44h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.91-9.91zm0 18.16c-1.8 0-3.53-.48-5-1.35l-.36-.21-3.72.98.99-3.63-.23-.37c-1-1.65-1.54-3.6-1.54-5.68 0-4.54 3.69-8.23 8.23-8.23 4.54 0 8.23 3.69 8.23 8.23s-3.69 8.23-8.23 8.23zm4.49-5.44c-.25-.12-1.46-.72-1.69-.8s-.39-.12-.56.12c-.17.25-.64.8-.78.97s-.28.17-.53.06c-.25-.12-1.05-.39-2-1.23s-1.45-1.95-1.61-2.28c-.17-.33-.02-.52.11-.64s.25-.28.37-.42c.12-.15.17-.25.25-.42s.04-.3-.02-.42c-.06-.12-.56-1.35-.76-1.84s-.4-.4-.56-.4h-.5c-.17 0-.45.06-.68.3s-.88.86-.88 2.1c0 1.24.9 2.43 1.03 2.6s1.78 2.73 4.33 3.82c.6.25 1.07.4 1.42.52.6.2 1.14.17 1.56.1.48-.09 1.46-.6 1.67-1.18s.2-.54.15-.6c-.05-.07-.17-.12-.42-.24z"/></svg> <!-- Zalo -->
+        </a>
+        <a href="#" class="w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-colors">
+            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c.37 0 .74-.02 1.1-.07l-1.04-3.11c-.49.12-1.01.18-1.56.18-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6c0 .79-.16 1.54-.44 2.22l3.11 1.04c.2-.58.33-1.2.33-1.85 0-5.52-4.48-10-10-10zm4.19 12.81c-1.39 1.39-3.64 1.39-5.04 0s-1.39-3.64 0-5.04c.7-.7 1.62-1.03 2.52-1.03s1.82.33 2.52 1.03c1.39 1.39 1.39 3.65 0 5.04zm-1.2-3.84c-.39-.39-1.02-.39-1.41 0s-.39 1.02 0 1.41.39.39 1.41 0 .39-1.02 0-1.41z"/></svg> <!-- Messenger -->
+        </a>
+        <a href="#" class="w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-colors">
+            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.02.74-.25 1.02l-2.2 2.2z"/></svg> <!-- Call -->
+        </a>
+    </div>
+</div>
 
 <script>
-// Intersection Observer for fade-in animations
-document.addEventListener('DOMContentLoaded', function() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, observerOptions);
-    
-    document.querySelectorAll('.fade-in').forEach(el => {
-        observer.observe(el);
-    });
-});
+document.addEventListener('DOMContentLoaded', function () {
+    const sidebar = document.getElementById('sidebar');
+    const hamburgerButton = document.getElementById('hamburger-button');
+    const closeSidebarButton = document.getElementById('close-sidebar-button');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
 
-// Product item click to detail
-document.querySelectorAll('.product-item').forEach(item => {
-    item.addEventListener('click', function(e) {
-        if (!e.target.closest('.product-link')) {
-            const link = this.querySelector('.product-link');
-            if (link) {
-                link.click();
-            }
-        }
-    });
+    function openSidebar() {
+        sidebar.classList.remove('-translate-x-full');
+        sidebarOverlay.classList.remove('hidden');
+    }
+
+    function closeSidebar() {
+        sidebar.classList.add('-translate-x-full');
+        sidebarOverlay.classList.add('hidden');
+    }
+
+    hamburgerButton.addEventListener('click', openSidebar);
+    closeSidebarButton.addEventListener('click', closeSidebar);
+    sidebarOverlay.addEventListener('click', closeSidebar);
 });
 </script>
 

@@ -44,10 +44,16 @@ $selected_type = isset($_GET['type']) ? sanitize_text_field($_GET['type']) : '';
 
 // Build query
 $query = "SELECT * FROM {$wpdb->prefix}virical_projects WHERE is_active = 1";
+$params = [];
 if ($selected_type) {
-    $query .= $wpdb->prepare(" AND type = %s", $selected_type);
+    $query .= " AND type = %s";
+    $params[] = $selected_type;
 }
 $query .= " ORDER BY is_featured DESC, sort_order, completion_year DESC, id DESC";
+
+if (!empty($params)) {
+    $query = $wpdb->prepare($query, $params);
+}
 
 $projects = $wpdb->get_results($query);
 ?>

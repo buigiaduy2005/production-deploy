@@ -65,6 +65,7 @@ get_header(); ?>
 </section>
 
 <!-- About Section - Enhanced -->
+
 <section class="content-section about-section">
     <div class="container">
         <div class="section-header">
