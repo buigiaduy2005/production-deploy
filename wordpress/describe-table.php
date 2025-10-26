@@ -6,7 +6,7 @@ global $wpdb;
 
 header('Content-Type: text/plain; charset=utf-8');
 
-$table_name = 'wp_virical_routing_rules'; // <-- Changed this line
+$table_name = 'wp_virical_products';
 
 $columns = $wpdb->get_results("DESCRIBE {$table_name}");
 

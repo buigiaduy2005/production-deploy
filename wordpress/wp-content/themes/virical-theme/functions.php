@@ -40,8 +40,16 @@ function virical_enqueue_scripts() {
     // Theme stylesheet
     wp_enqueue_style('virical-style', get_stylesheet_uri(), array(), '1.0.1');
     
+    // Custom styles
+    wp_enqueue_style('virical-custom-styles', get_template_directory_uri() . '/assets/css/custom-styles.css', array('virical-style'), '1.0.1');
+    wp_enqueue_style('virical-force-styles', get_template_directory_uri() . '/assets/css/force-styles.css', array(), '99.0', 'all');
+
+
+
     // Theme scripts
     wp_enqueue_script('virical-header-script', get_template_directory_uri() . '/assets/js/header.js', array('jquery'), '1.0.1', true);
+
+    
 }
 add_action('wp_enqueue_scripts', 'virical_enqueue_scripts');
 

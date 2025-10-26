@@ -141,6 +141,9 @@ class ViricalRoutingManager {
         if ($product_slug) {
             // Check if single-product.php exists
             $single_product = get_template_directory() . '/single-product.php';
+
+            
+
             if (file_exists($single_product)) {
                 // Get product data
                 global $wpdb;

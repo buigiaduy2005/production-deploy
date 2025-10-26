@@ -8,7 +8,7 @@ header('Content-Type: text/plain; charset=utf-8');
 
 // --- Configuration ---
 $table_name = 'wp_virical_products';
-$product_slug = 'ray-nam-cham-magna-pro-48v';
+$product_slug = 'den-pha-led-stadium-500w';
 // ---------------------
 
 $query = $wpdb->prepare(

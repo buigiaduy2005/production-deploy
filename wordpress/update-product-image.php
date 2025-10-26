@@ -8,8 +8,8 @@ header('Content-Type: text/plain; charset=utf-8');
 
 // --- Configuration ---
 $table_name = 'wp_virical_products';
-$product_slug = 'ray-nam-cham-magna-pro-48v';
-$new_image_url = 'http://localhost:8080/wp-content/uploads/2025/01/10.1.png';
+$product_slug = 'den-pha-led-stadium-500w';
+$new_image_url = 'http://localhost:8082/wp-content/uploads/2025/01/25.1.jpg';
 // ---------------------
 
 // Update the image_url for the specified product

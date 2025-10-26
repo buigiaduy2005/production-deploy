@@ -1,1312 +1,1579 @@
 <?php
 /**
- * Template Name: Single Product - Modern Style
- * 
+ * The template for displaying single products with a modern design.
+ *
  * @package Virical
  */
 
 get_header();
 
-// Get the product data prepared by the routing manager
-$product = get_query_var('current_product');
 
-// If the product data isn't available, redirect to the main products page.
-if (!$product || !is_object($product)) {
-    wp_redirect(home_url('/san-pham/'));
-    exit;
-}
-
+$product_slug = get_query_var('product');
 global $wpdb;
-// Get product category
-$category = null;
-if (!empty($product->category)) {
-    $category = $wpdb->get_row($wpdb->prepare(
-        "SELECT * FROM {$wpdb->prefix}virical_product_categories WHERE slug = %s",
-        $product->category
-    ));
-}
+$product = $wpdb->get_row($wpdb->prepare(
+    "SELECT p.*, p.category as category_name FROM {$wpdb->prefix}virical_products p WHERE p.slug = %s AND p.is_active = 1",
+    $product_slug
+));
 
-// Consolidate all images. The featured image should be first.
-$all_images = [];
-if (!empty($product->image_url) && $product->image_url !== get_template_directory_uri() . '/assets/images/placeholder.jpg') {
-    $all_images[] = $product->image_url;
-}
-
-// Decode the gallery JSON and merge
-if (!empty($product->gallery_images)) {
-    $gallery_array = json_decode($product->gallery_images, true);
-    if (is_array($gallery_array)) {
-        foreach($gallery_array as $url) {
-            if (!in_array($url, $all_images)) {
-                $all_images[] = $url;
-            }
-        }
-    }
-}
-
-// If no images are found at all, use a placeholder.
-if (empty($all_images)) {
-    $all_images[] = get_template_directory_uri() . '/assets/images/project-1.jpg';
-}
 ?>
-
 <style>
-/* Modern Product Detail Styles - Aura Inspired */
-:root {
-    --virical-gold: #d4af37;
-    --virical-gold-hover: #b8941f;
-    --virical-dark: #1a1a1a;
-    --virical-darker: #0f0f0f;
-    --virical-white: #ffffff;
-    --virical-light: #f8f9fa;
-    --virical-gray: #6c757d;
-    --virical-light-gray: #f8f9fa;
-    --virical-border: #e9ecef;
-    --virical-text: #212529;
-    --virical-text-muted: #6c757d;
-}
-
-.single-product-modern {
-    background-color: #ffffff;
-    color: #333;
-    font-family: 'Montserrat', sans-serif;
-    padding-top: 80px;
-    min-height: 100vh;
-}
-
-/* Breadcrumb */
-.breadcrumb-section {
-    background: #f8f9fa;
-    padding: 20px 0;
-    border-bottom: 1px solid #e9ecef;
-}
-
-.breadcrumb {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    font-size: 14px;
-}
-
-.breadcrumb a {
-    color: #6c757d;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.breadcrumb a:hover {
-    color: var(--virical-gold);
-}
-
-.breadcrumb .separator {
-    color: #adb5bd;
-}
-
-.breadcrumb .current {
-    color: #212529;
-    font-weight: 600;
-}
-
-/* Product Hero Section */
-.product-hero {
-    background: #1a1a1a;
-    padding: 60px 0;
-    position: relative;
-}
-
-.product-hero-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: grid;
-    grid-template-columns: 550px 1fr;
-    gap: 60px;
-    align-items: start;
-}
-
-/* Product Gallery */
-.product-gallery-section {
-    position: sticky;
-    top: 100px;
-}
-
-.gallery-main {
-    position: relative;
-    background: #000;
-    border-radius: 0;
-    overflow: hidden;
-}
-
-.gallery-slider {
-    position: relative;
-    height: 550px;
-    background: #000;
-}
-
-.gallery-slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #000;
-}
-
-.gallery-slide.active {
-    opacity: 1;
-}
-
-.gallery-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.5s ease;
-}
-
-.gallery-slide:hover img {
-    transform: scale(1.05);
-}
-
-/* Fallback for missing images */
-.gallery-slide .no-image {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #6c757d;
-    font-size: 18px;
-}
-
-.gallery-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.9);
-    color: #333;
-    border: 1px solid #e9ecef;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 20px;
-    transition: all 0.3s ease;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.gallery-nav:hover {
-    background: var(--virical-gold);
-    color: #fff;
-    border-color: var(--virical-gold);
-}
-
-.gallery-prev {
-    left: 20px;
-}
-
-.gallery-next {
-    right: 20px;
-}
-
-.gallery-thumbs {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.gallery-thumb {
-    width: 100%;
-    height: 100px;
-    border: 2px solid #333;
-    border-radius: 0;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background: #000;
-    position: relative;
-}
-
-.gallery-thumb:hover {
-    border-color: var(--virical-gold);
-}
-
-.gallery-thumb.active {
-    border-color: var(--virical-gold);
-}
-
-.gallery-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.gallery-thumb .no-image {
-    width: 100%;
-    height: 100%;
-    background: #f8f9fa;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #adb5bd;
-    font-size: 12px;
-}
-
-/* Product Info */
-.product-info-section {
-    padding-top: 20px;
-}
-
-.product-code {
-    color: #6c757d;
-    font-size: 14px;
-    margin-bottom: 30px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.features-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.product-category-badge {
-    color: #999;
-    font-size: 14px;
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 15px;
-}
-
-.product-title {
-    font-size: 42px;
-    font-weight: 300;
-    line-height: 1.2;
-    margin-bottom: 20px;
-    color: #d4af37;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-}
-
-.product-subtitle {
-    font-size: 16px;
-    color: #ccc;
-    margin-bottom: 30px;
-    line-height: 1.8;
-}
-
-.product-price {
-    font-size: 36px;
-    color: var(--virical-gold);
-    font-weight: 600;
-    margin-bottom: 40px;
-}
-
-.product-features {
-    margin-bottom: 40px;
-}
-
-.product-features h3 {
-    font-size: 20px;
-    margin-bottom: 20px;
-    color: #d4af37;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.product-features ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.product-features li {
-    padding: 10px 0;
-    padding-left: 30px;
-    position: relative;
-    color: #ccc;
-    font-size: 15px;
-}
-
-.product-features li:before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    color: var(--virical-gold);
-    font-size: 18px;
-}
-
-.product-actions {
-    display: flex;
-    gap: 15px;
-    margin-top: 40px;
-}
-
-.btn-primary,
-.btn-secondary {
-    padding: 15px 40px;
-    font-size: 14px;
-    font-weight: 600;
-    text-transform: uppercase;
-    text-decoration: none;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    border: 2px solid transparent;
-}
-
-.btn-primary {
-    background: var(--virical-gold);
-    color: #000;
-    border-color: var(--virical-gold);
-    font-weight: 700;
-}
-
-.btn-primary:hover {
-    background: transparent;
-    color: var(--virical-gold);
-    border-color: var(--virical-gold);
-}
-
-.btn-secondary {
-    background: transparent;
-    color: #fff;
-    border-color: #fff;
-}
-
-.btn-secondary:hover {
-    background: #fff;
-    color: #000;
-    border-color: #fff;
-}
-
-/* Specifications Section */
-.specifications-section {
-    background: #f8f9fa;
-    padding: 80px 0;
-}
-
-.specifications-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.section-title {
-    font-size: 36px;
-    font-weight: 300;
-    text-align: center;
-    margin-bottom: 50px;
-    color: #000 !important;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    position: relative;
-}
-
-.section-title::after {
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
-    background: var(--virical-gold);
-}
-
-.specifications-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-}
-
-.spec-group {
-    background: #ffffff;
-    padding: 35px;
-    border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-}
-
-.spec-group-title {
-    font-size: 20px;
-    font-weight: 500;
-    color: var(--virical-gold);
-    margin-bottom: 25px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid #f8f9fa;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.spec-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 15px 0;
-    border-bottom: 1px solid #f1f3f5;
-}
-
-.spec-item:last-child {
-    border-bottom: none;
-}
-
-.spec-label {
-    color: #6c757d;
-    font-size: 15px;
-}
-
-.spec-value {
-    color: #212529;
-    font-size: 15px;
-    font-weight: 600;
-}
-
-/* Download Section */
-.download-section {
-    background: #ffffff;
-    padding: 80px 0;
-}
-
-.download-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.download-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    margin-top: 40px;
-}
-
-.download-item {
-    background: #f8f9fa;
-    padding: 40px 30px;
-    border-radius: 12px;
-    text-align: center;
-    transition: all 0.3s ease;
-    border: 1px solid #e9ecef;
-}
-
-.download-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    border-color: var(--virical-gold);
-}
-
-.download-icon {
-    font-size: 48px;
-    color: var(--virical-gold);
-    margin-bottom: 20px;
-}
-
-.download-icon i {
-    font-size: 48px;
-}
-
-.download-title {
-    font-size: 18px;
-    font-weight: 500;
-    margin-bottom: 15px;
-    color: #212529;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.download-link {
-    color: var(--virical-gold);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.download-link:hover {
-    color: var(--virical-gold-hover);
-}
-
-.download-link i {
-    font-size: 12px;
-}
-
-/* Applications Section */
-.applications-section {
-    background: #f8f9fa;
-    padding: 80px 0;
-}
-
-.applications-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.applications-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    margin-top: 40px;
-}
-
-.application-item {
-    background: #ffffff;
-    border-radius: 12px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-}
-
-.application-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-}
-
-.application-image {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    background: #f0f0f0;
-}
-
-.application-content {
-    padding: 25px;
-}
-
-.application-title {
-    font-size: 20px;
-    font-weight: 500;
-    margin-bottom: 10px;
-    color: #212529;
-}
-
-.application-description {
-    color: #6c757d;
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-/* Related Products */
-.related-products-section {
-    background: #ffffff;
-    padding: 80px 0;
-}
-
-.related-products-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.related-products-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
-    margin-top: 40px;
-}
-
-.related-product-item {
-    background: #f8f9fa;
-    border-radius: 12px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: block;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-}
-
-.related-product-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-}
-
-.related-product-image {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    background: #f8f9fa;
-    overflow: hidden;
-}
-
-.related-product-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.related-product-item:hover .related-product-image img {
-    transform: scale(1.1);
-}
-
-.related-product-info {
-    padding: 20px;
-}
-
-.related-product-name {
-    font-size: 18px;
-    font-weight: 500;
-    color: #000 !important;
-    margin-bottom: 10px;
-}
-
-.related-product-price {
-    color: var(--virical-gold);
-    font-size: 20px;
-    font-weight: 600;
-}
-
-/* Product Tabs in Info Section */
-.product-tabs {
-    margin-top: 40px;
-}
-
-.product-tabs .tabs-nav {
-    display: flex;
-    gap: 0;
-    margin-bottom: 30px;
-    border-bottom: 1px solid #333;
-}
-
-.product-tabs .tab-link {
-    padding: 15px 20px;
-    color: #999;
-    text-decoration: none;
-    font-size: 13px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    position: relative;
-    transition: all 0.3s ease;
-    border-bottom: 2px solid transparent;
-    margin-bottom: -1px;
-}
-
-.product-tabs .tab-link:hover,
-.product-tabs .tab-link.active {
-    color: var(--virical-gold);
-    border-bottom-color: var(--virical-gold);
-}
-
-.product-tabs .tab-content {
-    display: none;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 30px;
-    border-radius: 0;
-}
-
-.product-tabs .tab-content.active {
-    display: block;
-    animation: fadeIn 0.5s ease;
-}
-
-.product-tabs .tab-pane h3 {
-    font-size: 18px;
-    margin-bottom: 20px;
-    color: var(--virical-gold);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.product-tabs .tab-pane p {
-    line-height: 1.8;
-    color: #ccc;
-    margin-bottom: 15px;
-}
-
-/* Specs table in tabs */
-.specs-table {
-    width: 100%;
-    margin-top: 20px;
-}
-
-.specs-table tr {
-    border-bottom: 1px solid #333;
-}
-
-.specs-table td {
-    padding: 12px 0;
-    font-size: 14px;
-}
-
-.specs-table td:first-child {
-    color: #999;
-    width: 40%;
-}
-
-.specs-table td:last-child {
-    color: #fff;
-}
-
-/* Product Content Section */
-.product-content-section {
-    background: #ffffff;
-    padding: 80px 0;
-}
-
-.content-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.content-wrapper {
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.content-title {
-    font-size: 36px;
-    font-weight: 300;
-    margin-bottom: 40px;
-    color: #212529;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-.content-body {
-    font-size: 16px;
-    line-height: 1.8;
-    color: #495057;
-}
-
-.content-body h3 {
-    font-size: 24px;
-    margin: 40px 0 20px;
-    color: #212529;
-}
-
-.content-body ul {
-    margin: 20px 0;
-    padding-left: 30px;
-}
-
-.content-body li {
-    margin-bottom: 15px;
-}
-
-.cta-section {
-    background: #f8f9fa;
-    padding: 40px;
-    border-radius: 8px;
-    margin-top: 50px;
-    text-align: center;
-}
-
-.cta-buttons {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.cta-buttons .btn-primary,
-.cta-buttons .btn-secondary {
-    padding: 15px 30px;
-}
-
-/* Animations */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #FFFFFF;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    .breadcrumb a {
+        color: #9CA3AF;
+        transition: color 0.2s;
     }
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-    .product-hero-container {
-        grid-template-columns: 1fr;
-        gap: 40px;
+    .breadcrumb a:hover {
+        color: #3B82F6;
     }
-    
-    .product-gallery-section {
+    .product-image-container {
         position: relative;
+        overflow: hidden;
+    }
+    .product-image {
+        transition: transform 0.3s ease;
+    }
+    .product-image-container:hover .product-image {
+        transform: scale(1.05);
+    }
+    .warranty-badge {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        padding: 0.5rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+    .version-btn {
+        border: 1px solid #D1D5DB;
+        padding: 0.5rem 1rem;
+        border-radius: 9999px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .version-btn.active, .version-btn:hover {
+        background-color: #3B82F6;
+        color: white;
+        border-color: #3B82F6;
+    }
+    .add-to-cart-btn {
+        background-color: #3B82F6;
+        color: white;
+        border-radius: 10px;
+        padding: 0.75rem 1.5rem;
+        text-align: center;
+        font-weight: 600;
+        transition: background-color 0.2s;
+    }
+    .add-to-cart-btn:hover {
+        background-color: #2563EB;
+    }
+    .buy-now-btn {
+        background-color: #F97316;
+        color: white;
+        border-radius: 10px;
+        padding: 0.75rem 1.5rem;
+        text-align: center;
+        font-weight: 600;
+        transition: background-color 0.2s;
+    }
+    .buy-now-btn:hover {
+        background-color: #EA580C;
+    }
+    .commitment-box {
+        background-color: #F3F4F6;
+        border: 1px solid #3B82F6;
+        border-radius: 8px;
+        padding: 1.5rem;
+    }
+    .store-tabs button {
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: background-color 0.2s;
+    }
+    .store-tabs button.active {
+        background-color: #3B82F6;
+        color: white;
+    }
+    .product-description h3 {
+        font-size: 20px;
+        font-weight: 600;
+        color: #1E40AF;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    .product-description ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+    .product-description ul li {
+        padding-left: 28px;
+        position: relative;
+        margin-bottom: 8px;
+    }
+    .product-description ul li::before {
+        content: '✅';
+        position: absolute;
+        left: 0;
         top: 0;
     }
-    
-    .specifications-grid {
-        grid-template-columns: 1fr;
+    .recent-posts-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #000 !important;
+        border-bottom: 2px solid #000;
+        padding-bottom: 8px;
+        margin-bottom: 16px;
     }
-    
-    .download-grid,
-    .applications-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .recent-post-item {
+        display: flex;
+        margin-bottom: 15px;
     }
-    
-    .related-products-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .recent-post-item img {
+        width: 80px;
+        height: 80px;
+        border-radius: 8px;
+        margin-right: 15px;
     }
-}
-
-@media (max-width: 768px) {
-    .product-title {
-        font-size: 28px;
+    .recent-post-item-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #000;
+        text-decoration: none;
+        transition: color 0.2s;
     }
-    
-    .gallery-slider {
-        height: 350px;
+    .recent-post-item-title:hover {
+        color: #1E40AF;
     }
-    
-    .download-grid,
-    .applications-grid,
-    .related-products-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
+    .recent-post-item-excerpt {
+        font-size: 14px;
+        color: #6b7280;
     }
-    
-    .product-actions {
-        flex-direction: column;
-    }
-    
-    .btn-primary,
-    .btn-secondary {
-        width: 100%;
-        justify-content: center;
-    }
-    
-    .gallery-thumbs {
-        overflow-x: auto;
-        justify-content: flex-start;
-    }
-}
 </style>
 
-<main class="single-product-modern">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-24">
+
+    <?php if ($product) : ?>
+
     <!-- Breadcrumb -->
-    <section class="breadcrumb-section">
-        <div class="breadcrumb">
-            <a href="<?php echo home_url(); ?>">Trang chủ</a>
-            <span class="separator">›</span>
-            <a href="<?php echo home_url('/san-pham/'); ?>">Sản phẩm</a>
-            <?php if ($category): ?>
-                <span class="separator">›</span>
-                <a href="<?php echo home_url('/san-pham/?category=' . $category->slug); ?>"><?php echo esc_html($category->name); ?></a>
-            <?php endif; ?>
-            <span class="separator">›</span>
-            <span class="current"><?php echo esc_html($product->name); ?></span>
-        </div>
-    </section>
+    <nav class="breadcrumb text-sm mb-8">
+        <a href="/">Trang chủ</a> &gt;
+        <a href="/san-pham">Sản phẩm</a> &gt;
+        <span class="text-gray-500"><?php echo esc_html($product->name); ?></span>
+    </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+
+            <!-- Main Content -->
+
+            <div class="lg:col-span-2">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                    <!-- Left: Product Image -->
+
+                    <div class="product-image-container rounded-lg shadow-sm">
+
+                        <img src="<?php echo esc_url($product->image_url); ?>" alt="<?php echo esc_attr($product->name); ?>" class="product-image w-full h-auto object-cover rounded-lg">
+
+                        <div class="warranty-badge">BẢO HÀNH 12 THÁNG</div>
+
+                    </div>
+
     
-    <!-- Product Hero Section -->
-    <section class="product-hero">
-        <div class="product-hero-container">
-            <!-- Product Gallery -->
-            <div class="product-gallery-section">
-                <div class="gallery-main">
-                    <div class="gallery-slider">
-                        <?php foreach ($all_images as $index => $image_url): ?>
-                            <div class="gallery-slide <?php echo $index === 0 ? 'active' : ''; ?>">
-                                <img src="<?php echo esc_url($image_url); ?>" 
-                                     alt="<?php echo esc_attr($product->name); ?> - Image <?php echo $index + 1; ?>"
-                                     onerror="this.onerror=null; this.src='http://localhost:8080/wp-content/uploads/2025/01/10.1.png';">
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                    
-                    <?php if (count($all_images) > 1): ?>
-                        <button class="gallery-nav gallery-prev" onclick="changeSlide(-1)">‹</button>
-                        <button class="gallery-nav gallery-next" onclick="changeSlide(1)">›</button>
-                    <?php endif; ?>
-                    
-                    <?php if (count($all_images) > 1): ?>
-                    <div class="gallery-thumbs">
-                        <?php foreach ($all_images as $index => $image_url): ?>
-                            <div class="gallery-thumb <?php echo $index === 0 ? 'active' : ''; ?>" onclick="currentSlide(<?php echo $index + 1; ?>)">
-                                <img src="<?php echo esc_url($image_url); ?>" 
-                                     alt="<?php echo esc_attr($product->name); ?> - Thumb <?php echo $index + 1; ?>"
-                                     onerror="this.onerror=null; this.src='http://localhost:8080/wp-content/uploads/2025/01/10.1.png';">
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                    <?php endif; ?>
-                </div>
-            </div>
-            
-            <!-- Product Info -->
-            <div class="product-info-section">
-                <?php if ($category): ?>
-                    <div class="product-category-badge"><?php echo esc_html($category->name); ?></div>
-                <?php endif; ?>
-                
-                <h1 class="product-title"><?php echo esc_html($product->name); ?></h1>
-                
-                <p class="product-subtitle"><?php echo esc_html($product->description); ?></p>
-                
-                <div class="product-actions">
-                    <a href="<?php echo home_url('/lien-he/'); ?>" class="btn-primary">
-                        <i class="fas fa-phone"></i>
-                        LIÊN HỆ BÁO GIÁ
-                    </a>
-                    <a href="#download" class="btn-secondary">
-                        <i class="fas fa-download"></i>
-                        TẢI CATALOGUE
-                    </a>
-                </div>
-                
-                <!-- Product Tabs moved here -->
-                <div class="product-tabs">
-                    <div class="tabs-nav">
-                        <a href="#specs" class="tab-link active" data-tab="specs">THÔNG SỐ KỸ THUẬT</a>
-                        <a href="#installation" class="tab-link" data-tab="installation">HƯỚNG DẪN LẮP ĐẶT</a>
-                        <a href="#warranty" class="tab-link" data-tab="warranty">BẢO HÀNH</a>
-                    </div>
-                    
-                    <div class="tabs-content">
-                        <!-- Specifications Tab -->
-                        <div id="specs" class="tab-content active">
-                            <div class="tab-pane">
-                                <h3>Thông số kỹ thuật</h3>
-                                <table class="specs-table">
-                                    <tr>
-                                        <td>Công suất</td>
-                                        <td>15W - 50W</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Điện áp</td>
-                                        <td>220V - 240V AC</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Nhiệt độ màu</td>
-                                        <td>3000K / 4000K / 6500K</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Chỉ số hoàn màu (CRI)</td>
-                                        <td>> 90</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Góc chiếu sáng</td>
-                                        <td>24° / 36° / 60°</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tuổi thọ</td>
-                                        <td>50,000 giờ</td>
-                                    </tr>
-                                </table>
-                            </div>
+
+                    <!-- Right: Product Info -->
+
+                    <div class="flex flex-col space-y-4">
+
+                        <h1 class="text-3xl font-bold text-black" style="color: black !important;"><?php echo esc_html($product->name); ?></h1>
+
+                        <div class="flex items-center space-x-4 text-sm text-gray-500">
+
+                            <span>Lượt xem: <?php echo esc_html($product->view_count); ?></span>
+
+                            <span class="w-px h-4 bg-gray-300"></span>
+
+                            <span>Tình trạng: <span class="font-semibold <?php echo $product->in_stock ? 'text-green-600' : 'text-red-600'; ?>"><?php echo $product->in_stock ? 'Còn hàng' : 'Hết hàng'; ?></span></span>
+
                         </div>
-                        
-                        <!-- Installation Tab -->
-                        <div id="installation" class="tab-content">
-                            <div class="tab-pane">
-                                <p>1. Ngắt nguồn điện trước khi lắp đặt</p>
-                                <p>2. Xác định vị trí lắp đặt phù hợp</p>
-                                <p>3. Kết nối dây điện theo sơ đồ hướng dẫn</p>
-                                <p>4. Cố định sản phẩm chắc chắn</p>
-                                <p>5. Kiểm tra và bật nguồn điện</p>
-                                <p><strong>Lưu ý:</strong> Nên sử dụng thợ điện chuyên nghiệp để đảm bảo an toàn.</p>
+
+    
+
+                        <div class="text-gray-700 space-y-2">
+
+                            <?php echo $product->description; ?>
+
+                        </div>
+
+    
+
+                        <div class="space-y-4 pt-4">
+
+                            <div class="flex items-baseline space-x-2">
+                                <span class="text-xl font-semibold text-blue-600">Hãy liên hệ với chúng tôi để được giá ưu đãi nhất</span>
                             </div>
-                        </div>
-                        
-                        <!-- Warranty Tab -->
-                        <div id="warranty" class="tab-content">
-                            <div class="tab-pane">
-                                <p><strong>Thời gian bảo hành:</strong> 5 năm kể từ ngày mua hàng</p>
-                                <p><strong>Điều kiện bảo hành:</strong></p>
-                                <p>- Sản phẩm còn trong thời hạn bảo hành</p>
-                                <p>- Có hóa đơn mua hàng và phiếu bảo hành</p>
-                                <p>- Sản phẩm bị lỗi do nhà sản xuất</p>
-                                <p>- Không tự ý sửa chữa hoặc thay đổi cấu trúc sản phẩm</p>
+
+                            <div class="grid grid-cols-1 gap-4">
+                                <a href="/lien-he/" class="px-6 py-3 text-center bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors w-full">Liên hệ</a>
                             </div>
+
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
     
-    <!-- Product Content Section for SEO -->
-    <section class="product-content-section">
-        <div class="content-container">
-            <div class="content-wrapper">
-                <?php if (!empty($product->content)): ?>
-                    <!-- Display content from database -->
-                    <div class="product-custom-content">
-                        <?php echo wp_kses_post($product->content); ?>
-                    </div>
-                <?php else: ?>
-                    <!-- Default content if no custom content -->
-                    <h2 class="content-title"><?php echo esc_html($product->name); ?> - Giải pháp chiếu sáng hiện đại</h2>
-                
-                <div class="content-body">
-                    <p><strong><?php echo esc_html($product->name); ?></strong> là một trong những sản phẩm đèn LED cao cấp được thiết kế với công nghệ hiện đại, mang đến giải pháp chiếu sáng hoàn hảo cho không gian của bạn. Với thiết kế sang trọng và hiệu suất vượt trội, sản phẩm này không chỉ đáp ứng nhu cầu chiếu sáng mà còn tạo điểm nhấn thẩm mỹ cho mọi công trình.</p>
-                    
-                    <h3>Ưu điểm nổi bật của <?php echo esc_html($product->name); ?></h3>
-                    <ul>
-                        <li><strong>Tiết kiệm năng lượng:</strong> Công nghệ LED tiên tiến giúp tiết kiệm đến 80% điện năng so với đèn truyền thống</li>
-                        <li><strong>Tuổi thọ cao:</strong> Lên đến 50,000 giờ sử dụng, giảm chi phí bảo trì và thay thế</li>
-                        <li><strong>Ánh sáng chất lượng:</strong> Chỉ số hoàn màu CRI > 90, cho ánh sáng tự nhiên và chân thực</li>
-                        <li><strong>An toàn sức khỏe:</strong> Không chứa thủy ngân, không phát tia UV, an toàn cho người sử dụng</li>
-                        <li><strong>Đa dạng ứng dụng:</strong> Phù hợp cho nhiều không gian từ nhà ở, văn phòng đến showroom, cửa hàng</li>
-                    </ul>
-                    
-                    <h3>Ứng dụng của sản phẩm</h3>
-                    <p><?php echo esc_html($product->name); ?> được ứng dụng rộng rãi trong nhiều không gian khác nhau:</p>
-                    <ul>
-                        <li><strong>Không gian thương mại:</strong> Showroom, cửa hàng thời trang, trung tâm thương mại</li>
-                        <li><strong>Không gian làm việc:</strong> Văn phòng, phòng họp, khu vực làm việc</li>
-                        <li><strong>Không gian gia đình:</strong> Phòng khách, phòng bếp, phòng ngủ</li>
-                        <li><strong>Không gian công cộng:</strong> Khách sạn, nhà hàng, quán cafe</li>
-                    </ul>
-                    
-                    <h3>Cam kết chất lượng từ Virical</h3>
-                    <p>Virical tự hào là thương hiệu đèn LED hàng đầu tại Việt Nam với cam kết:</p>
-                    <ul>
-                        <li>Sản phẩm chính hãng 100% với chất lượng được kiểm định nghiêm ngặt</li>
-                        <li>Bảo hành chính hãng lên đến 5 năm</li>
-                        <li>Đội ngũ tư vấn chuyên nghiệp, hỗ trợ 24/7</li>
-                        <li>Dịch vụ lắp đặt tận nơi bởi đội ngũ kỹ thuật viên giàu kinh nghiệm</li>
-                        <li>Chính sách đổi trả linh hoạt, đảm bảo quyền lợi khách hàng</li>
-                    </ul>
-                    
-                    <div class="cta-section">
-                        <p>Để được tư vấn chi tiết về <strong><?php echo esc_html($product->name); ?></strong> và nhận báo giá tốt nhất, vui lòng liên hệ với chúng tôi:</p>
-                        <div class="cta-buttons">
-                            <a href="<?php echo home_url('/lien-he/'); ?>" class="btn-primary">
-                                <i class="fas fa-phone"></i> Hotline: <?php echo virical_get_company_info('hotline'); ?>
-                            </a>
-                            <a href="mailto:<?php echo virical_get_company_info('email'); ?>" class="btn-secondary">
-                                <i class="fas fa-envelope"></i> Email: <?php echo virical_get_company_info('email'); ?>
-                            </a>
+
+                        <div class="pt-6">
+
+                            <p class="text-sm text-gray-600 mb-2">Để lại số điện thoại, chúng tôi sẽ gọi lại ngay</p>
+
+                            <div class="flex">
+
+                                <input type="tel" placeholder="Nhập số điện thoại" class="w-full px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+                                <button class="px-6 py-2 bg-blue-700 text-white font-semibold rounded-r-md hover:bg-blue-800 transition-colors">Gửi đi</button>
+
+                            </div>
+
                         </div>
+
                     </div>
+
                 </div>
-                <?php endif; ?>
-            </div>
-        </div>
-    </section>
+
     
-    <!-- Download Section -->
-    <section class="download-section" id="download">
-        <div class="download-container">
-            <h2 class="section-title">Tải xuống</h2>
-            
-            <div class="download-grid">
-                <div class="download-item">
-                    <div class="download-icon">📄</div>
-                    <h3 class="download-title">IES File</h3>
-                    <a href="#" class="download-link">Tải xuống</a>
-                </div>
-                
-                <div class="download-item">
-                    <div class="download-icon">📋</div>
-                    <h3 class="download-title">Catalog</h3>
-                    <a href="#" class="download-link">Tải xuống</a>
-                </div>
-                
-                <div class="download-item">
-                    <div class="download-icon">🔧</div>
-                    <h3 class="download-title">Hướng dẫn lắp đặt</h3>
-                    <a href="#" class="download-link">Tải xuống</a>
-                </div>
+
+                            <!-- Product Description Section -->
+                            <div class="product-description bg-white p-6 md:p-8 rounded-lg shadow-sm mt-12">
+                                <h2 class="text-2xl font-bold text-black mb-4" style="color: black !important;">Mô tả sản phẩm</h2>
+                                <div id="description-wrapper" class="relative">
+                                    <div id="product-description-content" class="prose max-w-none text-gray-700 leading-relaxed max-h-60 overflow-hidden">
+                                        <p>Bộ điều khiển độ sáng thông minh Aqara Smart Dimmer T2 Module là một sản phẩm công nghệ mới nhất trong lĩnh vực điều khiển ánh sáng thông minh. Với khả năng kết nối đến các đèn led thông qua công nghệ Zigbee 3.0, bộ điều khiển này cho phép bạn kiểm soát ánh sáng từ xa thông qua ứng dụng di động và tạo lịch trình cho ánh sáng theo ý muốn.</p>
+                                        <p><em>*Lưu ý sản phẩm này dùng cho các thiết bị đèn âm trần (Downlight), không sử dụng cho đèn LED dây truyền thống</em></p>
+                                        <h3>Thông số kỹ thuật</h3>
+                                        <ul>
+                                            <li>Kích thước sản phẩm :170x40x30mm</li>
+                                            <li>Tín hiệu điều khiển: Zigbee</li>
+                                            <li>Đầu vào định mức: 100-240V~ 50/60Hz</li>
+                                            <li>Điện áp đầu ra: Tối đa 50VDC</li>
+                                            <li>Công suất đầu ra: Tối đa 24W；Tối đa 15W</li>
+                                            <li>hệ số công suất: 0,9</li>
+                                            <li>Chứa: Trình điều khiển x1, hướng dẫn sử dụng x1, gói phụ kiện vít x1</li>
+                                        </ul>
+                                        <h3>Tính năng nổi bật</h3>
+                                        <ul>
+                                            <li>Tương thích nhiều loại đèn: Một trong những tính năng nổi bật của Aqara Smart Dimmer T2 là khả năng tương thích với nhiều loại nguồn sáng, bao gồm bóng đèn sợi đốt, đèn LED và đèn huỳnh quang. Tính linh hoạt này đảm bảo rằng bạn có thể dễ dàng tích hợp nó vào hệ thống chiếu sáng hiện tại của mình mà không gặp bất kỳ rắc rối nào. Ngoài ra, thiết kế nhỏ gọn và kiểu dáng đẹp của nó mang lại cảm giác sang trọng cho bất kỳ căn phòng nào.</li>
+                                            <li>Kiểm soát từ xa thông qua ứng dụng di động: Với bộ điều khiển độ sáng thông minh Aqara Smart Dimmer T2, bạn có thể kiểm soát ánh sáng từ xa thông qua ứng dụng di động. Bạn có thể bật tắt đèn, điều chỉnh độ sáng, và chọn các chế độ ánh sáng theo ý muốn chỉ trong vài thao tác đơn giản trên điện thoại di động của mình, bất kể bạn đang ở đâu.</li>
+                                            <li>Tích hợp công nghệ Zigbee 3.0: Bộ điều khiển độ sáng thông minh Aqara Smart Dimmer T2 Module tích hợp công nghệ Zigbee 3.0, cho phép nó kết nối và điều khiển đèn led thông qua chuẩn kết nối Zigbee. Điều này mang lại một trải nghiệm tốt hơn trong việc kiểm soát ánh sáng mà không cần đến các thiết bị trung gian khác.</li>
+                                            <li>Kết hợp với các thiết bị Aqara Home: Bộ điều khiển độ sáng thông minh Aqara Smart Dimmer T2 Module có khả năng kết hợp với các thiết bị thông minh Aqara trong ngôi nhà của bạn. Bạn có thể tạo lập các kịch bản tự động và kết hợp với các thiết bị như cảm biến chuyển động, nhiệt độ, hoặc công tắc thông minh để tạo ra một hệ thống thông minh toàn diện.</li>
+                                        </ul>
+                                        <h3>Ứng dụng thực tế</h3>
+                                        <p>Việc sử dụng bộ điều khiển độ sáng thông minh Aqara Smart Dimmer T2 Module mang lại tiện ích và linh hoạt trong việc điều khiển ánh sáng. Bạn không chỉ có thể kiểm soát ánh sáng từ xa thông qua ứng dụng di động, mà còn có khả năng thiết lập các chế độ ánh sáng và tạo lịch trình theo ý muốn.</p>
+                                        <ul>
+                                            <li>Thiết lập các chế độ ánh sáng: Sau khi cài đặt và kết nối thành công, bạn có thể thiết lập các chế độ ánh sáng thông qua ứng dụng di động. Bạn có thể điều chỉnh độ sáng và ánh sáng theo ý muốn để tạo ra không gian sống phù hợp với sở thích của mình.</li>
+                                            <li>Tạo lịch trình cho ánh sáng: Tính năng tạo lịch trình của bộ điều khiển độ sáng thông minh Aqara Smart Dimmer T2 cho phép bạn thiết lập các thời gian khác nhau trong ngày mà ánh sáng sẽ tự động thay đổi theo. Bạn có thể thiết lập một lịch trình hằng ngày hoặc tùy chỉnh theo các yêu cầu riêng của mình.</li>
+                                        </ul>
+                                        <h3>Tích hợp và tương thích với hệ sinh thái thông minh hiện có</h3>
+                                        <p>Bộ điều khiển độ sáng thông minh Aqara Smart Dimmer T2 được thiết kế để tích hợp và tương thích với các hệ thống thông minh Aqara Home. Bạn có thể kết hợp nó với các thiết bị thông minh khác như cảm biến, nút bấm thông minh và bộ điều khiển giọng nói để tạo ra một hệ sinh thái thông minh hoàn chỉnh trong ngôi nhà của bạn.</p>
+                                    </div>
+                                    <div id="description-overlay" class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
+                                    <button id="btn-read-more" class="text-blue-600 font-semibold mt-4 hover:underline">Xem thêm</button>
+                                    <button id="btn-read-less" class="text-blue-600 font-semibold mt-4 hover:underline hidden">Ẩn bớt</button>
+                                </div>
+                            </div>
+
             </div>
-        </div>
-    </section>
+
     
-    <!-- Applications Section -->
-    <section class="applications-section">
-        <div class="applications-container">
-            <h2 class="section-title">Ứng dụng - Công trình</h2>
-            
-            <div class="applications-grid">
-                <div class="application-item">
-                    <img src="<?php echo get_template_directory_uri() . '/assets/images/project-1.jpg'; ?>" 
-                         alt="Không gian sống" 
-                         class="application-image">
-                    <div class="application-content">
-                        <h3 class="application-title">Không gian sống</h3>
-                        <p class="application-description">Tạo điểm nhấn cho phòng khách, phòng ngủ với ánh sáng ấm áp, tạo không gian thư giãn và thoải mái.</p>
-                    </div>
-                </div>
-                
-                <div class="application-item">
-                    <img src="<?php echo get_template_directory_uri() . '/assets/images/project-1.jpg'; ?>" 
-                         alt="Văn phòng hiện đại" 
-                         class="application-image">
-                    <div class="application-content">
-                        <h3 class="application-title">Văn phòng hiện đại</h3>
-                        <p class="application-description">Chiếu sáng chuyên nghiệp cho không gian làm việc, tăng hiệu suất và tạo môi trường làm việc lý tưởng.</p>
-                    </div>
-                </div>
-                
-                <div class="application-item">
-                    <img src="<?php echo get_template_directory_uri() . '/assets/images/project-1.jpg'; ?>" 
-                         alt="Showroom & Cửa hàng" 
-                         class="application-image">
-                    <div class="application-content">
-                        <h3 class="application-title">Showroom & Cửa hàng</h3>
-                        <p class="application-description">Làm nổi bật sản phẩm với ánh sáng chất lượng cao, thu hút khách hàng và tăng doanh số bán hàng.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
+                        <!-- Sidebar -->
+
     
-    <!-- Related Products -->
-    <section class="related-products-section">
-        <div class="related-products-container">
-            <h2 class="section-title">Sản phẩm liên quan</h2>
+
+                        <div class="lg:col-span-1 space-y-8">
+
+    
+
             
-            <div class="related-products-grid">
-                <?php
-                // Get related products from same category
-                $related_query = "SELECT * FROM {$wpdb->prefix}virical_products 
-                                 WHERE category = %s 
-                                 AND id != %d 
-                                 AND is_active = 1 
-                                 ORDER BY is_featured DESC, RAND() 
-                                 LIMIT 4";
-                
-                $related_products = $wpdb->get_results($wpdb->prepare($related_query, $product->category, $product->id));
-                
-                if (!empty($related_products)) {
-                    foreach ($related_products as $related): ?>
-                        <a href="<?php echo home_url('/san-pham/' . $related->slug . '/'); ?>" class="related-product-item">
-                            <?php $related_image_url = !empty($related->image_url) ? $related->image_url : get_template_directory_uri() . '/assets/images/project-2.jpg'; ?>
-                            <?php if (!empty($related_image_url)): ?>
-                                <img src="<?php echo esc_url($related_image_url); ?>" 
-                                     alt="<?php echo esc_attr($related->name); ?>" 
-                                     class="related-product-image"
-                                     onerror="this.src='https://via.placeholder.com/300x200/f0f0f0/999999?text=No+Image'">
-                            <?php else: ?>
-                                <img src="https://via.placeholder.com/300x200/f0f0f0/999999?text=No+Image" 
-                                     alt="<?php echo esc_attr($related->name); ?>" 
-                                     class="related-product-image">
-                            <?php endif; ?>
-                            <div class="related-product-info">
-                                <h3 class="related-product-name"><?php echo esc_html($related->name); ?></h3>
-                                <?php if ($related->price): ?>
-                                    <div class="related-product-price"><?php echo number_format($related->price, 0, ',', '.'); ?> VNĐ</div>
+
+    
+
+                            <!-- Commitment Box -->
+
+    
+
+                            <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+
+    
+
+                                <h3 class="text-center font-bold text-black uppercase tracking-wider text-sm mb-4" style="color: black !important;">Cam kết chính hiệu bởi</h3>
+
+    
+
+                                <div class="flex items-center justify-center space-x-4 mb-5">
+
+    
+
+                                    <img src="<?php echo get_template_directory_uri() . '/assets/images/logo_virical1.png'; ?>" alt="Virical Logo" class="h-12">
+
+    
+
+                                    <span class="text-gray-700 font-semibold text-sm leading-tight">Phân phối Virical<br>chính hãng tại Việt Nam</span>
+
+    
+
+                                </div>
+
+    
+
+                                <div class="space-y-3 text-gray-600 text-sm">
+
+    
+
+                                    <div class="flex items-center p-3 bg-gray-50 rounded-md">
+
+    
+
+                                        <svg class="w-6 h-6 text-blue-600 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 20.417l4.5-4.5M12 14a2 2 0 100-4 2 2 0 000 4z"></path></svg>
+
+    
+
+                                        <span>Hoàn tiền 100% nếu phát hiện hàng giả</span>
+
+    
+
+                                    </div>
+
+    
+
+                                    <div class="flex items-center p-3 bg-gray-50 rounded-md">
+
+    
+
+                                        <svg class="w-6 h-6 text-blue-600 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h5M20 20v-5h-5M4 20h5v-5M20 4h-5v5"></path></svg>
+
+    
+
+                                        <span>Đổi trả trong 7 ngày nếu lỗi</span>
+
+    
+
+                                    </div>
+
+    
+
+                                </div>
+
+    
+
+                            </div>
+
+    
+
+            
+
+    
+
+                            <!-- Store System Box -->
+
+    
+
+                            <div class="bg-white border border-gray-200 rounded-lg shadow-sm">
+
+    
+
+                                <h3 class="text-center font-bold text-black uppercase tracking-wider text-sm pt-6" style="color: black !important;">Hệ thống cửa hàng</h3>
+
+    
+
+                                <div class="p-6">
+
+    
+
+                                    <div class="flex justify-center bg-gray-100 rounded-lg p-1 mb-4">
+
+    
+
+                                        <button class="w-full text-center px-4 py-2 text-sm font-semibold bg-blue-600 text-white rounded-md shadow">Miền Bắc</button>
+
+    
+
+                                        <button class="w-full text-center px-4 py-2 text-sm font-semibold text-gray-500">Miền Trung</button>
+
+    
+
+                                    </div>
+
+    
+
+                                    <div class="space-y-4 text-gray-700 text-sm">
+
+    
+
+                                        <div class="flex items-start">
+
+    
+
+                                            <svg class="w-5 h-5 text-blue-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+
+    
+
+                                            <span>Số 63A Phố Vọng, Phường Đồng Tâm, Quận Hai Bà Trưng, Hà Nội</span>
+
+    
+
+                                        </div>
+
+    
+
+                                        <div class="flex items-start">
+
+    
+
+                                            <svg class="w-5 h-5 text-blue-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+
+    
+
+                                            <span>1019 Trần Hưng Đạo, P. Văn Giang, TP Ninh Bình</span>
+
+    
+
+                                        </div>
+
+    
+
+                                    </div>
+
+    
+
+                                </div>
+
+    
+
+                            </div>
+
+    
+
+            
+
+    
+
+                            <!-- Recent Posts Section (kept from original) -->
+
+    
+
+                            <div class="bg-white rounded-lg p-6 shadow-sm">
+
+    
+
+                                <h3 class="recent-posts-title">Bài viết gần đây</h3>
+
+    
+
+                                <?php
+
+    
+
+                                $recent_posts = wp_get_recent_posts(array(
+
+    
+
+                                    'numberposts' => 4,
+
+    
+
+                                    'post_status' => 'publish'
+
+    
+
+                                ));
+
+    
+
+                                if ($recent_posts) :
+
+    
+
+                                    foreach ($recent_posts as $post_item) :
+
+    
+
+                                        $post_id = $post_item['ID'];
+
+    
+
+                                        $post_title = $post_item['post_title'];
+
+    
+
+                                        $post_excerpt = get_the_excerpt($post_id);
+
+    
+
+                                        $post_permalink = get_permalink($post_id);
+
+    
+
+                                        $post_thumbnail = get_the_post_thumbnail_url($post_id, 'thumbnail');
+
+    
+
+                                ?>
+
+    
+
+                                <div class="recent-post-item">
+
+    
+
+                                    <a href="<?php echo esc_url($post_permalink); ?>">
+
+    
+
+                                        <img src="<?php echo esc_url($post_thumbnail ? $post_thumbnail : 'https://via.placeholder.com/80'); ?>" alt="<?php echo esc_attr($post_title); ?>">
+
+    
+
+                                    </a>
+
+    
+
+                                    <div>
+
+    
+
+                                        <a href="<?php echo esc_url($post_permalink); ?>" class="recent-post-item-title"><?php echo esc_html($post_title); ?></a>
+
+    
+
+                                        <p class="recent-post-item-excerpt"><?php echo esc_html(wp_trim_words($post_excerpt, 10, '...')); ?></p>
+
+    
+
+                                    </div>
+
+    
+
+                                </div>
+
+    
+
+                                <?php 
+
+    
+
+                                    endforeach;
+
+    
+
+                                endif;
+
+    
+
+                                ?>
+
+    
+
+                                            </div>
+
+    
+
+                                        </div>
+
+    
+
+                            
+
+    
+
+                                    </div>
+
+    
+
+                            
+
+    
+
+                                <?php else : ?>
+
+    
+
+                                    <p class="text-center text-2xl">Sản phẩm không được tìm thấy.</p>
+
+    
+
                                 <?php endif; ?>
+
+    
+
+                            
+
+    
+
                             </div>
-                        </a>
-                    <?php endforeach;
-                } else {
-                    // Show placeholder products if no related products found
-                    for ($i = 1; $i <= 4; $i++): ?>
-                        <div class="related-product-item" style="cursor: default;">
-                            <img src="<?php echo get_template_directory_uri() . '/assets/images/project-2.jpg'; ?>" 
-                                 alt="Sản phẩm mẫu <?php echo $i; ?>" 
-                                 class="related-product-image">
-                            <div class="related-product-info">
-                                <h3 class="related-product-name">Sản phẩm mẫu <?php echo $i; ?></h3>
-                                <div class="related-product-price">Liên hệ</div>
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            <?php
+
+    
+
+                            
+
+    
+
+                            // Fetch related products
+
+    
+
+                            
+
+    
+
+                            global $wpdb;
+
+    
+
+                            
+
+    
+
+                            if ($product) {
+
+    
+
+                            
+
+    
+
+                                $current_product_id = $product->id;
+
+    
+
+                            
+
+    
+
+                                $current_category_name = $product->category_name;
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                $related_products = $wpdb->get_results($wpdb->prepare(
+
+    
+
+                            
+
+    
+
+                                    "SELECT * FROM {$wpdb->prefix}virical_products WHERE category = %s AND id != %d AND is_active = 1 ORDER BY RAND() LIMIT 4",
+
+    
+
+                            
+
+    
+
+                                    $current_category_name,
+
+    
+
+                            
+
+    
+
+                                    $current_product_id
+
+    
+
+                            
+
+    
+
+                                ));
+
+    
+
+                            
+
+    
+
+                            }
+
+    
+
+                            
+
+    
+
+                            ?>
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            <?php if (!empty($related_products)) : ?>
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            <!-- Related Products Section -->
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 mt-8">
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                <h2 class="text-3xl font-bold text-black mb-6" style="color: black !important;">Sản phẩm liên quan</h2>
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                    <?php foreach ($related_products as $related_product) : ?>
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                        <div class="bg-white rounded-lg shadow-md overflow-hidden group flex flex-col">
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                            <a href="/san-pham/<?php echo esc_attr($related_product->slug); ?>" class="block">
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                                <img src="<?php echo esc_url($related_product->image_url); ?>" alt="<?php echo esc_attr($related_product->name); ?>" class="w-full h-48 object-contain">
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                            </a>
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                            <div class="p-4 text-center flex flex-col flex-grow">
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                                <h3 class="font-semibold text-black mb-2 flex-grow"><a href="/san-pham/<?php echo esc_attr($related_product->slug); ?>" class="hover:text-blue-600"><?php echo esc_html($related_product->name); ?></a></h3>
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                                <div class="mb-4 mt-auto">
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                                    <?php if (isset($related_product->sale_price) && is_numeric($related_product->sale_price) && (float)$related_product->sale_price < (float)$related_product->price): ?>
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                                        <span class="text-gray-500 line-through mr-2"><?php echo number_format($related_product->price, 0, ',', '.'); ?>đ</span>
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                                        <span class="font-bold text-blue-600"><?php echo number_format($related_product->sale_price, 0, ',', '.'); ?>đ</span>
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                                    <?php else: ?>
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                                        <span class="font-bold text-blue-600"><?php echo number_format($related_product->price, 0, ',', '.'); ?>đ</span>
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                                    <?php endif; ?>
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                                </div>
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                                <div class="flex flex-col space-y-2">
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                                     <a href="/san-pham/<?php echo esc_attr($related_product->slug); ?>" class="px-4 py-2 text-sm border border-blue-600 text-blue-600 rounded-md hover:bg-blue-100 transition-colors">Xem chi tiết</a>
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                                     <a href="#" class="px-4 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">Liên hệ</a>
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                                </div>
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                            </div>
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                        </div>
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                    <?php endforeach; ?>
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                                </div>
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
                             </div>
-                        </div>
-                    <?php endfor;
-                }
-                ?>
-            </div>
-        </div>
-    </section>
-</main>
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            <?php endif; ?>
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            
+
+    
+
+                            <!-- Service Benefits Section -->
+
+    
+
+                            
+
+    
+
+                            <div class="bg-gray-50 py-12 mt-8">
+
+    
+
+                            
+
+    
+
+                                <div class="container mx-auto px-4">
+
+    
+
+                            
+
+    
+
+                                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+
+    
+
+                            
+
+    
+
+                                        <!-- Benefit 1: Arrow-Repeat Icon -->
+
+    
+
+                            
+
+    
+
+                                        <div class="group flex flex-col items-center p-4 rounded-lg transition-all duration-300 hover:bg-gray-100">
+
+    
+
+                            
+
+    
+
+                                            <svg class="w-12 h-12 text-gray-500 mb-3 transition-colors duration-300 group-hover:text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+
+    
+
+                            
+
+    
+
+                                              <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+
+    
+
+                            
+
+    
+
+                                              <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.5a.5.5 0 0 1 0-1h3.5a.5.5 0 0 1 .5.5v3.5a.5.5 0 0 1-1 0V7.5a5.002 5.002 0 0 0-9.192 2.734.5.5 0 1 1-.986-.174A6.002 6.002 0 0 1 8 3zM2.083 9a6.002 6.002 0 0 1 11.834 0H13.5a.5.5 0 0 1 0 1H10a.5.5 0 0 1-.5-.5V6.5a.5.5 0 0 1 1 0v1.966A5.002 5.002 0 0 0 3.05 9.266a.5.5 0 1 1 .986.174A6.002 6.002 0 0 1 2.083 9z"/>
+
+    
+
+                            
+
+    
+
+                                            </svg>
+
+    
+
+                            
+
+    
+
+                                            <p class="font-bold text-black text-sm">Bảo hành 1 đổi 1 trong 15 tháng</p>
+
+    
+
+                            
+
+    
+
+                                        </div>
+
+    
+
+                            
+
+    
+
+                                        <!-- Benefit 2: File-Earmark-Check Icon -->
+
+    
+
+                            
+
+    
+
+                                        <div class="group flex flex-col items-center p-4 rounded-lg transition-all duration-300 hover:bg-gray-100">
+
+    
+
+                            
+
+    
+
+                                            <svg class="w-12 h-12 text-gray-500 mb-3 transition-colors duration-300 group-hover:text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+
+    
+
+                            
+
+    
+
+                                              <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+
+    
+
+                            
+
+    
+
+                                              <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 1a.5.5 0 0 1 .5.5V3a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V2a1 1 0 0 1 1-1h5.5z"/>
+
+    
+
+                            
+
+    
+
+                                            </svg>
+
+    
+
+                            
+
+    
+
+                                            <p class="font-bold text-black text-sm">Bảo hành nhanh chóng</p>
+
+    
+
+                            
+
+    
+
+                                        </div>
+
+    
+
+                            
+
+    
+
+                                        <!-- Benefit 3: Shield-Check Icon -->
+
+    
+
+                            
+
+    
+
+                                        <div class="group flex flex-col items-center p-4 rounded-lg transition-all duration-300 hover:bg-gray-100">
+
+    
+
+                            
+
+    
+
+                                            <svg class="w-12 h-12 text-gray-500 mb-3 transition-colors duration-300 group-hover:text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+
+    
+
+                            
+
+    
+
+                                              <path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.058.238.098.333.111.092.012.184.012.276 0 .095-.013.213-.053.333-.111.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.923-.283-1.87-.604-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM14 2.5c.802.16 1.487.455 1.974.744.488.289.843.646 1.098 1.05l.256.415a1.73 1.73 0 0 1 .14 1.052c-.095 1.092-.34 2.317-.72 3.527-1.255 3.916-3.867 6.4-6.2 7.333C8.373 16.802 8.16 16.867 8 16.867s-.373-.065-.51-.17C4.867 15.2 2.255 12.684.999 8.77c-.38-1.21-.625-2.435-.72-3.527a1.73 1.73 0 0 1 .14-1.052l.256-.415c.255-.403.61-.76 1.098-1.05C3.513 2.955 4.198 2.66 5 2.5c1.052-.226 2.264-.43 3-.492.146-.012.292-.012.436 0 .736.062 1.948.266 3 .492z"/>
+
+    
+
+                            
+
+    
+
+                                              <path d="M10.854 5.854a.5.5 0 0 0-.708-.708L7.5 7.793 6.354 6.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+
+    
+
+                            
+
+    
+
+                                            </svg>
+
+    
+
+                            
+
+    
+
+                                            <p class="font-bold text-black text-sm">Hỗ trợ khách trọn đời</p>
+
+    
+
+                            
+
+    
+
+                                        </div>
+
+    
+
+                            
+
+    
+
+                                        <!-- Benefit 4: Truck Icon -->
+
+    
+
+                            
+
+    
+
+                                        <div class="group flex flex-col items-center p-4 rounded-lg transition-all duration-300 hover:bg-gray-100">
+
+    
+
+                            
+
+    
+
+                                            <svg class="w-12 h-12 text-gray-500 mb-3 transition-colors duration-300 group-hover:text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+
+    
+
+                            
+
+    
+
+                                              <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+
+    
+
+                            
+
+    
+
+                                            </svg>
+
+    
+
+                            
+
+    
+
+                                            <p class="font-bold text-black text-sm">Vận chuyển hoả tốc toàn quốc</p>
+
+    
+
+                            
+
+    
+
+                                        </div>
+
+    
+
+                            
+
+    
+
+                                    </div>
+
+    
+
+                            
+
+    
+
+                                </div>
+
+    
+
+                            
+
+    
+
+                            </div>
 
 <script>
-// Gallery functionality
-let slideIndex = 1;
-
-function changeSlide(n) {
-    showSlide(slideIndex += n);
-}
-
-function currentSlide(n) {
-    showSlide(slideIndex = n);
-}
-
-function showSlide(n) {
-    let slides = document.getElementsByClassName("gallery-slide");
-    let thumbs = document.getElementsByClassName("gallery-thumb");
-    
-    if (n > slides.length) { slideIndex = 1 }
-    if (n < 1) { slideIndex = slides.length }
-    
-    for (let i = 0; i < slides.length; i++) {
-        slides[i].classList.remove("active");
-    }
-    
-    for (let i = 0; i < thumbs.length; i++) {
-        thumbs[i].classList.remove("active");
-    }
-    
-    if (slides[slideIndex - 1]) {
-        slides[slideIndex - 1].classList.add("active");
-    }
-    if (thumbs[slideIndex - 1]) {
-        thumbs[slideIndex - 1].classList.add("active");
-    }
-}
-
-// Auto slide
-setInterval(() => {
-    changeSlide(1);
-}, 5000);
-
-// Product Tabs
 document.addEventListener('DOMContentLoaded', function() {
-    const tabLinks = document.querySelectorAll('.tab-link');
-    const tabContents = document.querySelectorAll('.tab-content');
-    
-    tabLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Remove active class from all
-            tabLinks.forEach(l => l.classList.remove('active'));
-            tabContents.forEach(c => c.classList.remove('active'));
-            
-            // Add active class to clicked
-            this.classList.add('active');
-            const tabId = this.getAttribute('data-tab');
-            document.getElementById(tabId).classList.add('active');
+    const wrapper = document.getElementById('description-wrapper');
+    if (!wrapper) return; // Exit if the component isn't on the page
+
+    const content = document.getElementById('product-description-content');
+    const readMoreBtn = document.getElementById('btn-read-more');
+    const readLessBtn = document.getElementById('btn-read-less');
+    const overlay = document.getElementById('description-overlay');
+
+    // Check if content is taller than the max-height to decide if buttons are needed
+    // 240px is the value for Tailwind's max-h-60 (15rem * 16px/rem)
+    if (content.scrollHeight <= 240) {
+        if(readMoreBtn) readMoreBtn.classList.add('hidden');
+        if(overlay) overlay.classList.add('hidden');
+    } else {
+        if(readMoreBtn) readMoreBtn.classList.remove('hidden');
+        if(overlay) overlay.classList.remove('hidden');
+    }
+
+    if(readMoreBtn) {
+        readMoreBtn.addEventListener('click', function() {
+            content.classList.remove('max-h-60');
+            overlay.classList.add('hidden');
+            readMoreBtn.classList.add('hidden');
+            readLessBtn.classList.remove('hidden');
         });
-    });
-});
+    }
 
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        if (!this.classList.contains('tab-link')) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        }
-    });
+    if(readLessBtn) {
+        readLessBtn.addEventListener('click', function() {
+            content.classList.add('max-h-60');
+            overlay.classList.remove('hidden');
+            readLessBtn.classList.add('hidden');
+            readMoreBtn.classList.remove('hidden');
+        });
+    }
 });
-
-// Debug: Log image URLs
-console.log('Product image URL:', '<?php echo $product->image_url; ?>');
 </script>
-
 <?php get_footer(); ?>
