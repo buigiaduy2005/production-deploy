@@ -56,7 +56,7 @@ class ViricalRoutingManager {
         add_action('init', array($this, 'register_routing_rules'), 1);
         add_filter('query_vars', array($this, 'add_query_vars'));
         add_action('template_redirect', array($this, 'handle_redirects'));
-        add_filter('template_include', array($this, 'handle_custom_templates'), 99);
+        // // add_filter('template_include', array($this, 'handle_custom_templates'), 99);
         
         // Admin hooks
         if (is_admin()) {

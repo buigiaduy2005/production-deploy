@@ -214,9 +214,14 @@ add_action('switch_theme', 'virical_theme_deactivate');
  * Include additional theme files
  */
 
+// Include template tags (contains aura_posted_on)
+if (file_exists(get_template_directory() . '/inc/template-tags.php')) {
+    require_once get_template_directory() . '/inc/template-tags.php';
+}
+
 // Include template functions
-if (file_exists(get_template_directory() . '/includes/template-functions.php')) {
-    require_once get_template_directory() . '/includes/template-functions.php';
+if (file_exists(get_template_directory() . '/inc/template-functions.php')) {
+    require_once get_template_directory() . '/inc/template-functions.php';
 }
 
 // Include company info functions
@@ -287,7 +292,7 @@ function virical_custom_rewrite_rules() {
         'top'
     );
 }
-add_action('init', 'virical_custom_rewrite_rules');
+// // add_action('init', 'virical_custom_rewrite_rules');
 
 /**
  * Add custom query vars

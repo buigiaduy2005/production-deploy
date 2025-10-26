@@ -53,7 +53,7 @@ class ViricalTemplateManager {
      */
     public function init() {
         // Hook into WordPress template system
-        add_filter('template_include', array($this, 'load_database_template'), 99);
+        // // add_filter('template_include', array($this, 'load_database_template'), 99);
         add_filter('theme_page_templates', array($this, 'add_database_templates'), 10, 4);
         
         // Admin hooks
