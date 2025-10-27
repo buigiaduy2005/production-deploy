@@ -20,6 +20,16 @@ class GeminiProductManager_Complete {
         add_action('wp_ajax_gpm_get_single_product', [$this, 'gpm_get_single_product_ajax']);
         add_action('wp_ajax_gpm_save_product', [$this, 'gpm_save_product_ajax']);
         add_action('wp_ajax_gpm_delete_product', [$this, 'gpm_delete_product_ajax']);
+        add_action('pre_get_posts', [$this, 'add_cpt_to_archives']);
+    }
+
+    /**
+     * Add Custom Post Types to main query for category and tag archives.
+     */
+    public function add_cpt_to_archives($query) {
+        if ($query->is_main_query() && !is_admin() && ($query->is_category() || $query->is_tag())) {
+            $query->set('post_type', array('post', 'product'));
+        }
     }
 
     public function gpm_register_product_post_type() {
