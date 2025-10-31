@@ -310,40 +310,52 @@ add_filter('query_vars', 'virical_query_vars');
  * Helper function to get products from database
  */
 function virical_get_products($args = array()) {
-    global $wpdb;
-    
     $defaults = array(
-        'limit' => 12,
+        'post_type' => 'product',
+        'posts_per_page' => 12,
         'offset' => 0,
-        'category_id' => null,
-        'is_featured' => null,
-        'orderby' => 'sort_order',
-        'order' => 'ASC'
+        'category' => null,
+        'featured' => null,
+        'orderby' => 'date',
+        'order' => 'DESC'
     );
-    
     $args = wp_parse_args($args, $defaults);
-    
-    $table = $wpdb->prefix . 'virical_products';
-    $where = array('is_active = 1');
-    
-    if ($args['category_id']) {
-        $where[] = $wpdb->prepare('category_id = %d', $args['category_id']);
-    }
-    
-    if ($args['is_featured'] !== null) {
-        $where[] = $wpdb->prepare('is_featured = %d', $args['is_featured']);
-    }
-    
-    $where_clause = implode(' AND ', $where);
-    $order_clause = sprintf('%s %s', $args['orderby'], $args['order']);
-    
-    $query = $wpdb->prepare(
-        "SELECT * FROM $table WHERE $where_clause ORDER BY $order_clause LIMIT %d OFFSET %d",
-        $args['limit'],
-        $args['offset']
+
+    $query_args = array(
+        'post_type' => $args['post_type'],
+        'posts_per_page' => $args['posts_per_page'],
+        'offset' => $args['offset'],
+        'orderby' => $args['orderby'],
+        'order' => $args['order'],
+        'post_status' => 'publish',
     );
-    
-    return $wpdb->get_results($query);
+
+    $tax_query = array();
+    if (!empty($args['category'])) {
+        $tax_query[] = array(
+            'taxonomy' => 'category',
+            'field' => 'slug',
+            'terms' => $args['category'],
+        );
+    }
+    if (!empty($tax_query)) {
+        $query_args['tax_query'] = $tax_query;
+    }
+
+    $meta_query = array();
+    if ($args['featured'] !== null) {
+        $meta_query[] = array(
+            'key' => '_featured',
+            'value' => 'yes',
+            'compare' => '=',
+        );
+    }
+    if (!empty($meta_query)) {
+        $query_args['meta_query'] = $meta_query;
+    }
+
+    $query = new WP_Query($query_args);
+    return $query->posts;
 }
 
 /**
@@ -477,15 +489,16 @@ function virical_get_homepage_section($key) {
  * Get featured products for homepage
  */
 function virical_get_featured_products($limit = 8) {
-    global $wpdb;
-    
-    return $wpdb->get_results($wpdb->prepare("
-        SELECT p.*, p.category as category_name
-        FROM {$wpdb->prefix}virical_products p
-        WHERE p.is_active = 1
-        ORDER BY p.sort_order ASC, p.created_at DESC
-        LIMIT %d
-    ", $limit), ARRAY_A);
+    $args = array(
+        'post_type' => 'product',
+        'posts_per_page' => $limit,
+        'meta_key' => '_featured',
+        'meta_value' => 'yes',
+        'orderby' => 'date',
+        'order' => 'DESC',
+    );
+    $query = new WP_Query($args);
+    return $query->posts;
 }
 
 /**
@@ -507,15 +520,19 @@ function virical_get_featured_projects($limit = 6) {
  * Get product categories with count
  */
 function virical_get_product_categories_with_count() {
-    global $wpdb;
-    
-    return $wpdb->get_results("
-        SELECT category as name, category as slug, COUNT(*) as product_count
-        FROM {$wpdb->prefix}virical_products 
-        WHERE is_active = 1
-        GROUP BY category
-        ORDER BY category ASC
-    ", ARRAY_A);
+    $terms = get_terms( array(
+        'taxonomy' => 'category',
+        'hide_empty' => true,
+    ) );
+    $categories = array();
+    foreach ($terms as $term) {
+        $categories[] = array(
+            'name' => $term->name,
+            'slug' => $term->slug,
+            'product_count' => $term->count,
+        );
+    }
+    return $categories;
 }
 
 /**

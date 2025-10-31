@@ -51,13 +51,24 @@ class GeminiProductManager_Complete {
         $args = [
             'labels' => $labels,
             'public' => true,
-            'has_archive' => 'san-pham',
+            'has_archive' => true,
             'rewrite' => ['slug' => 'san-pham'],
             'supports' => ['title', 'editor', 'thumbnail', 'custom-fields'],
             'show_in_rest' => true,
             'menu_icon' => 'dashicons-store',
+            'taxonomies' => array('category', 'post_tag', 'product_tag'),
         ];
         register_post_type('product', $args);
+
+        register_taxonomy(
+            'product_tag',
+            'product',
+            array(
+                'label' => __( 'Product Tags' ),
+                'rewrite' => array( 'slug' => 'product-tag' ),
+                'hierarchical' => false,
+            )
+        );
     }
 
     public function add_admin_menu() {
@@ -225,11 +236,21 @@ class GeminiProductManager_Complete {
         if ($product_id) $post_data['ID'] = $product_id;
         $result = $product_id ? wp_update_post($post_data, true) : wp_insert_post($post_data, true);
         if (is_wp_error($result)) {
+            error_log('GPM Save Error: ' . $result->get_error_message());
             wp_send_json_error(['message' => $result->get_error_message()]);
         } else {
+            error_log('GPM Save POST data: ' . print_r($_POST, true));
             if (isset($_POST['price'])) update_post_meta($result, '_price', sanitize_text_field($_POST['price']));
             if (isset($_POST['stock_status'])) update_post_meta($result, '_stock_status', sanitize_text_field($_POST['stock_status']));
-            if (isset($_POST['category_id']) && !empty($_POST['category_id'])) wp_set_post_terms($result, intval($_POST['category_id']), 'category');
+            if (isset($_POST['category_id']) && !empty($_POST['category_id'])) {
+                $category_ids = is_array($_POST['category_id']) ? array_map('intval', $_POST['category_id']) : array(intval($_POST['category_id']));
+                $term_exists = term_exists($category_ids[0], 'category');
+                if ($term_exists) {
+                    wp_set_post_terms($result, $category_ids, 'category');
+                } else {
+                    error_log('GPM Save Error: Term does not exist: ' . $category_ids[0]);
+                }
+            }
             if (isset($_POST['classification'])) update_post_meta($result, '_product_classification', sanitize_text_field($_POST['classification']));
             if (isset($_POST['gallery_ids'])) {
                 $gallery_ids = sanitize_text_field($_POST['gallery_ids']);
