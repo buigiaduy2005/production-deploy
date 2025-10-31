@@ -12,7 +12,7 @@ jQuery(document).ready(function($) {
 
     // ====[ Main Product Loading Function ]====
     function loadProducts() {
-        productTableBody.html('<tr><td colspan="7">Đang tải sản phẩm...</td></tr>');
+        productTableBody.html('<tr><td colspan="8">Đang tải sản phẩm...</td></tr>');
         $.ajax({
             url: gpm_ajax.ajax_url, type: 'POST', data: { action: 'gpm_get_products', nonce: gpm_ajax.nonce },
             success: function(response) {
@@ -23,6 +23,7 @@ jQuery(document).ready(function($) {
                             <tr id="product-${product.id}">
                                 <td><img src="${product.thumbnail}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;"></td>
                                 <td><strong>${product.name}</strong></td>
+                                <td>${product.classification}</td>
                                 <td>${product.categories}</td>
                                 <td>${product.stock_status}</td>
                                 <td>${product.status}</td>
@@ -35,11 +36,11 @@ jQuery(document).ready(function($) {
                         productTableBody.append(productRow);
                     });
                 } else {
-                    productTableBody.html('<tr><td colspan="7">Không tìm thấy sản phẩm nào.</td></tr>');
+                    productTableBody.html('<tr><td colspan="8">Không tìm thấy sản phẩm nào.</td></tr>');
                 }
             },
             error: function() {
-                productTableBody.html('<tr><td colspan="7">Lỗi khi tải sản phẩm.</td></tr>');
+                productTableBody.html('<tr><td colspan="8">Lỗi khi tải sản phẩm.</td></tr>');
             }
         });
     }
@@ -84,6 +85,7 @@ jQuery(document).ready(function($) {
                     $('#gpm-product-description').val(product.description);
                     $('#gpm-product-price').val(product.price);
                     $('#gpm-product-category').val(product.category_id);
+                    $('#gpm-product-classification').val(product.classification);
                     $('#gpm-product-status').val(product.status);
                     $('#gpm-stock-status').val(product.stock_status);
                     renderGallery(product.gallery_images);
@@ -164,6 +166,7 @@ jQuery(document).ready(function($) {
             description: $('#gpm-product-description').val(),
             price: $('#gpm-product-price').val(),
             category_id: $('#gpm-product-category').val(),
+            classification: $('#gpm-product-classification').val(),
             status: $('#gpm-product-status').val(),
             stock_status: $('#gpm-stock-status').val(),
             gallery_ids: galleryIdsField.val()

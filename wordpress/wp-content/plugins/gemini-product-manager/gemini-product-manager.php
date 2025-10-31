@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Gemini Product Manager
  * Description: A modern, single-page application for managing products and images within the WordPress admin.
- * Version: 2.0 (Complete Feature Set)
+ * Version: 2.2
  * Author: Gemini
  */
 
@@ -20,15 +20,29 @@ class GeminiProductManager_Complete {
         add_action('wp_ajax_gpm_get_single_product', [$this, 'gpm_get_single_product_ajax']);
         add_action('wp_ajax_gpm_save_product', [$this, 'gpm_save_product_ajax']);
         add_action('wp_ajax_gpm_delete_product', [$this, 'gpm_delete_product_ajax']);
-        add_action('pre_get_posts', [$this, 'add_cpt_to_archives']);
+
+        if (false === get_transient('gpm_pages_created')) {
+            $this->create_classification_pages();
+            set_transient('gpm_pages_created', true, DAY_IN_SECONDS);
+        }
     }
 
-    /**
-     * Add Custom Post Types to main query for category and tag archives.
-     */
-    public function add_cpt_to_archives($query) {
-        if ($query->is_main_query() && !is_admin() && ($query->is_category() || $query->is_tag())) {
-            $query->set('post_type', array('post', 'product'));
+    public function create_classification_pages() {
+        $pages = ['Indoor', 'Outdoor'];
+        foreach ($pages as $page_title) {
+            $page = get_page_by_title($page_title, OBJECT, 'page');
+            if ($page) {
+                update_post_meta($page->ID, '_wp_page_template', 'page-templates/product-classification.php');
+            } else {
+                $page_id = wp_insert_post([
+                    'post_title' => $page_title,
+                    'post_status' => 'publish',
+                    'post_type' => 'page',
+                ]);
+                if ($page_id) {
+                    update_post_meta($page_id, '_wp_page_template', 'page-templates/product-classification.php');
+                }
+            }
         }
     }
 
@@ -63,7 +77,7 @@ class GeminiProductManager_Complete {
             <div class="gpm-main-content">
                 <div class="gpm-product-list-container">
                     <table id="gpm-product-table" class="wp-list-table widefat fixed striped">
-                        <thead><tr><th>Ảnh</th><th>Tên sản phẩm</th><th>Danh mục</th><th>Tình trạng kho</th><th>Trạng thái</th><th>Ngày cập nhật</th><th>Hành động</th></tr></thead>
+                        <thead><tr><th>Ảnh</th><th>Tên sản phẩm</th><th>Phân loại</th><th>Danh mục</th><th>Tình trạng kho</th><th>Trạng thái</th><th>Ngày cập nhật</th><th>Hành động</th></tr></thead>
                         <tbody></tbody>
                     </table>
                 </div>
@@ -94,6 +108,14 @@ class GeminiProductManager_Complete {
                                     }
                                 }
                             ?>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="gpm-product-classification">Phân loại</label>
+                            <select id="gpm-product-classification">
+                                <option value="">Chọn phân loại</option>
+                                <option value="indoor">Indoor</option>
+                                <option value="outdoor">Outdoor</option>
                             </select>
                         </div>
                         <div class="form-field">
@@ -132,8 +154,8 @@ class GeminiProductManager_Complete {
         if ('toplevel_page_gemini-product-manager' != $hook) return;
         wp_enqueue_media();
         wp_enqueue_script('jquery-ui-sortable');
-        wp_enqueue_style('gpm-admin-styles', GPM_PLUGIN_URL . 'css/admin-styles.css', [], '2.0');
-        wp_enqueue_script('gpm-main-app', GPM_PLUGIN_URL . 'js/main-app.js', ['jquery', 'jquery-ui-sortable'], '2.0', true);
+        wp_enqueue_style('gpm-admin-styles', GPM_PLUGIN_URL . 'css/admin-styles.css', [], '2.2');
+        wp_enqueue_script('gpm-main-app', GPM_PLUGIN_URL . 'js/main-app.js', ['jquery', 'jquery-ui-sortable'], '2.2', true);
         wp_localize_script('gpm-main-app', 'gpm_ajax', ['ajax_url' => admin_url('admin-ajax.php'), 'nonce' => wp_create_nonce('gpm_nonce')]);
     }
 
@@ -151,6 +173,7 @@ class GeminiProductManager_Complete {
                     'id' => $product_id,
                     'name' => get_the_title(),
                     'thumbnail' => get_the_post_thumbnail_url($product_id, 'thumbnail') ?: GPM_PLUGIN_URL . 'img/placeholder.png',
+                    'classification' => get_post_meta($product_id, '_product_classification', true),
                     'categories' => implode(', ', $category_names),
                     'stock_status' => get_post_meta($product_id, '_stock_status', true) == 'instock' ? 'Còn hàng' : 'Hết hàng',
                     'status' => get_post_status(),
@@ -184,6 +207,7 @@ class GeminiProductManager_Complete {
             'price' => get_post_meta($product_id, '_price', true),
             'status' => $post->post_status,
             'category_id' => $category_id,
+            'classification' => get_post_meta($product_id, '_product_classification', true),
             'stock_status' => get_post_meta($product_id, '_stock_status', true),
             'gallery_images' => $gallery_images
         ]);
@@ -206,6 +230,7 @@ class GeminiProductManager_Complete {
             if (isset($_POST['price'])) update_post_meta($result, '_price', sanitize_text_field($_POST['price']));
             if (isset($_POST['stock_status'])) update_post_meta($result, '_stock_status', sanitize_text_field($_POST['stock_status']));
             if (isset($_POST['category_id']) && !empty($_POST['category_id'])) wp_set_post_terms($result, intval($_POST['category_id']), 'category');
+            if (isset($_POST['classification'])) update_post_meta($result, '_product_classification', sanitize_text_field($_POST['classification']));
             if (isset($_POST['gallery_ids'])) {
                 $gallery_ids = sanitize_text_field($_POST['gallery_ids']);
                 $ids_array = array_filter(explode(',', $gallery_ids));

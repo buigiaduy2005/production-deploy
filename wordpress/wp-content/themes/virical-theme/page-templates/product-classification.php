@@ -1,11 +1,31 @@
 <?php
 /**
- * The template for displaying product archive pages with a responsive, collapsible sidebar.
+ * Template Name: Product Classification
  *
  * @package Virical
  */
 
 get_header();
+
+$classification = get_query_var('product_classification');
+if (!$classification) {
+    $classification = get_the_title();
+}
+
+$args = [
+    'post_type' => 'product',
+    'posts_per_page' => -1,
+    'meta_query' => [
+        [
+            'key' => '_product_classification',
+            'value' => strtolower($classification),
+            'compare' => '=',
+        ],
+    ],
+];
+
+$products_query = new WP_Query($args);
+
 ?>
 
 <style>
@@ -56,18 +76,30 @@ get_header();
     .product-card-archive-img-container { aspect-ratio: 1 / 1; overflow: hidden; }
     .product-card-archive-img { width: 100%; height: 100%; object-fit: cover; }
     .product-card-archive-content { padding: 1rem; }
-    .product-card-archive-title { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.75rem; }
     .product-card-archive-title {
         font-size: 1.125rem;
         font-weight: 600;
         margin-bottom: 0.75rem;
         color: #000000 !important;
     }
-    .product-card-archive-title {
-        color: #000000;
-    }
+    .product-card-archive-title a {
+            color: #000000;
+            text-decoration: none;
+        }
     .product-item-link { display: inline-block; margin-top: 1rem; padding: 0.5rem 1rem; font-size: 0.875rem; font-weight: 500; color: #3B82F6; border: 1px solid #3B82F6; border-radius: 0.375rem; text-decoration: none; }
     .product-item-link:hover { background-color: #3B82F6; color: #fff; }
+
+    .product-card-archive-link {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        transition: transform 0.2s;
+    }
+
+    .product-card-archive-link:hover .product-card-archive {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
 
     /* Mobile Layout */
     @media (max-width: 768px) {
@@ -108,7 +140,7 @@ get_header();
 <main id="primary" class="site-main container mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-24">
 
     <header class="page-header mb-8">
-        <h1 class="page-title text-3xl font-bold text-black" style="color: #000 !important;">Sản phẩm</h1>
+        <h1 class="page-title text-3xl font-bold text-black" style="color: #000 !important;"><?php echo esc_html(ucfirst($classification)); ?> Products</h1>
     </header>
 
     <button class="mobile-category-toggle">
@@ -121,7 +153,7 @@ get_header();
             <div class="widget">
                 <h2 class="widget-title" style="color: #000 !important;">Danh mục sản phẩm</h2>
                 <ul class="product-categories-list">
-                    <li><a href="<?php echo get_post_type_archive_link('product'); ?>" class="active">Tất cả sản phẩm</a></li>
+                    <li><a href="<?php echo get_post_type_archive_link('product'); ?>">Tất cả sản phẩm</a></li>
                     <?php
                     $categories = get_terms( array(
                         'taxonomy' => 'category',
@@ -141,11 +173,12 @@ get_header();
 
         <div class="product-archive-main">
             <div id="product-grid-container" class="product-grid-archive">
-                <?php if ( have_posts() ) : ?>
+                <?php if ( $products_query->have_posts() ) : ?>
                     <?php
-                    while ( have_posts() ) : the_post();
+                    while ( $products_query->have_posts() ) : $products_query->the_post();
                         get_template_part('template-parts/product-card');
                     endwhile;
+                    wp_reset_postdata();
                     ?>
                 <?php else : ?>
                     <p>Không có sản phẩm nào.</p>
@@ -154,11 +187,7 @@ get_header();
 
             <div class="mt-12" id="product-pagination-container">
                 <?php 
-                the_posts_pagination( array(
-                    'mid_size'  => 2,
-                    'prev_text' => __( 'Trang trước', 'virical' ),
-                    'next_text' => __( 'Sau', 'virical' ),
-                ) );
+                // Pagination for custom query is a bit more complex and might require a custom function if the_posts_pagination doesn't work as expected.
                 ?>
             </div>
         </div>
