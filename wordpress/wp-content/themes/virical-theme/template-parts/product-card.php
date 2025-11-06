@@ -14,7 +14,7 @@
         <?php endif; ?>
         <div class="product-card-archive-content">
             <h2 class="product-card-archive-title" style="color: #000 !important;"><?php the_title(); ?></h2>
-            <span class="product-item-link"><i class="bi bi-truck"></i> Xem chi tiết</span>
+            <span class="product-item-link">Xem chi tiết</span>
         </div>
     </div>
 </a>
