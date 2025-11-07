@@ -126,7 +126,7 @@ get_header();
             <div class="widget">
                 <h2 class="widget-title" style="color: #000 !important;">Danh mục sản phẩm</h2>
                 <ul class="product-categories-list">
-                    <li><a href="<?php echo get_post_type_archive_link('product'); ?>">Tất cả sản phẩm</a></li>
+                    <li><a href="<?php echo esc_url(add_query_arg('ver', wp_rand(), get_post_type_archive_link('product'))); ?>">Tất cả sản phẩm</a></li>
                     <?php
                     $parent_categories = get_terms( array(
                         'taxonomy' => 'category',
