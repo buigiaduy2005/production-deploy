@@ -45,6 +45,21 @@ get_header();
     .product-categories-list a.active {
         background-color: #3B82F6; color: #fff; border-color: #3B82F6; font-weight: 600;
     }
+    .product-categories-list .has-children > a {
+        position: relative;
+    }
+    .product-categories-list .has-children > a::after {
+        content: '+';
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .product-categories-list .children {
+        list-style: none;
+        padding-left: 1rem;
+        margin-top: 0.5rem;
+    }
     .product-grid-archive {
         display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem;
     }
@@ -113,17 +128,45 @@ get_header();
                 <ul class="product-categories-list">
                     <li><a href="<?php echo get_post_type_archive_link('product'); ?>">Tất cả sản phẩm</a></li>
                     <?php
-                    $all_categories = get_terms( array(
+                    $parent_categories = get_terms( array(
                         'taxonomy' => 'category',
-                        'hide_empty' => true,
-                        'object_ids' => get_posts(array('post_type' => 'product', 'fields' => 'ids', 'posts_per_page' => -1)),
+                        'hide_empty' => false,
+                        'parent' => 0,
                     ) );
                     $current_cat_id = get_queried_object_id();
 
-                    if ( ! empty( $all_categories ) && ! is_wp_error( $all_categories ) ) {
-                        foreach ( $all_categories as $category ) {
-                            $active_class = ($current_cat_id == $category->term_id) ? 'active' : '';
-                            echo '<li><a href="' . esc_url( get_term_link( $category ) ) . '" class="' . $active_class . '">' . esc_html( $category->name ) . '</a></li>';
+                    if ( ! empty( $parent_categories ) && ! is_wp_error( $parent_categories ) ) {
+                        foreach ( $parent_categories as $parent_category ) {
+                            $child_categories = get_terms( array(
+                                'taxonomy' => 'category',
+                                'hide_empty' => false,
+                                'parent' => $parent_category->term_id,
+                            ) );
+
+                            $has_children = ! empty( $child_categories );
+                            $is_current_parent = ($current_cat_id == $parent_category->term_id);
+                            $li_class = 'cat-item';
+                            if ($has_children) {
+                                $li_class .= ' has-children';
+                            }
+                            if ($is_current_parent) {
+                                $li_class .= ' current-cat-parent';
+                            }
+
+                            echo '<li class="' . $li_class . '">';
+                            echo '<a href="' . esc_url( get_term_link( $parent_category ) ) . '" class="' . ($is_current_parent ? 'active' : '') . '">' . esc_html( $parent_category->name ) . '</a>';
+
+                            if ( $has_children ) {
+                                echo '<ul class="children" style="display:none;">';
+                                foreach ( $child_categories as $child_category ) {
+                                    $is_current_child = ($current_cat_id == $child_category->term_id);
+                                    echo '<li class="cat-item ' . ($is_current_child ? 'current-cat' : '') . '">';
+                                    echo '<a href="' . esc_url( get_term_link( $child_category ) ) . '" class="' . ($is_current_child ? 'active' : '') . '">' . esc_html( $child_category->name ) . '</a>';
+                                    echo '</li>';
+                                }
+                                echo '</ul>';
+                            }
+                            echo '</li>';
                         }
                     }
                     ?>
@@ -169,6 +212,13 @@ jQuery(document).ready(function($) {
         if ($(window).width() > 768) {
             $('.product-archive-sidebar').removeAttr('style');
         }
+    });
+
+    $('.product-categories-list .has-children > a').on('click', function(e) {
+        // Prevent the default link behavior
+        e.preventDefault();
+        // Toggle the child list
+        $(this).siblings('.children').slideToggle();
     });
 });
 </script>

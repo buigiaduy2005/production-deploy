@@ -522,7 +522,7 @@ function virical_get_featured_projects($limit = 6) {
 function virical_get_product_categories_with_count() {
     $terms = get_terms( array(
         'taxonomy' => 'category',
-        'hide_empty' => true,
+        'hide_empty' => false,
     ) );
     $categories = array();
     foreach ($terms as $term) {
