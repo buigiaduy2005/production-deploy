@@ -71,4 +71,11 @@ jQuery(document).ready(function($) {
             }
         }
     });
+
+    // Category widget accordion
+    $('.product-categories-list .has-children .toggle-submenu').on('click', function() {
+        var parentLi = $(this).closest('li');
+        parentLi.toggleClass('open');
+        parentLi.children('.sub-menu').slideToggle(300);
+    });
 });

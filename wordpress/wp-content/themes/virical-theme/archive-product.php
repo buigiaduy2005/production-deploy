@@ -13,6 +13,7 @@
         max-width: 1200px;
         margin: 2rem auto;
         padding: 0 1rem;
+        padding-top: 100px;
     }
 
     .product-archive-sidebar {
@@ -137,18 +138,38 @@
                     $is_active = is_post_type_archive('product');
                     echo '<li><a href="' . esc_url($all_products_link) . '" class="' . ($is_active ? 'active' : '') . '">Tất cả sản phẩm</a></li>';
 
-                    // Get all categories
-                    $all_categories = get_terms(array(
+                    $parent_categories = get_terms(array(
                         'taxonomy' => 'category',
                         'hide_empty' => false,
+                        'parent' => 0,
                     ));
 
                     $current_cat = get_queried_object();
 
-                    if (!is_wp_error($all_categories)) {
-                        foreach ($all_categories as $category) {
-                            $active_class = ($current_cat && property_exists($current_cat, 'term_id') && $current_cat->term_id == $category->term_id) ? 'active' : '';
-                            echo '<li><a href="' . esc_url(get_term_link($category)) . '" class="' . $active_class . '">' . esc_html($category->name) . '</a></li>';
+                    if (!is_wp_error($parent_categories)) {
+                        foreach ($parent_categories as $parent_category) {
+                            $child_categories = get_terms(array(
+                                'taxonomy' => 'category',
+                                'hide_empty' => false,
+                                'parent' => $parent_category->term_id,
+                            ));
+
+                            $has_children = !empty($child_categories);
+                            $parent_active_class = ($current_cat && property_exists($current_cat, 'term_id') && $current_cat->term_id == $parent_category->term_id) ? 'active' : '';
+
+                            echo '<li class="cat-item ' . ($has_children ? 'has-children' : '') . '">';
+                            echo '<a href="' . esc_url(get_term_link($parent_category)) . '" class="' . $parent_active_class . '">' . esc_html($parent_category->name) . '</a>';
+
+                            if ($has_children) {
+                                echo '<span class="toggle-submenu"></span>';
+                                echo '<ul class="sub-menu">';
+                                foreach ($child_categories as $child_category) {
+                                    $child_active_class = ($current_cat && property_exists($current_cat, 'term_id') && $current_cat->term_id == $child_category->term_id) ? 'active' : '';
+                                    echo '<li class="cat-item"><a href="' . esc_url(get_term_link($child_category)) . '" class="' . $child_active_class . '">' . esc_html($child_category->name) . '</a></li>';
+                                }
+                                echo '</ul>';
+                            }
+                            echo '</li>';
                         }
                     }
                     ?>

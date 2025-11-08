@@ -592,3 +592,43 @@ span.product-item-link:hover,
         box-shadow: none !important; /* remove white glow borders */
     }
 }
+
+/* Category Widget Accordion */
+.product-categories-list .has-children {
+    position: relative;
+}
+
+.product-categories-list .has-children .toggle-submenu {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-categories-list .has-children .toggle-submenu::after {
+    content: '\f107'; /* Font Awesome down arrow */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    transition: transform 0.3s ease;
+}
+
+.product-categories-list .has-children.open .toggle-submenu::after {
+    transform: rotate(-180deg);
+}
+
+.product-categories-list .sub-menu {
+    display: none;
+    list-style: none;
+    padding-left: 1.5rem; /* Indent child categories */
+    margin-top: 0.5rem;
+}
+
+.product-categories-list .sub-menu a {
+    font-size: 0.9rem;
+    font-weight: 400;
+}
