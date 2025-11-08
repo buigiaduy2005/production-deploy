@@ -76,23 +76,44 @@ if (!function_exists('virical_render_navigation_menu')) {
 
             // Render submenu if has children
             if ($has_children) {
-                echo '<ul class="sub-menu">';
-
-                foreach ($parent->children as $child_id) {
-                    $child = $menu_items[$child_id];
-
-                    echo '<li class="menu-item">';
-                    echo '<a href="' . esc_url($child->item_url) . '"';
-                    if ($child->item_description) {
-                        echo ' title="' . esc_attr($child->item_description) . '"';
+                if (trim($parent->item_title) === 'Sản phẩm') {
+                    $categories = get_terms( array(
+                        'taxonomy' => 'category',
+                        'hide_empty' => false,
+                    ) );
+                    if ( ! empty( $categories ) && ! is_wp_error( $categories ) ) {
+                        echo '<div class="dropdown-content">';
+                        foreach ($categories as $category) {
+                            $logo_id = get_term_meta( $category->term_id, 'category-logo-id', true );
+                            $logo_url = '';
+                            if ( $logo_id ) {
+                                $logo_data = wp_get_attachment_image_src( $logo_id, 'thumbnail' );
+                                if ($logo_data) {
+                                    $logo_url = $logo_data[0];
+                                }
+                            }
+                            echo '<div class="dropdown-item">';
+                            if ($logo_url) {
+                                echo '<img src="' . esc_url($logo_url) . '" alt="' . esc_attr($category->name) . '">';
+                            }
+                            echo '<span>' . esc_html($category->name) . '</span>';
+                            echo '</div>';
+                        }
+                        echo '</div>';
                     }
-                    echo '>';
-                    echo esc_html($child->item_title);
-                    echo '</a>';
-                    echo '</li>';
+                } else {
+                    echo '<div class="dropdown-content">';
+                    foreach ($parent->children as $child_id) {
+                        $child = $menu_items[$child_id];
+                        echo '<div class="dropdown-item">';
+                        if ($child->item_icon) {
+                            echo '<img src="' . esc_url($child->item_icon) . '" alt="Icon">';
+                        }
+                        echo '<span>' . esc_html($child->item_title) . '</span>';
+                        echo '</div>';
+                    }
+                    echo '</div>';
                 }
-
-                echo '</ul>';
             }
 
             echo '</li>';

@@ -57,7 +57,6 @@ add_action('wp_enqueue_scripts', 'virical_enqueue_scripts');
  * Admin scripts and styles
  */
 function virical_admin_enqueue_scripts() {
-    wp_enqueue_style('virical-admin', get_template_directory_uri() . '/assets/css/admin.css', array(), '1.0.0');
     wp_enqueue_script('virical-admin', get_template_directory_uri() . '/assets/js/admin.js', array('jquery'), '1.0.0', true);
     
     // Localize script for AJAX
@@ -407,10 +406,10 @@ function virical_get_homepage_settings($key = null) {
     static $settings_cache = null;
     
     if ($settings_cache === null) {
-        $results = $wpdb->get_results("
-            SELECT setting_key, setting_value, setting_type 
-            FROM {$wpdb->prefix}homepage_settings
-        ");
+        $results = $wpdb->get_results(
+            "SELECT setting_key, setting_value, setting_type 
+            FROM {$wpdb->prefix}homepage_settings"
+        );
         
         $settings_cache = array();
         foreach ($results as $row) {
@@ -437,8 +436,8 @@ function virical_get_homepage_sliders($active_only = true) {
     
     $where = $active_only ? "WHERE is_active = 1" : "";
     
-    return $wpdb->get_results("
-        SELECT * FROM {$wpdb->prefix}homepage_sliders
+    return $wpdb->get_results(
+        "SELECT * FROM {$wpdb->prefix}homepage_sliders
         {$where}
         ORDER BY sort_order ASC
     ", ARRAY_A);
@@ -452,8 +451,8 @@ function virical_get_homepage_sections($active_only = true) {
     
     $where = $active_only ? "WHERE is_active = 1" : "";
     
-    $results = $wpdb->get_results("
-        SELECT * FROM {$wpdb->prefix}homepage_sections
+    $results = $wpdb->get_results(
+        "SELECT * FROM {$wpdb->prefix}homepage_sections
         {$where}
         ORDER BY sort_order ASC
     ");
@@ -507,8 +506,8 @@ function virical_get_featured_products($limit = 8) {
 function virical_get_featured_projects($limit = 6) {
     global $wpdb;
     
-    return $wpdb->get_results($wpdb->prepare("
-        SELECT p.*, p.type as type_name, p.main_image as featured_image
+    return $wpdb->get_results($wpdb->prepare(
+        "SELECT p.*, p.type as type_name, p.main_image as featured_image
         FROM {$wpdb->prefix}virical_projects p
         WHERE p.is_active = 1
         ORDER BY p.sort_order ASC, p.created_at DESC
@@ -722,3 +721,109 @@ function virical_get_product_image_url($product) {
     // 4. Return a placeholder if no image is found
     return get_template_directory_uri() . '/assets/images/default-product.jpg';
 }
+
+// Add custom field to category add screen
+function virical_add_category_logo_field() {
+    ?>
+    <div class="form-field">
+        <label for="category-logo-id"><?php _e( 'Logo', 'virical' ); ?></label>
+        <input type="hidden" name="category-logo-id" id="category-logo-id" value="" />
+        <div id="category-logo-wrapper"></div>
+        <p>
+            <input type="button" class="button button-secondary" id="upload-logo-button" value="<?php _e( 'Upload Logo', 'virical' ); ?>" />
+            <input type="button" class="button button-secondary" id="remove-logo-button" value="<?php _e( 'Remove Logo', 'virical' ); ?>" />
+        </p>
+    </div>
+    <?php
+}
+add_action( 'category_add_form_fields', 'virical_add_category_logo_field' );
+
+// Add custom field to category edit screen
+function virical_edit_category_logo_field( $term ) {
+    $logo_id = get_term_meta( $term->term_id, 'category-logo-id', true );
+    ?>
+    <tr class="form-field">
+        <th scope="row" valign="top"><label for="category-logo-id"><?php _e( 'Logo', 'virical' ); ?></label></th>
+        <td>
+            <input type="hidden" name="category-logo-id" id="category-logo-id" value="<?php echo esc_attr( $logo_id ); ?>" />
+            <div id="category-logo-wrapper">
+                <?php if ( $logo_id ) : ?>
+                    <?php echo wp_get_attachment_image( $logo_id, 'thumbnail' ); ?>
+                <?php endif; ?>
+            </div>
+            <p>
+                <input type="button" class="button button-secondary" id="upload-logo-button" value="<?php _e( 'Upload Logo', 'virical' ); ?>" />
+                <input type="button" class="button button-secondary" id="remove-logo-button" value="<?php _e( 'Remove Logo', 'virical' ); ?>" />
+            </p>
+        </td>
+    </tr>
+    <?php
+}
+add_action( 'category_edit_form_fields', 'virical_edit_category_logo_field' );
+
+// Save custom field
+function virical_save_category_logo( $term_id ) {
+    if ( isset( $_POST['category-logo-id'] ) ) {
+        update_term_meta( $term_id, 'category-logo-id', absint( $_POST['category-logo-id'] ) );
+    }
+}
+add_action( 'created_category', 'virical_save_category_logo' );
+add_action( 'edited_category', 'virical_save_category_logo' );
+
+// Enqueue media scripts
+function virical_enqueue_media_uploader() {
+    wp_enqueue_media();
+    wp_print_media_templates();
+    ?>
+    <script>
+        jQuery(document).ready(function($) {
+            var mediaUploader;
+            $('#upload-logo-button').click(function(e) {
+                e.preventDefault();
+                if (mediaUploader) {
+                    mediaUploader.open();
+                    return;
+                }
+                mediaUploader = wp.media.frames.file_frame = wp.media({
+                    title: '<?php _e( 'Choose Logo', 'virical' ); ?>',
+                    button: {
+                        text: '<?php _e( 'Choose Logo', 'virical' ); ?>'
+                    },
+                    multiple: false
+                });
+                mediaUploader.on('select', function() {
+                    var attachment = mediaUploader.state().get('selection').first().toJSON();
+                    $('#category-logo-id').val(attachment.id);
+                    $('#category-logo-wrapper').html('<img src="' + attachment.url + '" style="max-width:150px;height:auto;" />');
+                });
+                mediaUploader.open();
+            });
+            $('#remove-logo-button').click(function(e) {
+                e.preventDefault();
+                $('#category-logo-id').val('');
+                $('#category-logo-wrapper').html('');
+            });
+        });
+    </script>
+    <?php
+}
+add_action( 'admin_footer', 'virical_enqueue_media_uploader' );
+
+// Add logo column to category list
+function virical_add_category_logo_column( $columns ) {
+    $columns['logo'] = __( 'Logo', 'virical' );
+    return $columns;
+}
+add_filter( 'manage_edit-category_columns', 'virical_add_category_logo_column' );
+
+// Display logo in the column
+function virical_display_category_logo_column( $content, $column_name, $term_id ) {
+    if ( 'logo' === $column_name ) {
+        $logo_id = get_term_meta( $term_id, 'category-logo-id', true );
+        if ( $logo_id ) {
+            $content = wp_get_attachment_image( $logo_id, 'thumbnail' );
+        }
+    }
+    return $content;
+}
+add_filter( 'manage_category_custom_column', 'virical_display_category_logo_column', 10, 3 );
