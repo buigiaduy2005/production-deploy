@@ -161,3 +161,12 @@ body {
         width: auto; /* Allow items to fill space */
     }
 }
+
+/* CTA Features Styling */
+.cta-feature span {
+    color: black;
+}
+
+.cta-feature i {
+    color: black;
+}
