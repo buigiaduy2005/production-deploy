@@ -36,11 +36,11 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            background: rgba(0,0,0,0.85);
+            background: transparent;
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
             height: 80px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: none;
         }
         
         .site-header.scrolled {
@@ -313,7 +313,7 @@
                 top: 80px;
                 left: 0;
                 width: 100%;
-                background: rgba(0,0,0,0.95);
+                background: rgba(255,255,255,0.95);
                 padding: 20px;
                 box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             }
@@ -338,7 +338,7 @@
                 border-top: none;
                 padding: 0;
                 margin-top: 10px;
-                background: rgba(0,0,0,0.3);
+                background: rgba(255,255,255,0.3);
             }
             
 

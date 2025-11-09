@@ -1,0 +1,304 @@
+/* 
+ * Product Archive Layout CSS
+ * Consistent styling for all product archive pages
+ * Used by: category.php, archive-product.php, archive.php
+ */
+
+/* Main Container */
+.product-archive-container {
+    display: flex;
+    gap: 2rem;
+}
+
+/* Sidebar */
+.product-archive-sidebar {
+    flex: 0 0 250px; /* Fixed sidebar width */
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 100px; /* Adjust based on header height */
+    align-self: flex-start; /* Important for sticky to work in flex container */
+}
+
+.product-archive-main {
+    flex: 1;
+}
+
+/* Mobile Category Toggle */
+.mobile-category-toggle {
+    display: none; /* Hidden on desktop */
+}
+
+/* Widget Title */
+.widget-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 0.5rem;
+    color: #000 !important;
+}
+
+/* Category List */
+.product-categories-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.product-categories-list li {
+    margin-bottom: 0.5rem;
+}
+
+.product-categories-list a {
+    display: block;
+    padding: 0.5rem 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.375rem;
+    text-decoration: none;
+    color: #374151;
+    transition: all 0.2s;
+    background-color: #f9fafb;
+}
+
+.product-categories-list a:hover {
+    border-color: #3B82F6;
+    background-color: #eff6ff;
+    color: #3B82F6;
+}
+
+.product-categories-list a.active {
+    background-color: #3B82F6;
+    color: #fff;
+    border-color: #3B82F6;
+    font-weight: 600;
+}
+
+/* Parent Categories with Children */
+.product-categories-list .has-children > a {
+    position: relative;
+}
+
+.product-categories-list .has-children > a::after {
+    content: '+';
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.product-categories-list .children {
+    list-style: none;
+    padding-left: 1rem;
+    margin-top: 0.5rem;
+}
+
+/* Product Grid */
+.product-grid-archive {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    align-items: stretch;
+}
+
+/* Product Cards */
+.product-card-archive {
+    background-color: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    text-align: center;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.product-card-archive:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+.product-card-archive-img-container {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background-color: #f9fafb;
+}
+
+.product-card-archive-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-card-archive-content {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+.product-card-archive-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: #111827 !important;
+}
+
+.product-card-archive-title a {
+    color: #111827;
+    text-decoration: none;
+}
+
+.product-item-link {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #3B82F6;
+    border: 1px solid #3B82F6;
+    border-radius: 0.375rem;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.product-item-link:hover {
+    background-color: #3B82F6;
+    color: #fff;
+}
+
+/* Pagination */
+.pagination {
+    margin-top: 2rem;
+}
+
+/* Mobile Layout */
+@media (max-width: 768px) {
+    .product-archive-container {
+        flex-direction: column;
+    }
+    
+    .product-archive-sidebar {
+        display: none; /* Hide sidebar by default on mobile */
+        flex-basis: auto;
+        width: 100%;
+        margin-bottom: 1.5rem;
+        position: static; /* Remove sticky on mobile */
+    }
+    
+    .product-archive-sidebar.is-open {
+        display: block; /* Show sidebar when active */
+    }
+    
+    .mobile-category-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background-color: #f3f4f6;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.375rem;
+        padding: 0.75rem 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        margin-bottom: 1.5rem;
+        width: 100%;
+    }
+    
+    .mobile-category-toggle .hamburger-icon {
+        width: 20px;
+        height: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    .mobile-category-toggle .hamburger-icon span {
+        display: block;
+        height: 2px;
+        width: 100%;
+        background-color: #374151;
+        border-radius: 2px;
+    }
+    
+    .product-grid-archive {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+}
+
+/* Tablet Layout */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .product-archive-sidebar {
+        flex: 0 0 200px; /* Smaller sidebar on tablet */
+    }
+    
+    .product-grid-archive {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+}
+
+/* Large Desktop */
+@media (min-width: 1200px) {
+    .product-archive-container {
+        gap: 3rem;
+    }
+    
+    .product-archive-sidebar {
+        flex: 0 0 280px; /* Wider sidebar on large screens */
+    }
+}
+
+/* Force black color for page titles and text-black class */
+.page-title,
+.text-black,
+h1.text-black,
+h2.text-black,
+h3.text-black,
+h4.text-black,
+h5.text-black,
+h6.text-black {
+    color: #000000 !important;
+}
+
+/* Ensure all headings in archive pages are black */
+.site-main h1,
+.site-main h2,
+.site-main h3,
+.site-main h4,
+.site-main h5,
+.site-main h6 {
+    color: #000000 !important;
+}
+
+/* Archive page specific */
+.archive .page-title,
+.category .page-title,
+.tag .page-title {
+    color: #000000 !important;
+}
+
+/* Product card link wrapper */
+.product-card-archive-link {
+    display: block;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Blue underline for page titles */
+.page-title {
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.page-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #3b82f6;
+    border-radius: 2px;
+}

@@ -170,7 +170,7 @@ $partners = get_option('aura_about_partners', array());
                 <h2 class="section-title animate-fade-up">THÀNH TỰU</h2>
                 <div class="section-line"></div>
             </div>
-            <div class="achievements-grid">
+            <div class="achievements-grid" style="display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 40px !important; grid-template-rows: 1fr !important;">
                 <?php foreach ($achievements as $achievement) : ?>
                 <div class="achievement-item animate-fade-up">
                     <div class="achievement-number" data-count="<?php echo esc_attr($achievement['number']); ?>">
@@ -231,10 +231,23 @@ $partners = get_option('aura_about_partners', array());
 }
 
 body.page-template-page-gioi-thieu {
-    background-color: var(--virical-black);
-    color: var(--virical-white);
+    background-color: #f8f9fa;
+    color: #000000;
     margin: 0;
     padding: 0;
+}
+
+/* Create alternating section pattern */
+.hero-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.values-section {
+    background-color: #ffffff;
+}
+
+.achievements-section {
+    background-color: #f8f9fa;
 }
 
 .about-page {
@@ -291,7 +304,7 @@ body.page-template-page-gioi-thieu {
     text-transform: uppercase;
     letter-spacing: 5px;
     margin-bottom: 20px;
-    color: var(--virical-white);
+    color: #ffffff;
 }
 
 .hero-subtitle {
@@ -300,13 +313,13 @@ body.page-template-page-gioi-thieu {
     font-weight: 300;
     letter-spacing: 2px;
     opacity: 0.9;
-    color: var(--virical-white);
+    color: #ffffff;
 }
 
 /* Introduction Section */
 .intro-section {
     padding: 120px 0;
-    background-color: var(--virical-black);
+    background-color: #ffffff;
 }
 
 .intro-wrapper {
@@ -344,18 +357,18 @@ body.page-template-page-gioi-thieu {
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 30px;
-    color: var(--virical-white);
+    color: #000000;
 }
 
 .intro-text {
     font-size: 16px;
     line-height: 1.8;
-    color: rgba(255, 255, 255, 0.8);
+    color: #333333;
 }
 
 /* Story Sections */
 .story-sections {
-    background-color: var(--virical-black);
+    background-color: #f8f9fa;
 }
 
 .story-section {
@@ -363,7 +376,7 @@ body.page-template-page-gioi-thieu {
 }
 
 .story-section:nth-child(even) {
-    background-color: rgba(255, 255, 255, 0.02);
+    background-color: #ffffff;
 }
 
 .story-wrapper {
@@ -403,13 +416,13 @@ body.page-template-page-gioi-thieu {
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 30px;
-    color: var(--virical-white);
+    color: #000000;
 }
 
 .story-text {
     font-size: 16px;
     line-height: 1.8;
-    color: rgba(255, 255, 255, 0.8);
+    color: #333333;
 }
 
 /* Values Section */
@@ -430,7 +443,7 @@ body.page-template-page-gioi-thieu {
     text-transform: uppercase;
     letter-spacing: 3px;
     margin-bottom: 20px;
-    color: var(--virical-white);
+    color: #000000;
 }
 
 .section-line {
@@ -473,19 +486,19 @@ body.page-template-page-gioi-thieu {
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 20px;
-    color: var(--virical-white);
+    color: #000000;
 }
 
 .value-description {
     font-size: 15px;
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.7);
+    color: #666666;
 }
 
 /* Team Section */
 .team-section {
     padding: 120px 0;
-    background-color: var(--virical-black);
+    background-color: #ffffff;
 }
 
 .team-grid {
@@ -548,7 +561,7 @@ body.page-template-page-gioi-thieu {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--virical-white);
+    color: #000000;
     transition: all 0.3s ease;
 }
 
@@ -566,7 +579,7 @@ body.page-template-page-gioi-thieu {
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 5px;
-    color: var(--virical-white);
+    color: #000000;
 }
 
 .member-position {
@@ -601,10 +614,184 @@ body.page-template-page-gioi-thieu {
 }
 
 .achievements-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 40px;
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 40px !important;
 }
+
+/* Force 4 columns on desktop and tablet */
+@media (min-width: 769px) {
+    .achievements-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 30px !important;
+    }
+}
+
+/* Ultra high specificity override for achievements */
+body .achievements-grid,
+html body .achievements-grid,
+div.achievements-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 40px !important;
+}
+
+/* Force exact positioning for achievement items */
+@media (min-width: 769px) {
+    body .achievements-grid .achievement-item:nth-child(1) { grid-column: 1 !important; }
+    body .achievements-grid .achievement-item:nth-child(2) { grid-column: 2 !important; }
+    body .achievements-grid .achievement-item:nth-child(3) { grid-column: 3 !important; }
+    body .achievements-grid .achievement-item:nth-child(4) { grid-column: 4 !important; }
+    
+    body .achievements-grid .achievement-item {
+        grid-row: 1 !important;
+    }
+}
+
+/* NUCLEAR OPTION - Override everything */
+html body div.achievements-grid,
+body div.achievements-grid,
+.achievements-grid.achievements-grid.achievements-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    grid-template-rows: 1fr !important;
+    gap: 40px !important;
+    width: 100% !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+}
+
+/* Force all items to stay in first row */
+html body .achievements-grid .achievement-item,
+body .achievements-grid .achievement-item,
+.achievements-grid .achievement-item {
+    grid-row: 1 !important;
+    width: auto !important;
+    flex: none !important;
+    float: none !important;
+    display: block !important;
+}
+
+/* Specific positioning with maximum specificity */
+html body .achievements-grid .achievement-item:nth-child(1) { grid-column: 1 !important; grid-row: 1 !important; }
+html body .achievements-grid .achievement-item:nth-child(2) { grid-column: 2 !important; grid-row: 1 !important; }
+html body .achievements-grid .achievement-item:nth-child(3) { grid-column: 3 !important; grid-row: 1 !important; }
+html body .achievements-grid .achievement-item:nth-child(4) { grid-column: 4 !important; grid-row: 1 !important; }
+
+/* Prevent any wrapping */
+@media (min-width: 768px) {
+    html body .achievements-grid {
+        min-width: 800px !important;
+        grid-template-columns: repeat(4, minmax(150px, 1fr)) !important;
+    }
+}
+
+/* Force text colors with high specificity */
+body.page-template-page-gioi-thieu .story-title,
+body.page-template-page-gioi-thieu .intro-title,
+body.page-template-page-gioi-thieu .section-title,
+body.page-template-page-gioi-thieu .value-title,
+body.page-template-page-gioi-thieu .achievement-title,
+body.page-template-page-gioi-thieu .member-name,
+body.page-template-page-gioi-thieu h1,
+body.page-template-page-gioi-thieu h2,
+body.page-template-page-gioi-thieu h3,
+body.page-template-page-gioi-thieu h4,
+body.page-template-page-gioi-thieu h5,
+body.page-template-page-gioi-thieu h6 {
+    color: #000000 !important;
+}
+
+body.page-template-page-gioi-thieu .story-text,
+body.page-template-page-gioi-thieu .intro-text,
+body.page-template-page-gioi-thieu p {
+    color: #333333 !important;
+}
+
+body.page-template-page-gioi-thieu .value-description,
+body.page-template-page-gioi-thieu .achievement-description {
+    color: #666666 !important;
+}
+
+/* Keep hero text white */
+body.page-template-page-gioi-thieu .hero-title,
+body.page-template-page-gioi-thieu .hero-subtitle {
+    color: #ffffff !important;
+}
+
+/* Last resort - force with JavaScript backup */
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Force 4-column grid with JavaScript as backup
+    function forceAchievementsGrid() {
+        const achievementsGrid = document.querySelector('.achievements-grid');
+        if (achievementsGrid && window.innerWidth >= 768) {
+            achievementsGrid.style.setProperty('display', 'grid', 'important');
+            achievementsGrid.style.setProperty('grid-template-columns', 'repeat(4, 1fr)', 'important');
+            achievementsGrid.style.setProperty('grid-template-rows', '1fr', 'important');
+            achievementsGrid.style.setProperty('gap', '40px', 'important');
+            
+            // Force each item to specific position
+            const items = achievementsGrid.querySelectorAll('.achievement-item');
+            items.forEach((item, index) => {
+                if (index < 4) {
+                    item.style.setProperty('grid-column', (index + 1).toString(), 'important');
+                    item.style.setProperty('grid-row', '1', 'important');
+                }
+            });
+        }
+    }
+    
+    // Run on load
+    forceAchievementsGrid();
+    
+    // Run on resize
+    window.addEventListener('resize', forceAchievementsGrid);
+    
+    // Run with delay to override any late-loading CSS
+    setTimeout(forceAchievementsGrid, 1000);
+    
+    // Force text colors with JavaScript
+    function forceTextColors() {
+        // Force black color for headings
+        const headings = document.querySelectorAll('.story-title, .intro-title, .section-title, .value-title, .achievement-title, .member-name, h1, h2, h3, h4, h5, h6');
+        headings.forEach(heading => {
+            if (!heading.closest('.hero-section')) {
+                heading.style.setProperty('color', '#000000', 'important');
+            }
+        });
+        
+        // Force dark gray for content
+        const content = document.querySelectorAll('.story-text, .intro-text, p');
+        content.forEach(text => {
+            if (!text.closest('.hero-section')) {
+                text.style.setProperty('color', '#333333', 'important');
+            }
+        });
+        
+        // Force gray for descriptions
+        const descriptions = document.querySelectorAll('.value-description, .achievement-description');
+        descriptions.forEach(desc => {
+            desc.style.setProperty('color', '#666666', 'important');
+        });
+        
+        // Keep hero text white
+        const heroTexts = document.querySelectorAll('.hero-title, .hero-subtitle');
+        heroTexts.forEach(hero => {
+            hero.style.setProperty('color', '#ffffff', 'important');
+        });
+    }
+    
+    // Run text color fixes
+    forceTextColors();
+    setTimeout(forceTextColors, 1000);
+    setTimeout(forceTextColors, 2000);
+});
+</script>
+
+<style>
 
 .achievement-item {
     text-align: center;
@@ -638,18 +825,18 @@ body.page-template-page-gioi-thieu {
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 10px;
-    color: var(--virical-white);
+    color: #000000;
 }
 
 .achievement-description {
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.7);
+    color: #666666;
 }
 
 /* Partners Section */
 .partners-section {
     padding: 120px 0;
-    background-color: var(--virical-black);
+    background-color: #f8f9fa;
 }
 
 .partners-slider {
@@ -770,9 +957,13 @@ body.page-template-page-gioi-thieu {
         font-size: 50px;
     }
     
-    .values-grid,
-    .achievements-grid {
+    .values-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .achievements-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
     }
     
     .team-grid {

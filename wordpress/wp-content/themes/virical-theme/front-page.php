@@ -435,13 +435,70 @@ body {
 
 /* Company Highlights */
 .company-highlights {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 40px;
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 40px !important;
     margin: 80px 0 60px;
     padding: 60px 0;
     border-top: 1px solid #e0e0e0;
     border-bottom: 1px solid #e0e0e0;
+    width: 100% !important;
+    max-width: 1200px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Force 4 columns even on smaller screens for desktop view */
+@media (min-width: 992px) {
+    .company-highlights {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 40px !important;
+    }
+}
+
+/* Override any flexbox or other display properties */
+.company-highlights,
+.company-highlights * {
+    box-sizing: border-box !important;
+}
+
+.company-highlights .highlight-item {
+    width: auto !important;
+    flex: none !important;
+    float: none !important;
+    display: block !important;
+}
+
+/* Ultra high specificity override */
+body .company-highlights,
+html body .company-highlights,
+div.company-highlights {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    grid-template-rows: 1fr !important;
+    gap: 40px !important;
+}
+
+/* Ensure all 4 items are in one row */
+body .company-highlights .highlight-item:nth-child(1),
+body .company-highlights .highlight-item:nth-child(2),
+body .company-highlights .highlight-item:nth-child(3),
+body .company-highlights .highlight-item:nth-child(4) {
+    grid-row: 1 !important;
+}
+
+/* Debug: Force exact positioning for each item */
+body .company-highlights .highlight-item:nth-child(1) { grid-column: 1 !important; }
+body .company-highlights .highlight-item:nth-child(2) { grid-column: 2 !important; }
+body .company-highlights .highlight-item:nth-child(3) { grid-column: 3 !important; }
+body .company-highlights .highlight-item:nth-child(4) { grid-column: 4 !important; }
+
+/* Force minimum width to prevent wrapping */
+@media (min-width: 768px) {
+    body .company-highlights {
+        min-width: 800px !important;
+        grid-template-columns: repeat(4, minmax(150px, 1fr)) !important;
+    }
 }
 
 .highlight-item {
@@ -974,7 +1031,7 @@ body {
 /* Responsive */
 @media (max-width: 991px) {
     .products-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(4, 1fr);
     }
 
     .categories {
@@ -1000,14 +1057,14 @@ body {
     }
 
     .company-highlights {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 30px;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 30px !important;
         margin: 60px 0 40px;
         padding: 40px 0;
     }
 
     .core-values {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         gap: 30px;
     }
 
@@ -1021,10 +1078,39 @@ body {
     }
 }
 
+/* Tablet breakpoint for better 4-column layout */
+@media (max-width: 900px) and (min-width: 769px) {
+    .company-highlights {
+        gap: 15px;
+        padding: 40px 10px;
+    }
+    
+    .core-values {
+        gap: 15px;
+    }
+    
+    .highlight-item {
+        padding: 0 5px;
+    }
+}
+
 @media (max-width: 768px) {
     .slide-title {
         font-size: 40px;
         letter-spacing: 4px;
+    }
+    
+    .company-highlights {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin: 40px 0 30px;
+        padding: 30px 0;
+    }
+
+    .core-values {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin: 40px 0;
     }
 
     .section-title {
@@ -1065,21 +1151,8 @@ body {
         font-size: 40px;
     }
 
-    .company-highlights {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        margin: 40px 0 30px;
-        padding: 30px 0;
-    }
-
     .highlight-number {
         font-size: 42px;
-    }
-
-    .core-values {
-        grid-template-columns: 1fr;
-        gap: 30px;
-        margin: 40px 0;
     }
 
     .why-choose-section {
@@ -1093,6 +1166,38 @@ body {
 
     .why-list li {
         font-size: 14px;
+    }
+}
+
+/* Very small mobile devices */
+@media (max-width: 480px) {
+    .company-highlights {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        margin: 30px 0 20px;
+        padding: 20px 0;
+    }
+
+    .core-values {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        margin: 30px 0;
+    }
+    
+    .highlight-item {
+        padding: 20px 10px;
+    }
+    
+    .highlight-number {
+        font-size: 36px;
+    }
+    
+    .highlight-label {
+        font-size: 14px;
+    }
+    
+    .highlight-desc {
+        font-size: 13px;
     }
 }
 </style>

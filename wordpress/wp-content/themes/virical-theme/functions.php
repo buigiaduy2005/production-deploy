@@ -839,6 +839,22 @@ if (!function_exists('gemini_enqueue_menu_styles')) {
             array(),
             '1.0.1' // Version bump
         );
+        
+        // Enqueue product archive layout CSS
+        wp_enqueue_style(
+            'virical-product-archive-layout',
+            get_stylesheet_directory_uri() . '/css/product-archive-layout.css',
+            array(),
+            '1.0.0'
+        );
+        
+        // Enqueue product description CSS
+        wp_enqueue_style(
+            'virical-product-description',
+            get_stylesheet_directory_uri() . '/css/product-description.css',
+            array(),
+            '1.0.0'
+        );
     }
 }
 
@@ -1058,8 +1074,6 @@ if (!function_exists('virical_enqueue_category_media')) {
  * Create demo categories with icons if none exist
  */
 if (!function_exists('virical_create_demo_categories')) {
-    add_action('init', 'virical_create_demo_categories');
-    
     function virical_create_demo_categories() {
         // Only run once
         if (get_option('virical_demo_categories_created')) {
@@ -1069,7 +1083,7 @@ if (!function_exists('virical_create_demo_categories')) {
         $demo_categories = array(
             'Đèn LED Trong Nhà' => 'fas fa-home',
             'Đèn LED Ngoài Trời' => 'fas fa-tree',
-            'Đèn LED Thông Minh' => 'fas fa-wifi',
+            'Đèn LED Thông Minh' => 'fas fa-lightbulb',
             'Đèn LED Công Nghiệp' => 'fas fa-industry',
             'Đèn LED Trang Trí' => 'fas fa-star',
             'Đèn LED Ô Tô' => 'fas fa-car'
@@ -1094,4 +1108,245 @@ if (!function_exists('virical_create_demo_categories')) {
         // Mark as created
         update_option('virical_demo_categories_created', true);
     }
+    add_action('init', 'virical_create_demo_categories');
+}
+
+// Enable WordPress editor features for better content editing
+function virical_add_editor_support() {
+    // Add theme support for editor styles
+    add_theme_support('editor-styles');
+    
+    // Add theme support for responsive embeds
+    add_theme_support('responsive-embeds');
+    
+    // Add theme support for wide and full alignment
+    add_theme_support('align-wide');
+    
+    // Add theme support for custom line height
+    add_theme_support('custom-line-height');
+    
+    // Add theme support for custom spacing
+    add_theme_support('custom-spacing');
+    
+    // Add theme support for post thumbnails
+    add_theme_support('post-thumbnails');
+}
+add_action('after_setup_theme', 'virical_add_editor_support');
+
+// Enable gallery and image blocks for product content
+function virical_enable_gutenberg_features() {
+    // Make sure Gutenberg is enabled for products
+    add_post_type_support('product', 'editor');
+    add_post_type_support('product', 'thumbnail');
+    add_post_type_support('product', 'custom-fields');
+}
+add_action('init', 'virical_enable_gutenberg_features');
+
+// Add custom image sizes for product descriptions
+function virical_add_image_sizes() {
+    add_image_size('product-description', 800, 600, true);
+    add_image_size('product-gallery', 400, 300, true);
+    add_image_size('product-thumbnail', 300, 300, true);
+}
+add_action('after_setup_theme', 'virical_add_image_sizes');
+
+// Add image size options to media uploader
+function virical_custom_image_sizes($sizes) {
+    return array_merge($sizes, array(
+        'product-description' => __('Product Description'),
+        'product-gallery' => __('Product Gallery'),
+        'product-thumbnail' => __('Product Thumbnail'),
+    ));
+}
+add_filter('image_size_names_choose', 'virical_custom_image_sizes');
+
+// Add help meta box for product editing
+function virical_add_product_help_meta_box() {
+    add_meta_box(
+        'virical_product_help',
+        'Hướng dẫn thêm hình ảnh vào mô tả sản phẩm',
+        'virical_product_help_callback',
+        'product',
+        'side',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'virical_add_product_help_meta_box');
+
+function virical_product_help_callback() {
+    ?>
+    <div style="padding: 10px;">
+        <h4>📷 Cách thêm hình ảnh:</h4>
+        <ol style="font-size: 13px; line-height: 1.5;">
+            <li><strong>Thêm hình đơn:</strong> Click nút "+" → chọn "Image"</li>
+            <li><strong>Thêm gallery:</strong> Click nút "+" → chọn "Gallery"</li>
+            <li><strong>Căn chỉnh:</strong> Chọn hình → chọn Left/Center/Right</li>
+            <li><strong>Kích thước:</strong> Chọn "Product Description" size</li>
+        </ol>
+        
+        <h4>💡 Lưu ý:</h4>
+        <ul style="font-size: 13px; line-height: 1.5;">
+            <li>Hình ảnh sẽ tự động có border radius và shadow</li>
+            <li>Gallery sẽ hiển thị dạng grid responsive</li>
+            <li>Hình ảnh có thể căn trái/phải để text bao quanh</li>
+        </ul>
+        
+        <div style="background: #f0f8ff; padding: 8px; border-radius: 4px; margin-top: 10px;">
+            <small><strong>Kích thước khuyến nghị:</strong><br>
+            - Hình đơn: 800x600px<br>
+            - Gallery: 400x300px mỗi hình</small>
+        </div>
+    </div>
+    <?php
+}
+
+// Create custom post type for Blog Management
+function virical_create_blog_post_type() {
+    $labels = array(
+        'name'                  => 'Quản lý Bài viết',
+        'singular_name'         => 'Bài viết',
+        'menu_name'             => 'Quản lý Bài viết',
+        'name_admin_bar'        => 'Bài viết',
+        'archives'              => 'Danh sách bài viết',
+        'attributes'            => 'Thuộc tính bài viết',
+        'parent_item_colon'     => 'Bài viết cha:',
+        'all_items'             => 'Tất cả bài viết',
+        'add_new_item'          => 'Thêm bài viết mới',
+        'add_new'               => 'Thêm mới',
+        'new_item'              => 'Bài viết mới',
+        'edit_item'             => 'Chỉnh sửa bài viết',
+        'update_item'           => 'Cập nhật bài viết',
+        'view_item'             => 'Xem bài viết',
+        'view_items'            => 'Xem bài viết',
+        'search_items'          => 'Tìm kiếm bài viết',
+        'not_found'             => 'Không tìm thấy bài viết',
+        'not_found_in_trash'    => 'Không tìm thấy bài viết trong thùng rác',
+        'featured_image'        => 'Hình đại diện',
+        'set_featured_image'    => 'Đặt hình đại diện',
+        'remove_featured_image' => 'Xóa hình đại diện',
+        'use_featured_image'    => 'Sử dụng làm hình đại diện',
+        'insert_into_item'      => 'Chèn vào bài viết',
+        'uploaded_to_this_item' => 'Tải lên bài viết này',
+        'items_list'            => 'Danh sách bài viết',
+        'items_list_navigation' => 'Điều hướng danh sách bài viết',
+        'filter_items_list'     => 'Lọc danh sách bài viết',
+    );
+    
+    $args = array(
+        'label'                 => 'Bài viết',
+        'description'           => 'Quản lý bài viết cho website',
+        'labels'                => $labels,
+        'supports'              => array('title', 'editor', 'thumbnail', 'excerpt', 'comments'),
+        'taxonomies'            => array('blog_category', 'blog_tag'),
+        'hierarchical'          => false,
+        'public'                => true,
+        'show_ui'               => true,
+        'show_in_menu'          => true,
+        'menu_position'         => 6,
+        'menu_icon'             => 'dashicons-edit-large',
+        'show_in_admin_bar'     => true,
+        'show_in_nav_menus'     => true,
+        'can_export'            => true,
+        'has_archive'           => 'blog',
+        'exclude_from_search'   => false,
+        'publicly_queryable'    => true,
+        'capability_type'       => 'post',
+        'show_in_rest'          => true,
+    );
+    
+    register_post_type('blog_post', $args);
+}
+add_action('init', 'virical_create_blog_post_type', 0);
+
+// Create custom taxonomies for blog posts
+function virical_create_blog_taxonomies() {
+    // Blog Categories
+    $category_labels = array(
+        'name'              => 'Danh mục Blog',
+        'singular_name'     => 'Danh mục',
+        'search_items'      => 'Tìm danh mục',
+        'all_items'         => 'Tất cả danh mục',
+        'parent_item'       => 'Danh mục cha',
+        'parent_item_colon' => 'Danh mục cha:',
+        'edit_item'         => 'Chỉnh sửa danh mục',
+        'update_item'       => 'Cập nhật danh mục',
+        'add_new_item'      => 'Thêm danh mục mới',
+        'new_item_name'     => 'Tên danh mục mới',
+        'menu_name'         => 'Danh mục',
+    );
+
+    register_taxonomy('blog_category', array('blog_post'), array(
+        'hierarchical'      => true,
+        'labels'            => $category_labels,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'query_var'         => true,
+        'rewrite'           => array('slug' => 'blog-category'),
+        'show_in_rest'      => true,
+    ));
+
+    // Blog Tags
+    $tag_labels = array(
+        'name'                       => 'Thẻ Blog',
+        'singular_name'              => 'Thẻ',
+        'search_items'               => 'Tìm thẻ',
+        'popular_items'              => 'Thẻ phổ biến',
+        'all_items'                  => 'Tất cả thẻ',
+        'edit_item'                  => 'Chỉnh sửa thẻ',
+        'update_item'                => 'Cập nhật thẻ',
+        'add_new_item'               => 'Thêm thẻ mới',
+        'new_item_name'              => 'Tên thẻ mới',
+        'separate_items_with_commas' => 'Phân cách thẻ bằng dấu phẩy',
+        'add_or_remove_items'        => 'Thêm hoặc xóa thẻ',
+        'choose_from_most_used'      => 'Chọn từ thẻ được dùng nhiều nhất',
+        'not_found'                  => 'Không tìm thấy thẻ',
+        'menu_name'                  => 'Thẻ',
+    );
+
+    register_taxonomy('blog_tag', array('blog_post'), array(
+        'hierarchical'          => false,
+        'labels'                => $tag_labels,
+        'show_ui'               => true,
+        'show_admin_column'     => true,
+        'update_count_callback' => '_update_post_term_count',
+        'query_var'             => true,
+        'rewrite'               => array('slug' => 'blog-tag'),
+        'show_in_rest'          => true,
+    ));
+}
+add_action('init', 'virical_create_blog_taxonomies', 0);
+
+// Flush rewrite rules on activation
+function virical_flush_rewrite_rules() {
+    // First, we "add" the custom post type via the above written function.
+    // Note: "add" is written with quotes because we are only defining it here.
+    virical_create_blog_post_type();
+    virical_create_blog_taxonomies();
+    
+    // ATTENTION: This is *only* done during plugin activation hook in this example!
+    // You should *NEVER EVER* do this on every page load!!
+    flush_rewrite_rules();
+}
+
+// Hook into the 'init' action so that the function
+// Containing our post type registration is not 
+// unnecessarily executed. 
+add_action('init', 'virical_flush_rewrite_rules_maybe');
+
+function virical_flush_rewrite_rules_maybe() {
+    if (get_option('virical_flush_rewrite_rules_flag')) {
+        flush_rewrite_rules();
+        delete_option('virical_flush_rewrite_rules_flag');
+    }
+}
+
+// Set flag to flush rewrite rules on next page load
+function virical_set_flush_rewrite_rules_flag() {
+    add_option('virical_flush_rewrite_rules_flag', true);
+}
+
+// Run once to set the flag
+if (!get_option('virical_blog_post_type_created')) {
+    add_option('virical_blog_post_type_created', true);
+    virical_set_flush_rewrite_rules_flag();
 }

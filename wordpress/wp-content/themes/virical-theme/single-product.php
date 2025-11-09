@@ -69,6 +69,48 @@ get_header();
         line-height: 1.4;
         height: calc(1.4em * 2);
     }
+    
+    /* Product Description Image Styles */
+    .product-description img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin: 20px 0;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .product-description .wp-block-image {
+        margin: 20px 0;
+        text-align: center;
+    }
+    
+    .product-description .wp-block-gallery {
+        margin: 20px 0;
+    }
+    
+    .product-description .wp-block-gallery .blocks-gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+    }
+    
+    .product-description .wp-block-gallery .blocks-gallery-item img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+    
+    /* Responsive images */
+    @media (max-width: 768px) {
+        .product-description .wp-block-gallery .blocks-gallery-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .product-description .wp-block-gallery .blocks-gallery-item img {
+            height: 250px;
+        }
+    }
 </style>
 
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-24">
@@ -170,50 +212,6 @@ get_header();
                     </div>
                 </div>
 
-                <!-- Service Policy Section -->
-                <div class="bg-gray-50 py-8 my-16 rounded-lg">
-                    <div class="mx-auto px-4 sm:px-6 lg:px-8">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 text-center place-items-center">
-                            <!-- Policy 1 -->
-                            <div class="service-item">
-                                <div class="flex justify-center mb-4">
-                                    <svg class="w-12 h-12 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                                </div>
-                                <p class="font-bold text-black">Bảo hành 1 đổi 1 trong 15 tháng</p>
-                            </div>
-                            <!-- Policy 2 -->
-                            <div class="service-item">
-                                <div class="flex justify-center mb-4">
-                                    <svg class="w-12 h-12 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9z"></path></svg>
-                                </div>
-                                <p class="font-bold text-black">Bảo hành nhanh chóng</p>
-                            </div>
-                            <!-- Policy 3 -->
-                            <div class="service-item">
-                                <div class="flex justify-center mb-4">
-                                     <svg class="w-12 h-12 text-gray-500" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M5.338 1.59a61 61 0 0 0-2.837.856.48.48 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.7 10.7 0 0 0 2.287 2.233c.346.244.652.42.893.533q.18.085.293.118a1 1 0 0 0 .101.025 1 1 0 0 0 .1-.025q.114-.034.294-.118c.24-.113.547-.29.893-.533a10.7 10.7 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.8 11.8 0 0 1-2.517 2.453 7 7 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7 7 0 0 1-1.048-.625 11.8 11.8 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 63 63 0 0 1 5.072.56"/>
-                                        <path d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
-                                    </svg>
-                                </div>
-                                <p class="font-bold text-black">Hỗ trợ khách trọn đời</p>
-                            </div>
-                            <!-- Policy 4 -->
-                            <div class="service-item">
-                                <div class="flex justify-center mb-4">
-                                    <svg class="w-12 h-12 text-gray-500" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1 12V11H0V12H1Z" fill="currentColor"/>
-                                        <path d="M23 12V11H24V12H23Z" fill="currentColor"/>
-                                        <path d="M1 15V14H0V15H1Z" fill="currentColor"/>
-                                        <path d="M23 15V14H24V15H23Z" fill="currentColor"/>
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.002 21.5C15.621 21.5 14.502 20.3807 14.502 19H9.50203C9.50203 20.3807 8.38274 21.5 7.00203 21.5C5.62132 21.5 4.50203 20.3807 4.50203 19H2.00203C1.44975 19 1.00203 18.5523 1.00203 18V10C1.00203 9.44771 1.44975 9 2.00203 9H5.00203V6C5.00203 5.44772 5.44975 5 6.00203 5H17.002C17.5543 5 18.002 5.44772 18.002 6V9H21.002C21.5543 9 22.002 9.44771 22.002 10V18C22.002 18.5523 21.5543 19 21.002 19H18.502C18.502 20.3807 17.3827 21.5 16.002 21.5L17.002 21.5ZM7.00203 19.5C7.55431 19.5 8.00203 19.0523 8.00203 18.5C8.00203 17.9477 7.55431 17.5 7.00203 17.5C6.44975 17.5 6.00203 17.9477 6.00203 18.5C6.00203 19.0523 6.44975 19.5 7.00203 19.5ZM16.002 19.5C16.5543 19.5 17.002 19.0523 17.002 18.5C17.002 17.9477 16.5543 17.5 16.002 17.5C15.4497 17.5 15.002 17.9477 15.002 18.5C15.002 19.0523 15.4497 19.5 16.002 19.5ZM6.50203 13H2.00203V15H6.50203V13ZM17.002 7V9H6.50203V7H17.002ZM21.002 13H17.502V15H21.002V13Z" fill="currentColor"/>
-                                    </svg>
-                                </div>
-                                <p class="font-bold text-black">Vận chuyển hoả tốc toàn quốc</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <!-- Sidebar -->
@@ -227,12 +225,54 @@ get_header();
                     </div>
                     <div class="space-y-3 text-gray-600 text-sm">
                         <div class="flex items-center p-3 bg-gray-50 rounded-md">
-                            <svg class="w-6 h-6 text-blue-600 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 20.417l4.5-4.5M12 14a2 2 0 100-4 2 2 0 000 4z"></path></svg>
+                            <svg class="w-6 h-6 text-blue-600 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5.338 1.59a61 61 0 0 0-2.837.856.48.48 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.7 10.7 0 0 0 2.287 2.233c.346.244.652.42.893.533q.18.085.293.118a1 1 0 0 0 .101.025 1 1 0 0 0 .1-.025q.114-.034.294-.118c.24-.113.547-.29.893-.533a10.7 10.7 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.8 11.8 0 0 1-2.517 2.453 7 7 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7 7 0 0 1-1.048-.625 11.8 11.8 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 63 63 0 0 1 5.072.56"/>
+                                <path d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
+                            </svg>
                             <span>Hoàn tiền 100% nếu phát hiện hàng giả</span>
                         </div>
                         <div class="flex items-center p-3 bg-gray-50 rounded-md">
-                            <svg class="w-6 h-6 text-blue-600 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h5M20 20v-5h-5M4 20h5v-5M20 4h-5v5"></path></svg>
+                            <svg class="w-6 h-6 text-blue-600 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5.338 1.59a61 61 0 0 0-2.837.856.48.48 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.7 10.7 0 0 0 2.287 2.233c.346.244.652.42.893.533q.18.085.293.118a1 1 0 0 0 .101.025 1 1 0 0 0 .1-.025q.114-.034.294-.118c.24-.113.547-.29.893-.533a10.7 10.7 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.8 11.8 0 0 1-2.517 2.453 7 7 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7 7 0 0 1-1.048-.625 11.8 11.8 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 63 63 0 0 1 5.072.56"/>
+                                <path d="M9.5 6.5a1.5 1.5 0 0 1-1 1.415l.385 1.99a.5.5 0 0 1-.491.595h-.788a.5.5 0 0 1-.49-.595L7.5 7.915A1.5 1.5 0 1 1 9.5 6.5"/>
+                            </svg>
                             <span>Đổi trả trong 7 ngày nếu lỗi</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Store System -->
+                <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+                    <h3 class="text-center font-bold text-black uppercase tracking-wider text-sm mb-4" style="color: black !important;">Hệ thống cửa hàng</h3>
+                    
+                    <!-- Tabs -->
+                    <div class="flex mb-4">
+                        <button class="store-tab active flex-1 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-l-md" data-region="north">Miền Bắc</button>
+                        <button class="store-tab flex-1 px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium rounded-r-md" data-region="central">Miền Trung</button>
+                    </div>
+                    
+                    <!-- Store Content -->
+                    <div class="store-content">
+                        <div class="store-region active" data-region="north">
+                            <div class="space-y-3 text-gray-600 text-sm">
+                                <div class="flex items-start p-3 bg-gray-50 rounded-md">
+                                    <svg class="w-4 h-4 text-gray-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Số 63A Phố Vọng, Phường Đồng Tâm, Quận Hai Bà Trưng, Hà Nội</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="store-region" data-region="central" style="display: none;">
+                            <div class="space-y-3 text-gray-600 text-sm">
+                                <div class="flex items-start p-3 bg-gray-50 rounded-md">
+                                    <svg class="w-4 h-4 text-gray-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>1019 Trần Hưng Đạo, P. Vân Giang, TP Ninh Bình</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -243,7 +283,7 @@ get_header();
                     <div class="space-y-4">
                         <?php
                         $recent_posts_args = array(
-                            'post_type' => 'post',
+                            'post_type' => array('post', 'blog_post'),
                             'posts_per_page' => 6,
                             'post_status' => 'publish',
                         );
@@ -311,6 +351,19 @@ jQuery(document).ready(function($) {
             }
         });
     }
+
+    // Store tabs functionality
+    $('.store-tab').on('click', function() {
+        var region = $(this).data('region');
+        
+        // Update tab appearance
+        $('.store-tab').removeClass('active bg-blue-600 text-white').addClass('bg-gray-200 text-gray-700');
+        $(this).removeClass('bg-gray-200 text-gray-700').addClass('active bg-blue-600 text-white');
+        
+        // Show/hide content
+        $('.store-region').hide().removeClass('active');
+        $('.store-region[data-region="' + region + '"]').show().addClass('active');
+    });
 });
 </script>
 

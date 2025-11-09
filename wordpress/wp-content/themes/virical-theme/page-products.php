@@ -5,6 +5,66 @@ Template Name: Giao Dien San Pham Hien Dai
 
 get_header();
 
+<style>
+/* Override header for products page only */
+body.page-template-page-products .site-header,
+body.page-id-products .site-header,
+body.page .site-header {
+    background: rgba(248, 249, 250, 0.9) !important;
+    border-bottom: 1px solid rgba(0,0,0,0.1) !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+/* Force override with highest specificity */
+html body.page-template-page-products .site-header {
+    background: rgba(248, 249, 250, 0.9) !important;
+    border-bottom: 1px solid rgba(0,0,0,0.1) !important;
+}
+
+/* Universal override for this page - NUCLEAR OPTION */
+.site-header,
+header.site-header,
+#site-header,
+.header,
+nav.site-header {
+    background: rgba(248, 249, 250, 0.95) !important;
+    background-color: rgba(248, 249, 250, 0.95) !important;
+    border-bottom: 1px solid rgba(0,0,0,0.2) !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+/* Override any inline styles */
+.site-header[style*="background"] {
+    background: rgba(248, 249, 250, 0.95) !important;
+}
+</style>
+
+<script>
+// Force header style for products page - NUCLEAR OPTION
+document.addEventListener('DOMContentLoaded', function() {
+    function forceHeaderStyle() {
+        const headers = document.querySelectorAll('.site-header, header, #site-header, .header');
+        headers.forEach(header => {
+            header.style.setProperty('background', 'rgba(248, 249, 250, 0.95)', 'important');
+            header.style.setProperty('background-color', 'rgba(248, 249, 250, 0.95)', 'important');
+            header.style.setProperty('border-bottom', '1px solid rgba(0,0,0,0.2)', 'important');
+            header.style.setProperty('backdrop-filter', 'blur(10px)', 'important');
+        });
+    }
+    
+    // Run immediately
+    forceHeaderStyle();
+    
+    // Run after a delay to override any late-loading styles
+    setTimeout(forceHeaderStyle, 500);
+    setTimeout(forceHeaderStyle, 1000);
+    
+    // Run on scroll to override any scroll-based changes
+    window.addEventListener('scroll', forceHeaderStyle);
+});
+</script>
+
+<?php
 global $wpdb;
 
 // --- DATA FETCHING ---
