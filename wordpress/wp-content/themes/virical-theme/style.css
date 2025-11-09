@@ -765,7 +765,7 @@ body.home .site-content {
 }
 
 .project-info p {
-    font-size: 1rem;
+    font-size: 1.0rem;
     opacity: 0.9;
 }
 
@@ -982,4 +982,15 @@ body.home .site-content {
     font-size: 0.9rem;
     color: #666;
     margin-top: 5px;
+}
+
+/* Custom styles for cta-features */
+.cta-feature span {
+    color: #000000 !important;
+}
+.cta-feature {
+    color: #000000 !important;
+}
+.cta-feature i {
+    color: #000000 !important;
 }
