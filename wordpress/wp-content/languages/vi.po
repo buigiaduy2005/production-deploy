@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 6.8.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-07-19 02:17:53+0000\n"
+"PO-Revision-Date: 2025-09-01 09:12:13+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -363,7 +363,7 @@ msgstr "Danh sách các loại mẫu mặc định."
 msgid "Templates based on theme files can't have revisions."
 msgstr "Mẫu dựa trên tập tin theme không thể có bản sửa đổi."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3076
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3082
 msgid "Whether to ignore sticky posts or not."
 msgstr "Có bỏ qua bài đăng nổi bật hay không."
 
@@ -636,11 +636,11 @@ msgctxt "Name for the Code editor tab (formerly Text)"
 msgid "Code"
 msgstr "Mã"
 
-#: wp-includes/class-wp-customize-nav-menus.php:1276
+#: wp-includes/class-wp-customize-nav-menus.php:1282
 msgid "The link text cannot be empty."
 msgstr "Văn bản liên kết không thể trống."
 
-#: wp-includes/class-wp-customize-nav-menus.php:1271
+#: wp-includes/class-wp-customize-nav-menus.php:1277
 #: wp-admin/includes/nav-menu.php:354
 msgid "Please provide a valid link."
 msgstr "Vui lòng cung cấp một liên kết hợp lệ."
@@ -792,11 +792,11 @@ msgstr "Danh sách thuật ngữ"
 msgid "Plugin that registered the template."
 msgstr "Plugin đã đăng ký mẫu."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3084
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3090
 msgid "Limit result set to items assigned one or more given formats."
 msgstr "Giới hạn tập kết quả cho các mục được gán một hoặc nhiều định dạng nhất định."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2978
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2984
 msgid "How to interpret the search input."
 msgstr "Cách diễn giải thông tin tìm kiếm."
 
@@ -931,7 +931,7 @@ msgstr "Uri cho thư mục mẫu của chủ đề. Nếu đây là chủ đề 
 msgid "The uri for the theme's stylesheet directory."
 msgstr "Uri cho thư mục bảng định kiểu của chủ đề."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2452
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2458
 msgid "An array of the class names for the post container element."
 msgstr "Mảng tên lớp cho thành phần vùng chứa bài viết."
 
@@ -1073,7 +1073,7 @@ msgstr "Bộ lọc %1$s phải trả về giá trị số nguyên lớn hơn 0."
 
 #. translators: 1: Item name, 2: Item type, 3: Item index, 4: Total items, 5:
 #. Item parent, 6: Item depth.
-#: wp-includes/class-wp-customize-nav-menus.php:570 wp-admin/nav-menus.php:588
+#: wp-includes/class-wp-customize-nav-menus.php:576 wp-admin/nav-menus.php:588
 msgid "Edit %1$s (%2$s, sub-item %3$d of %4$d under %5$s, level %6$d)"
 msgstr "Chỉnh sửa %1$s (%2$s, mục con %3$d của %4$d dưới %5$s, cấp %6$d)"
 
@@ -1081,7 +1081,7 @@ msgstr "Chỉnh sửa %1$s (%2$s, mục con %3$d của %4$d dưới %5$s, cấp 
 #. Item parent.
 #. translators: 1: Title of a menu item, 2: Type of a menu item, 3, Item index,
 #. 4, Total items, 5: Item parent.
-#: wp-includes/class-wp-customize-nav-menus.php:568
+#: wp-includes/class-wp-customize-nav-menus.php:574
 #: wp-includes/customize/class-wp-customize-nav-menu-item-control.php:88
 #: wp-admin/nav-menus.php:586
 msgid "Edit %1$s (%2$s, sub-item %3$d of %4$d under %5$s)"
@@ -1090,7 +1090,7 @@ msgstr "Chỉnh sửa %1$s (%2$s, mục con %3$d của %4$d dưới %5$s)"
 #. translators: 1: Item name, 2: Item type, 3: Item index, 4: Total items.
 #. translators: 1: Title of a menu item, 2: Type of a menu item. 3: Item index,
 #. 4: Total items.
-#: wp-includes/class-wp-customize-nav-menus.php:566
+#: wp-includes/class-wp-customize-nav-menus.php:572
 #: wp-includes/customize/class-wp-customize-nav-menu-item-control.php:83
 #: wp-admin/nav-menus.php:584
 msgid "Edit %1$s (%2$s, %3$d of %4$d)"
@@ -2480,8 +2480,8 @@ msgstr "https://wordpress.org/documentation/article/reset-your-password/"
 msgid "https://wordpress.org/documentation/article/site-editor/"
 msgstr "https://wordpress.org/documentation/article/site-editor/"
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3040
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1654
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3046
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1660
 msgid "Array of column names to be searched."
 msgstr "Mảng tên cột cần tìm kiếm."
 
@@ -3677,11 +3677,11 @@ msgstr "Những vùng chứa thành phần mẫu trang"
 msgid "The server cannot process the image. This can happen if the server is busy or does not have enough resources to complete the task. Uploading a smaller image may help. Suggested maximum size is 2560 pixels."
 msgstr "Máy chủ không thể xử lý hình ảnh. Điều này có thể xảy ra nếu máy chủ bận hoặc không có đủ tài nguyên để hoàn thành tác vụ. Tải lên một hình ảnh nhỏ hơn có thể hữu ích. Kích thước tối đa được đề xuất là 2560 pixel."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1644
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1650
 msgid "Limit result set to users who have published posts."
 msgstr "Giới hạn kết quả được đặt cho những người dùng đã từng xuất bản bài."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1628
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1634
 msgid "Limit result set to users matching at least one specific capability provided. Accepts csv list or single capability."
 msgstr "Giới hạn kết quả được đặt cho người dùng phù hợp với ít nhất một khả năng cụ thể được cung cấp. Chấp nhận danh sách csv hoặc khả năng đơn lẻ."
 
@@ -4534,23 +4534,23 @@ msgctxt "block keyword"
 msgid "link"
 msgstr "liên kết"
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2405
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2411
 msgid "An alphanumeric identifier for the post unique to its type."
 msgstr "Định danh chữ và số cho bài viết duy nhất theo loại của bài viết."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2398
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2404
 msgid "The date the post was last modified, as GMT."
 msgstr "Thời gian sửa gần nhất, theo giờ GMT."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2391
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2397
 msgid "The date the post was last modified, in the site's timezone."
 msgstr "Ngày sửa bài viết gần nhất, theo múi giờ của trang web."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2364
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2370
 msgid "GUID for the post, as it exists in the database."
 msgstr "GUID cho bài viết, như đã tồn tại trong cơ sở dữ liệu."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2346
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2352
 msgid "The date the post was published, in the site's timezone."
 msgstr "Ngày bài viết được xuất bản, theo múi giờ của trang web."
 
@@ -5410,7 +5410,7 @@ msgstr "Trạng thái thiết lập hiện tại của tiện ích."
 msgid "The widget type id."
 msgstr "Id của kiểu tiện ích."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1597
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1603
 msgid "Sort collection by user attribute."
 msgstr "Sắp xếp bộ sưu tập theo thuộc tính người dùng."
 
@@ -5556,35 +5556,35 @@ msgstr "ID tác giả của bản thảo."
 msgid "Unique identifier for the revision."
 msgstr "Tên riêng của bản thảo."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3299
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3305
 msgid "Whether items must be assigned all or any of the specified terms."
 msgstr "Cho dù các mục đều được gán hoặc bất kỳ mục cụ thể nào."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-pattern-directory-controller.php:349
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2996
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3002
 msgid "Sort collection by post attribute."
 msgstr "Sắp xếp bộ sưu tập theo thuộc tính của bài viết."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2650
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2656
 msgid "The order of the post in relation to other posts."
 msgstr "Thứ tự của bài viết tính theo sự liên quan với các bài viết khác."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2526
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2532
 msgid "The title for the post."
 msgstr "Tiêu đề cho bài viết."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2422
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2428
 msgid "Type of post."
 msgstr "Loại bài viết."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2384
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2390
 msgid "URL to the post."
 msgstr "Địa chỉ URL bài viết."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-font-faces-controller.php:505
 #: wp-includes/rest-api/endpoints/class-wp-rest-font-families-controller.php:293
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:118
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2378
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2384
 msgid "Unique identifier for the post."
 msgstr "Định danh duy nhất cho bài viết."
 
@@ -6286,39 +6286,39 @@ msgid "Sorry, you are not allowed to list application passwords for this user."
 msgstr "Xin lỗi, bạn không được phép liệt kê mật khẩu ứng dụng cho người dùng này."
 
 #. translators: %s: Taxonomy name.
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3293
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3299
 msgid "Limit result set to items with specific terms assigned in the %s taxonomy."
 msgstr "Giới hạn bộ kết quả cho các mục có thuật ngữ cụ thể được chỉ định trong phân loại %s."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3280
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3286
 msgid "Whether to include child terms in the terms limiting the result set."
 msgstr "Có bao gồm các thuật ngữ con trong các thuật ngữ giới hạn bộ kết quả hay không."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3272
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3278
 msgid "Term IDs."
 msgstr "ID của thuật ngữ."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3268
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3274
 msgid "Perform an advanced term query."
 msgstr "Thực hiện một truy vấn thuật ngữ nâng cao."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3267
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3273
 msgid "Term ID Taxonomy Query"
 msgstr "Truy vấn Phân loại theo ID Thuật ngữ"
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3260
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3266
 msgid "Match terms with the listed IDs."
 msgstr "Khớp các thuật ngữ với các ID được liệt kê."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3259
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3265
 msgid "Term ID List"
 msgstr "Danh sách ID Thuật ngữ"
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2947
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2953
 msgid "Limit response to posts modified before a given ISO8601 compliant date."
 msgstr "Giới hạn phản hồi cho các bài viết được sửa đổi trước một ngày tuân thủ ISO8601 đã cho."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2916
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2922
 msgid "Limit response to posts modified after a given ISO8601 compliant date."
 msgstr "Giới hạn phản hồi cho các bài viết được sửa đổi sau một ngày tuân thủ ISO8601 đã cho."
 
@@ -6706,7 +6706,7 @@ msgid "This theme does not work with your versions of WordPress and PHP."
 msgstr "Giao diện này không tương thích với phiên bản WordPress và PHP hiện tại của bạn."
 
 #. translators: %s: register_rest_field
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2757
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2763
 msgid "Please use %s to add new schema properties."
 msgstr "Vui lòng dùng %s để thêm các thuộc tính schema mới."
 
@@ -7147,7 +7147,7 @@ msgstr "Tên khối, ở định dạng namespace/ten-khong-dau."
 msgid "Sorry, you are not allowed to browse the block directory."
 msgstr "Xin lỗi, bạn không được phép duyệt thư mục khối."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1318
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1324
 msgid "This username is invalid because it uses illegal characters. Please enter a valid username."
 msgstr "Tên người dùng này không hợp lệ vì nó sử dụng các ký tự bất hợp pháp. Vui lòng nhập tên người dùng hợp lệ."
 
@@ -7786,13 +7786,13 @@ msgstr "Trả lời tới: %s"
 msgid "HTTP redirect status code must be a redirection code, 3xx."
 msgstr "Mã HTTP phải là mã chuyển hướng, 3xx."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3250
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3256
 msgid "Limit result set based on relationship between multiple taxonomies."
 msgstr "Giới hạn kết quả dựa trên mối quan hệ giữa nhiều nguyên tắc phân loại."
 
 #. translators: 1: The taxonomy name, 2: The property name, either 'rest_base'
 #. or 'name', 3: The conflicting value.
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2703
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2709
 msgid "The \"%1$s\" taxonomy \"%2$s\" property (%3$s) conflicts with an existing property on the REST API Posts Controller. Specify a custom \"rest_base\" when registering the taxonomy to avoid this error."
 msgstr "Taxonomy \"%1$s\" với thuộc tính \"%2$s\" có giá trị (%3$s) bị xung đột với một thuộc tính hiện có trên REST API Posts Controller. Chỉ định một tùy chỉnh \"rest_base\" khi đăng ký taxonomy để tránh lỗi này."
 
@@ -9015,19 +9015,19 @@ msgstr "Lỗi Internal search handler."
 msgid "REST search handlers must extend the %s class."
 msgstr "REST search handlers phải extend class %s."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2801
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2807
 msgid "The current user can post unfiltered HTML markup and JavaScript."
 msgstr "Người dùng hiện tại có thế đăng nội dung HTML và JavaScript."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2571
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2577
 msgid "Version of the content block format used by the post."
 msgstr "Phiên bản định dạng của nội dung khối được sử dụng bởi bài viết."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2445
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2451
 msgid "Slug automatically generated from the post title."
 msgstr "Đường dẫn được tự động tạo từ tên bài viết."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2438
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2444
 msgid "Permalink template for the post."
 msgstr "Đường dẫn cố định mẫu cho bài viết."
 
@@ -9133,24 +9133,24 @@ msgid "[%1$s] Action Confirmed: %2$s"
 msgstr "[%1$s] Yêu cầu xác nhận: %2$s"
 
 #. translators: %s: Taxonomy name.
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2855
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2861
 msgid "The current user can create terms in the %s taxonomy."
 msgstr "Người dùng hiện tại này có thể tạo các terms trong taxonomy %s."
 
 #. translators: %s: Taxonomy name.
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2853
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2859
 msgid "The current user can assign terms in the %s taxonomy."
 msgstr "Người dùng hiện tại này có thể set các terms trong taxonomy %s."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2834
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2840
 msgid "The current user can change the author on this post."
 msgstr "Người dùng hiện tại này có thể đổi tác giả của bài viết."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2818
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2824
 msgid "The current user can sticky this post."
 msgstr "Người dùng hiện tại này có thể ghim bài viết nổi bật."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2785
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2791
 msgid "The current user can publish this post."
 msgstr "Người dùng hiện tại có thể Xuất bản bài viết này."
 
@@ -9490,7 +9490,7 @@ msgstr "Tác giả bình luận"
 msgid "WordPress Comments"
 msgstr "Bình luận WordPress"
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1636
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1642
 msgid "Limit result set to users who are considered authors."
 msgstr "Giới hạn kết quả cho những người dùng được xem là tác giả."
 
@@ -9584,7 +9584,7 @@ msgctxt "tags"
 msgid "Most Used"
 msgstr "Dùng nhiều nhất"
 
-#: wp-includes/class-wp-customize-nav-menus.php:1114
+#: wp-includes/class-wp-customize-nav-menus.php:1120
 msgid "Click &#8220;Next&#8221; to start adding links to your new menu."
 msgstr "Click &#8220;Tiếp theo&#8221; để bắt đầu thêm liên kết vào menu mới tạo."
 
@@ -9680,15 +9680,15 @@ msgctxt "menu locations"
 msgid "Where do you want this menu to appear?"
 msgstr "Bạn muốn menu này xuất hiện ở vị trí nào?"
 
-#: wp-includes/class-wp-customize-nav-menus.php:1128
+#: wp-includes/class-wp-customize-nav-menus.php:1134
 msgid "You&#8217;ll create a menu, assign it a location, and add menu items like links to pages and categories. If your theme has multiple menu areas, you might need to create more than one."
 msgstr "Bạn sẽ tạo menu, đặt vị trí, và thêm các mục như liên kết tới trang, danh mục. Nếu giao diện có nhiều khu vực hiển thị menu, bạn có thể tạo thêm các menu khác."
 
-#: wp-includes/class-wp-customize-nav-menus.php:1125
+#: wp-includes/class-wp-customize-nav-menus.php:1131
 msgid "It does not look like your site has any menus yet. Want to build one? Click the button to start."
 msgstr "Website của bạn chưa có menu nào. Hãy thử nhấp vào nút để tạo menu đầu tiên."
 
-#: wp-includes/class-wp-customize-nav-menus.php:702
+#: wp-includes/class-wp-customize-nav-menus.php:708
 msgctxt "menu locations"
 msgid "View All Locations"
 msgstr "Xem tất cả vị trí"
@@ -9701,7 +9701,7 @@ msgstr "Trong khi đang xem giao diện mới, bạn có thể chỉnh sửa và
 msgid "Looking for a theme? You can search or browse the WordPress.org theme directory, install and preview themes, then activate them right here."
 msgstr "Tìm kiếm giao diện? Bạn có thể tìm và duyệt Thư viện giao diện WordPress.org, cài đặt và xem thử chúng, sau đó kích hoạt ngay tại đây."
 
-#: wp-includes/class-wp-customize-nav-menus.php:702
+#: wp-includes/class-wp-customize-nav-menus.php:708
 msgctxt "menu locations"
 msgid "View Location"
 msgstr "Xem vị trí"
@@ -9712,7 +9712,7 @@ msgstr "Xem vị trí"
 msgid "No themes found. Try a different search."
 msgstr "Không tìm thấy giao diện. Hãy thử tìm từ khác."
 
-#: wp-includes/class-wp-customize-nav-menus.php:688
+#: wp-includes/class-wp-customize-nav-menus.php:694
 msgid "Your theme can display menus in one location. Select which menu you would like to use."
 msgstr "Giao diện của bạn có thể hiển thị menu ở một vị trí. Chọn menu bạn muốn sử dụng."
 
@@ -10277,7 +10277,7 @@ msgstr "Tìm trong Thư viện Giao diện WordPress.org"
 msgid "Install &amp; Preview"
 msgstr "Cài &amp; Xem thử"
 
-#: wp-includes/customize/class-wp-customize-nav-menu-item-setting.php:730
+#: wp-includes/customize/class-wp-customize-nav-menu-item-setting.php:739
 #: wp-includes/rest-api/endpoints/class-wp-rest-menu-items-controller.php:883
 msgid "Invalid URL."
 msgstr "URL không hợp lệ."
@@ -10393,30 +10393,30 @@ msgctxt "Name for the Visual editor tab"
 msgid "Visual"
 msgstr "Trực quan"
 
-#: wp-includes/class-wp-customize-nav-menus.php:1132
+#: wp-includes/class-wp-customize-nav-menus.php:1138
 msgid "Create New Menu"
 msgstr "Tạo Menu mới"
 
-#: wp-includes/class-wp-customize-nav-menus.php:848
+#: wp-includes/class-wp-customize-nav-menus.php:854
 msgid "New Menu"
 msgstr "Menu mới"
 
 #. translators: URL to the Widgets panel of the Customizer.
-#: wp-includes/class-wp-customize-nav-menus.php:696
+#: wp-includes/class-wp-customize-nav-menus.php:702
 msgid "If your theme has widget areas, you can also add menus there. Visit the <a href=\"%s\">Widgets panel</a> and add a &#8220;Navigation Menu widget&#8221; to display a menu in a sidebar or footer."
 msgstr "Nếu giao diện hỗ trợ tiện ích, bạn có thể thêm menu ở thanh bên truy cập mục <a href=\"%s\">Tiện ích</a> và thêm &#8220;Tiện ích menu&#8221; để hiển thị menu ở trên thanh bên hoặc chân trang."
 
-#: wp-includes/class-wp-customize-nav-menus.php:514
+#: wp-includes/class-wp-customize-nav-menus.php:520
 msgid "If your theme has multiple menus, giving them clear names will help you manage them."
 msgstr "Nếu giao diện có nhiều vị trí menu, hãy đặt tên sao cho dễ phân biệt chúng."
 
 #. translators: %s: Number of menu locations.
-#: wp-includes/class-wp-customize-nav-menus.php:497
+#: wp-includes/class-wp-customize-nav-menus.php:503
 msgid "Your theme can display menus in %s location."
 msgid_plural "Your theme can display menus in %s locations."
 msgstr[0] "Giao diện này có thể hiển thị menu ở %s vị trí."
 
-#: wp-includes/class-wp-customize-nav-menus.php:494
+#: wp-includes/class-wp-customize-nav-menus.php:500
 msgid "Your theme can display menus in one location."
 msgstr "Giao diện này có thể hiển thị menu ở duy nhất một vị trí."
 
@@ -10846,17 +10846,17 @@ msgstr "%1$s phải lớn hơn hoặc bằng %2$d"
 msgid "%1$s must be greater than %2$d"
 msgstr "%1$s phải lớn hơn %2$d"
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1612
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1618
 msgid "Limit result set to users with one or more specific slugs."
 msgstr "Giới hạn kết quả cho những người dùng có một hoặc nhiều slugs cụ thể."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1203
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1207
 msgid "Limit result set to terms with one or more specific slugs."
 msgstr "Giới hạn kết quả cho những terms với một hoặc nhiều slugs cụ thể."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-font-collections-controller.php:85
 #: wp-includes/rest-api/endpoints/class-wp-rest-global-styles-revisions-controller.php:229
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:497
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:503
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:336
 #: wp-includes/rest-api/endpoints/class-wp-rest-search-controller.php:163
 msgid "The page number requested is larger than the number of pages available."
@@ -11047,7 +11047,7 @@ msgid "This address is used for admin purposes, like new user notification."
 msgstr "Địa chỉ này được dùng cho các mục đích liên quan đến quản trị viên, ví dụ như thông báo có người dùng mới."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:111
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1052
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1056
 msgid "Unique identifier for the term."
 msgstr "Mã xác nhận cho thuật ngữ"
 
@@ -11103,72 +11103,72 @@ msgstr "Giới hạn những bình luận Xuất bản trước ngày tiêu chu�
 msgid "Limit response to comments published after a given ISO8601 compliant date."
 msgstr "Giới hạn những bình luận Xuất bản sau ngày tiêu chuẩn ISO8601"
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1538
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1544
 msgid "Avatar URLs for the user."
 msgstr "Đường dẫn tới hình đại diện của người dùng"
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1491
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1497
 msgid "Roles assigned to the user."
 msgstr "Vai trò (roles) của người dùng"
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1468
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1474
 msgid "The nickname for the user."
 msgstr "Biệt hiệu cho người dùng."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1462
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1468
 msgid "Locale for the user."
 msgstr "Ngôn ngữ cho người sử dụng"
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1455
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1461
 msgid "Author URL of the user."
 msgstr "URL tới trang đăng của người dùng."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1450
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1456
 msgid "Description of the user."
 msgstr "Mô tả của người dùng."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1444
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1450
 msgid "URL of the user."
 msgstr "Đường dẫn của người sử dụng"
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1429
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1435
 msgid "Last name for the user."
 msgstr "Họ người sử dụng."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1421
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1427
 msgid "First name for the user."
 msgstr "Tên người sử dụng."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1413
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1419
 msgid "Display name for the user."
 msgstr "Tên hiển thị."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1404
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1410
 msgid "Login name for the user."
 msgstr "Tên đăng nhập cho người dùng."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:916
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:963
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:922
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:969
 msgid "The user cannot be deleted."
 msgstr "Người dùng này không thể bị xóa."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:626
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:632
 msgid "Error creating new user."
 msgstr "Lỗi khi tạo người dùng."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1106
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1110
 msgid "The parent term ID."
 msgstr "ID thuật ngữ gốc."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1076
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1080
 msgid "HTML title for the term."
 msgstr "Tiêu đề HTML cho term."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1069
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1073
 msgid "URL of the term."
 msgstr "URL của term."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:793
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:797
 msgid "The term cannot be deleted."
 msgstr "Term không thể bị xóa"
 
@@ -11180,12 +11180,12 @@ msgstr "Xin lỗi, bạn không có quyền xem giao diện."
 #: wp-includes/class-wp-xmlrpc-server.php:2245
 #: wp-includes/rest-api/endpoints/class-wp-rest-menus-controller.php:207
 #: wp-includes/rest-api/endpoints/class-wp-rest-menus-controller.php:301
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:528
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:675
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:532
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:679
 msgid "Cannot set parent term, taxonomy is not hierarchical."
 msgstr "Không thể thiết lập term cha vì taxonomy này không phân cấp."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:420
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:424
 msgid "Term does not exist."
 msgstr "Term không tồn tại."
 
@@ -11275,12 +11275,12 @@ msgstr "Lỗi RSS:"
 msgid "Cannot create a comment with that type."
 msgstr "Không thể tạo bình luận với kiểu này."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:789
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:795
 msgid "Invalid slug."
 msgstr "Slug không hợp lệ."
 
 #: wp-includes/rest-api.php:2279
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:773
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:779
 #: wp-includes/user.php:4706 wp-admin/network/site-new.php:100
 msgid "Invalid email address."
 msgstr "Email không hợp lệ"
@@ -11365,8 +11365,8 @@ msgstr "Lịch"
 msgid "Sorry, you are not allowed to change the comment type."
 msgstr "Rất tiếc, bạn không được phép thay đổi loại của bình luận."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1277
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1291
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1283
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1297
 #: wp-admin/includes/ms.php:1186 wp-admin/includes/user.php:62
 #: wp-admin/users.php:131 wp-admin/network/site-users.php:146
 msgid "Sorry, you are not allowed to give users that role."
@@ -11466,14 +11466,14 @@ msgstr "Giới thiệu về website"
 msgid "Sorry, you are not allowed to edit the %s custom field."
 msgstr "Xin lỗi, bạn không được phép chỉnh sửa trường tuỳ chỉnh %s."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:711
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:914
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:717
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:920
 msgid "Sorry, you are not allowed to assign the provided terms."
 msgstr "Xin lỗi, bạn không được phép để gán term."
 
 #: wp-includes/class-wp-xmlrpc-server.php:1402
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:695
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:906
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:701
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:912
 msgid "Sorry, you are not allowed to make posts sticky."
 msgstr "Xin lỗi, bạn không được phép tạo bài ghim."
 
@@ -11600,16 +11600,16 @@ msgid "Find Us"
 msgstr "Tìm Chúng Tôi"
 
 #. translators: %s: The '\' character.
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1370
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1376
 msgid "Passwords cannot contain the \"%s\" character."
 msgstr "Mật khẩu không được chứa kí tự \"%s\"."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1360
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1366
 msgid "Passwords cannot be empty."
 msgstr "Mật khẩu không được để trống."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:188
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:601
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:607
 msgid "Invalid user parameter(s)."
 msgstr "Tham số người dùng không hợp lệ."
 
@@ -11668,12 +11668,12 @@ msgid "Please enter a valid YouTube URL."
 msgstr "Vui lòng nhập đường dẫn Youtube hợp lệ."
 
 #. translators: %s: force=true
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:936
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:942
 msgid "Users do not support trashing. Set '%s' to delete."
 msgstr "Người dùng không hỗ trợ chuyển vào thùng rác. Đặt '%s' để xóa."
 
 #. translators: %s: force=true
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:779
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:783
 msgid "Terms do not support trashing. Set '%s' to delete."
 msgstr "Các thuật ngữ không hỗ trợ chuyển vào thùng rác. Đặt '%s' để xóa."
 
@@ -11683,7 +11683,7 @@ msgid "Revisions do not support trashing. Set '%s' to delete."
 msgstr "Bản thảo không hỗ trợ xóa. Bật '%s' để xóa."
 
 #. translators: %s: force=true
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1138
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1144
 msgid "The post does not support trashing. Set '%s' to delete."
 msgstr "Bài viết không hỗ trợ chuyển vào thùng rác. Đặt '%s' để xóa."
 
@@ -11700,7 +11700,7 @@ msgstr "Hoặc, nhập một đường dẫn YouTube:"
 msgid "Invalid JSON body passed."
 msgstr "Body JSON không hợp lệ."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3058
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3064
 msgid "Limit result set to posts assigned one or more statuses."
 msgstr "Giới hạn kết quả cho các bài viết được gán một hoặc nhiều trạng thái."
 
@@ -11713,7 +11713,7 @@ msgstr "Trường bình luận có độ dài quá tối đa cho phép."
 msgid "Taxonomies associated with post type."
 msgstr "Các taxonomy được gắn với loại bài viết."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3049
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3055
 msgid "Limit result set to posts with one or more specific slugs."
 msgstr "Giới hạn kết quả thiết lập cho bài viết với một hoặc nhiều đường dẫn cụ thể."
 
@@ -11721,7 +11721,7 @@ msgstr "Giới hạn kết quả thiết lập cho bài viết với một hoặ
 msgid "Comment is required."
 msgstr "Bình luận là bắt buộc."
 
-#: wp-includes/class-wp-customize-nav-menus.php:954
+#: wp-includes/class-wp-customize-nav-menus.php:960
 msgid "Empty title."
 msgstr "Tiêu đề trống."
 
@@ -11774,7 +11774,7 @@ msgid "%1$s is not of type %2$s."
 msgstr "%1$s không phải là loại của %2$s."
 
 #. translators: 1: Parameter, 2: List of valid values.
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1624
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1630
 msgid "%1$s is not one of %2$s."
 msgstr "%1$s không phải là một trong %2$s."
 
@@ -11786,48 +11786,48 @@ msgstr "Các trường meta."
 msgid "Could not delete meta value from database."
 msgstr "Không thể xóa giá trị meta từ cơ sở dữ liệu."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1620
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1626
 msgid "Limit result set to users matching at least one specific role provided. Accepts csv list or single role."
 msgstr "Giới hạn kết quả cho những người dùng có ít nhất một vai trò cụ thể được cung cấp. Chấp nhận danh sách csv hoặc một vai trò đơn lẻ."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1514
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1520
 msgid "Any extra capabilities assigned to the user."
 msgstr "Bất kỳ khả năng thêm được gán cho người dùng."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1508
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1514
 msgid "All capabilities assigned to the user."
 msgstr "Tất cả các khả năng được gán cho người dùng."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1499
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1505
 msgid "Password for the user (never included)."
 msgstr "Mật khẩu cho người sử dụng (không bao giờ bao gồm)."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1484
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1490
 msgid "Registration date for the user."
 msgstr "Ngày đăng ký cho các tài nguyên."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1437
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1443
 msgid "The email address for the user."
 msgstr "Địa chỉ email cho tài nguyên."
 
 #. translators: %s: Role key.
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1259
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1265
 msgid "The role %s does not exist."
 msgstr "Vai trò %s không tồn tại."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:945
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:951
 msgid "Invalid user ID for reassignment."
 msgstr "ID người dùng không hợp lệ cho việc gán lại."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:895
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:901
 msgid "Sorry, you are not allowed to delete this user."
 msgstr "Xin lỗi, bạn không có quyền xóa tài nguyên này."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:781
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:787
 msgid "Username is not editable."
 msgstr "Tên người dùng không thể sửa."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:722
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:728
 msgid "Sorry, you are not allowed to edit roles of this user."
 msgstr "Xin lỗi, bạn không có quyền để chỉnh sửa quyền hạn của user này."
 
@@ -11836,28 +11836,28 @@ msgstr "Xin lỗi, bạn không có quyền để chỉnh sửa quyền hạn c�
 msgid "Sorry, you are not allowed to delete this revision."
 msgstr "Rất tiếc, bạn không được phép xóa bản thảo nào."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:578
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:584
 msgid "Cannot create existing user."
 msgstr "Không thể tạo mới một user đã tồn tại."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-application-passwords-controller.php:702
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:533
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:539
 msgid "You are not currently logged in."
 msgstr "Bạn hiện chưa đăng nhập."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1197
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1201
 msgid "Limit result set to terms assigned to a specific post."
 msgstr "Giới hạn kết quả cho các term được gán cho một bài viết cụ thể."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1191
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1195
 msgid "Limit result set to terms assigned to a specific parent."
 msgstr "Giới hạn kết quả cho các term được gán cho term cha cụ thể."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1184
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1188
 msgid "Whether to hide terms not assigned to any posts."
 msgstr "Ẩn hay không các term được không được gán cho bất kỳ bài viết nào."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1168
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1172
 msgid "Sort collection by term attribute."
 msgstr "Sắp xếp bộ sưu tập theo thuộc tính của term."
 
@@ -11869,24 +11869,24 @@ msgstr "Sắp xếp bộ sưu tập theo thuộc tính của term."
 msgid "The ID for the parent of the revision."
 msgstr "ID của phiên bản bản thảo cha."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1093
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1097
 msgid "Type attribution for the term."
 msgstr "Loại thuộc tính của tài nguyên."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1085
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1089
 msgid "An alphanumeric identifier for the term unique to its type."
 msgstr "Một alphanumeric identifier cho term duy nhất tới loại của nó."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1064
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1068
 msgid "HTML description of the term."
 msgstr "Mô tả HTML cho tài nguyên."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1058
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1062
 msgid "Number of published posts for the term."
 msgstr "Số bài viết được Xuất bản cho tài nguyên."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:83
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1398
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1404
 msgid "Unique identifier for the user."
 msgstr "Định danh duy nhất cho các tài nguyên."
 
@@ -11919,113 +11919,113 @@ msgstr "Thuộc tính %s có chứa giá trị không hợp lệ, và không th�
 msgid "Invalid revision ID."
 msgstr "ID bản thảo không hợp lệ."
 
-#: wp-includes/class-wp-customize-nav-menus.php:957
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3145
+#: wp-includes/class-wp-customize-nav-menus.php:963
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3151
 msgid "Status is forbidden."
 msgstr "Tình trạng bị cấm."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3071
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3077
 msgid "Limit result set to items that are sticky."
 msgstr "Giới hạn kết quả gồm những bài viết được ghim."
 
 #. translators: %s: Taxonomy name.
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3308
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3314
 msgid "Limit result set to items except those with specific terms assigned in the %s taxonomy."
 msgstr "Giới hạn bộ kết quả cho các mục ngoại trừ những mục có thuật ngữ cụ thể được gán trong phân loại %s."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3029
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3035
 msgid "Limit result set to all items except those of a particular parent ID."
 msgstr "Giới hạn kết quả trừ những bài viết không thuộc về một ID cha cụ thể."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3021
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3027
 msgid "Limit result set to items with particular parent IDs."
 msgstr "Giới hạn kết quả cho những bài viết thuộc về những ID cha cụ thể."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1624
 #: wp-includes/rest-api/endpoints/class-wp-rest-pattern-directory-controller.php:337
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2984
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2990
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:840
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1152
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1584
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1156
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1590
 msgid "Offset the result set by a specific number of items."
 msgstr "Offset kết quả được thiết lập bởi một số lượng cụ thể."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-menu-items-controller.php:954
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2972
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2978
 msgid "Limit result set to posts with a specific menu_order value."
 msgstr "Giới hạn kết quả cho bài viết có giá trị menu_order cụ thể."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2931
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2937
 msgid "Ensure result set excludes posts assigned to specific authors."
 msgstr "Đảm bảo rằng kết quả đã loại bỏ những bài viết của các tác giả cụ thể."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2923
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2929
 msgid "Limit result set to posts assigned to specific authors."
 msgstr "Giới hạn kết quả là các bài viết của các tác giả cụ thể."
 
 #. translators: %s: Taxonomy name.
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2714
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2720
 msgid "The terms assigned to the post in the %s taxonomy."
 msgstr "Các term được gán cho một bài viết của taxonomy %s."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2684
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2690
 msgid "The theme file to use to display the post."
 msgstr "File của giao diện sử dụng để hiển thị bài viết."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2428
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2434
 msgid "A password to protect access to the content and excerpt."
 msgstr "Mật khẩu để bảo vệ quyền truy cập vào nội dung và mô tả ngắn."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2677
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2683
 msgid "Whether or not the post should be treated as sticky."
 msgstr "Liệu bài viết được ghim nổi bật hay không."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2661
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2667
 msgid "The format for the post."
 msgstr "Định dạng cho bài viết."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2641
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2647
 msgid "Whether or not the post can be pinged."
 msgstr "Liệu bài viết có thể được ping hay không."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2635
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2641
 msgid "Whether or not comments are open on the post."
 msgstr "Liệu trong bài viết có mở hay không mục bình luận."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2627
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2633
 msgid "The ID of the featured media for the post."
 msgstr "ID ảnh đại diện của bài viết."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2616
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2622
 msgid "Whether the excerpt is protected with a password."
 msgstr "Có hay không trích đoạn được bảo vệ bởi mật khẩu."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2610
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2616
 msgid "HTML excerpt for the post, transformed for display."
 msgstr "Trích đoạn HTML của bài viết, dành cho hiển thị."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2605
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2611
 msgid "Excerpt for the post, as it exists in the database."
 msgstr "Mô tả ngắn của bài viết, như được lưu trong cơ sở dữ liệu."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2596
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2602
 msgid "The excerpt for the post."
 msgstr "Mô tả ngắn của bài viết."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2588
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2594
 msgid "The ID for the author of the post."
 msgstr "ID của tác giả của bài viết."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2577
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2583
 msgid "Whether the content is protected with a password."
 msgstr "Có hay không nội dung được bảo vệ bởi mật khẩu. "
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-global-styles-controller.php:493
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2540
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2546
 msgid "HTML title for the post, transformed for display."
 msgstr "Tiêu đề HTML của bài viết, dùng để hiển thị. "
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2535
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2541
 msgid "Title for the post, as it exists in the database."
 msgstr "Tiêu đề của bài viết, như có sẵn trong cơ sở dữ liệu."
 
@@ -12034,7 +12034,7 @@ msgstr "Tiêu đề của bài viết, như có sẵn trong cơ sở dữ liệu
 msgid "The title for the object."
 msgstr "Tiêu đề cho đối tượng."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2413
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2419
 msgid "A named status for the post."
 msgstr "Trạng thái có tên của bài viết."
 
@@ -12050,7 +12050,7 @@ msgstr "Ngày gần nhất mà bản lưu tự động được chỉnh sửa, t
 msgid "The date the revision was last modified, in the site's timezone."
 msgstr "Ngày sửa bài viết gần nhất, theo múi giờ của trang web."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2370
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2376
 msgid "GUID for the post, transformed for display."
 msgstr "GUID của bài viết, dưới dạng hiển thị."
 
@@ -12058,7 +12058,7 @@ msgstr "GUID của bài viết, dưới dạng hiển thị."
 msgid "GUID for the revision, as it exists in the database."
 msgstr "GUID của bản thảo, nếu có sẵn trong cơ sở dữ liệu."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2358
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2364
 msgid "The globally unique identifier for the post."
 msgstr "Số định dạng duy nhất trên toàn trang cho bài viết."
 
@@ -12070,30 +12070,30 @@ msgstr "Ngày bản thảo được công bố, theo giờ GMT."
 msgid "The date the revision was published, in the site's timezone."
 msgstr "Ngày bản thảo được công bố, theo múi giờ của trang web."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1577
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1583
 msgid "Invalid featured media ID."
 msgstr "ID của media đại diện không hợp lệ."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-autosaves-controller.php:273
 #: wp-includes/rest-api/endpoints/class-wp-rest-font-faces-controller.php:766
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1439
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1445
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:153
 msgid "Invalid post parent ID."
 msgstr "ID của bài viết cha không hợp lệ."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1423
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1429
 msgid "A password protected post can not be set to sticky."
 msgstr "Bài viết được bảo vệ bằng mật khẩu không thể đặt ghim được."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1412
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1418
 msgid "A sticky post can not be password protected."
 msgstr "Bài viết ghim không thể bảo vệ bằng mật khẩu."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1404
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1410
 msgid "A post can not be sticky and have a password."
 msgstr "Một bài viết không thể vừa ghim và vừa có mật khẩu."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1147
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1153
 msgid "The post has already been deleted."
 msgstr "Bài viết đã được xóa trước đó."
 
@@ -12108,16 +12108,16 @@ msgid "Sorry, you are not allowed to manage this plugin."
 msgstr "Xin lỗi, bạn không có quyền quản lý plugin này."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-menu-items-controller.php:129
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:677
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:731
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:683
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:737
 msgid "Cannot create existing post."
 msgstr "Không thể tạo bài viết hiện có."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:558
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:564
 msgid "Sorry, you are not allowed to create new users."
 msgstr "Xin lỗi, bạn không có quyền tạo mới bài viết."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:585
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:591
 msgid "Incorrect post password."
 msgstr "Mật khẩu bài viết không đúng."
 
@@ -12151,7 +12151,7 @@ msgstr "Tất cả các quyền được taxonomy sử dụng."
 msgid "Sorry, you are not allowed to manage post statuses."
 msgstr "Xin lỗi, bạn không có quyền quản lý các trạng thái của bài viết."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1476
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1482
 msgid "An alphanumeric identifier for the user."
 msgstr "Một ID bằng chữ và số cho thành viên."
 
@@ -12235,32 +12235,32 @@ msgstr "Sắp xếp danh sách bằng thuộc tính của đối tượng."
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1629
 #: wp-includes/rest-api/endpoints/class-wp-rest-menu-items-controller.php:959
 #: wp-includes/rest-api/endpoints/class-wp-rest-pattern-directory-controller.php:342
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2989
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2995
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:845
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1158
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1590
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1162
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1596
 msgid "Order sort attribute ascending or descending."
 msgstr "Sắp xếp thuộc tính tăng dần hoặc giảm dần."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1615
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2962
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2968
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:831
 #: wp-includes/rest-api/endpoints/class-wp-rest-search-controller.php:348
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1142
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1575
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1146
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1581
 msgid "Limit result set to specific IDs."
 msgstr "Giới hạn kết quả chỉ những ID cố định."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1606
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2953
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2959
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:822
 #: wp-includes/rest-api/endpoints/class-wp-rest-search-controller.php:339
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1133
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1566
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1137
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1572
 msgid "Ensure result set excludes specific IDs."
 msgstr "Chắc chắn kết quả loại trừ những ID cố định."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2941
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2947
 msgid "Limit response to posts published before a given ISO8601 compliant date."
 msgstr "Giới hạn phản hồi chỉ cho các bài viết được Xuất bản trước một ngày theo định dạng ISO8601."
 
@@ -12276,7 +12276,7 @@ msgstr "Đảm bảo rằng kết quả đã loại bỏ những bình luận c�
 msgid "Limit result set to comments assigned to specific user IDs. Requires authorization."
 msgstr "Giới hạn kết quả chỉ gồm những bình luận của một số người dùng cụ thể. Yêu cầu xác thực tài khoản."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2910
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2916
 msgid "Limit response to posts published after a given ISO8601 compliant date."
 msgstr "Giới hạn phản hồi chỉ cho các bài viết được Xuất bản sau một ngày theo định dạng ISO8601."
 
@@ -12286,7 +12286,7 @@ msgstr "Địa chỉ ảnh đại diện cho tác giả bình luận."
 
 #. translators: %d: Avatar image size in pixels.
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1535
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1530
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1536
 msgid "Avatar URL with image size of %d pixels."
 msgstr "Đường dẫn tới ảnh đại diện cỡ %d pixels."
 
@@ -12298,7 +12298,7 @@ msgstr "Trạng thái của bình luận."
 msgid "The ID of the associated post object."
 msgstr "ID của đối tượng bài viết liên quan."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2464
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2470
 msgid "The ID for the parent of the post."
 msgstr "ID cha của bài viết."
 
@@ -12306,19 +12306,19 @@ msgstr "ID cha của bài viết."
 msgid "URL to the object."
 msgstr "Đường dẫn đến đối tượng."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2352
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2358
 msgid "The date the post was published, as GMT."
 msgstr "Ngày phát hành bài viết, theo giờ GMT."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2565
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2571
 msgid "HTML content for the post, transformed for display."
 msgstr "Nội dung HTML của bài viết, dưới dạng hiển thị."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2560
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2566
 msgid "Content for the post, as it exists in the database."
 msgstr "Nội dung của bài viết, nếu nó có sẵn trong cơ sở dữ liệu."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2551
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2557
 msgid "The content for the post."
 msgstr "Nội dung của bài viết."
 
@@ -12682,13 +12682,13 @@ msgid "Sorry, you are not allowed to assign this term."
 msgstr "Xin lỗi. Bạn không có quyền gán term này."
 
 #: wp-includes/class-wp-xmlrpc-server.php:2342
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:750
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:754
 msgid "Sorry, you are not allowed to delete this term."
 msgstr "Xin lỗi, bạn không có quyền xóa term này."
 
 #: wp-includes/class-wp-xmlrpc-server.php:2232
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:458
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:649
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:462
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:653
 msgid "Sorry, you are not allowed to edit this term."
 msgstr "Xin lỗi. Bạn không đuợc thép sửa đổi term này."
 
@@ -12707,11 +12707,11 @@ msgid "Number of widgets found: %d"
 msgstr "Số lượng các tiện ích được tìm thấy: %d"
 
 #. translators: 1: Post type name, 2: Error message.
-#: wp-includes/class-wp-customize-nav-menus.php:1048
+#: wp-includes/class-wp-customize-nav-menus.php:1054
 msgid "%1$s could not be created: %2$s"
 msgstr "%1$s không thể được tạo ra: %2$s"
 
-#: wp-includes/class-wp-customize-nav-menus.php:1043
+#: wp-includes/class-wp-customize-nav-menus.php:1049
 msgid "Post"
 msgstr "Bài viết"
 
@@ -12980,7 +12980,8 @@ msgid "Sorry, you are not allowed to edit your profile."
 msgstr "Xin lỗi, bạn không được cấp phép chỉnh sửa hồ sơ cá nhân của bạn."
 
 #: wp-includes/class-wp-xmlrpc-server.php:2722
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:741
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:489
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:747
 #: wp-admin/user-edit.php:104 wp-admin/user-edit.php:136
 #: wp-admin/user-edit.php:195 wp-admin/users.php:114 wp-admin/users.php:143
 #: wp-admin/users.php:249
@@ -13023,8 +13024,8 @@ msgstr "Xin lỗi, bạn không được phép xóa trang này."
 
 #: wp-includes/class-wp-xmlrpc-server.php:1850
 #: wp-includes/class-wp-xmlrpc-server.php:5307
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1060
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1114
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1066
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1120
 msgid "Sorry, you are not allowed to delete this post."
 msgstr "Xin lỗi, bạn không được phép xóa bài viết này."
 
@@ -13104,9 +13105,7 @@ msgid "Sorry, you are not allowed to add a category."
 msgstr "Xin lỗi, bạn không được phép thêm mục mới."
 
 #: wp-includes/class-wp-xmlrpc-server.php:2785
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:223
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:485
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:491
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:497
 #: wp-admin/users.php:16
 msgid "Sorry, you are not allowed to list users."
 msgstr "Xin lỗi, bạn không được phép phê duyệt người dùng."
@@ -13385,7 +13384,7 @@ msgid "(Current: %s)"
 msgstr "(Hiện tại: %s)"
 
 #. translators: %s: Menu location.
-#: wp-includes/class-wp-customize-nav-menus.php:510
+#: wp-includes/class-wp-customize-nav-menus.php:516
 msgctxt "menu"
 msgid "(Currently set to: %s)"
 msgstr "(Hiện tại đang đặt cho: %s)"
@@ -13748,8 +13747,8 @@ msgstr "Lưu trữ của các trang"
 msgid "Post Archives"
 msgstr "Lưu trữ của các bài viết"
 
-#: wp-includes/class-wp-customize-nav-menus.php:198
-#: wp-includes/customize/class-wp-customize-nav-menu-item-setting.php:319
+#: wp-includes/class-wp-customize-nav-menus.php:200
+#: wp-includes/customize/class-wp-customize-nav-menu-item-setting.php:337
 #: wp-includes/nav-menu.php:922
 msgid "Post Type Archive"
 msgstr "Lưu trữ của Loại bài viết"
@@ -13759,7 +13758,7 @@ msgid "Site names can only contain lowercase letters (a-z) and numbers."
 msgstr "Tên website chỉ được chứa chữ cái viết thường (a-z) và số."
 
 #: wp-includes/ms-functions.php:495 wp-includes/ms-functions.php:502
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1329
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1335
 #: wp-includes/user.php:2259
 msgid "Sorry, that username is not allowed."
 msgstr "Xin lỗi, tên người dùng này không được cho phép."
@@ -13991,7 +13990,7 @@ msgid "The post type %1$s is not registered, so it may not be reliable to check 
 msgstr "Loại bài viết %1$s không được đăng ký, vì vậy có thể không đáng tin cậy để kiểm tra khả năng %2$s đối với một bài viết của loại đó."
 
 #. translators: Hidden accessibility text.
-#: wp-includes/class-wp-customize-nav-menus.php:1181
+#: wp-includes/class-wp-customize-nav-menus.php:1187
 #: wp-includes/class-wp-customize-widgets.php:944
 msgid "Clear Results"
 msgstr "Xoá kết quả"
@@ -14016,7 +14015,7 @@ msgstr "Ẩn mật khẩu"
 msgid "Show password"
 msgstr "Hiện mật khẩu"
 
-#: wp-includes/class-wp-customize-nav-menus.php:513 wp-admin/nav-menus.php:1098
+#: wp-includes/class-wp-customize-nav-menus.php:519 wp-admin/nav-menus.php:1098
 msgid "Menu Name"
 msgstr "Tên menu"
 
@@ -14028,7 +14027,7 @@ msgstr "Xem trước biểu tượng ứng dụng"
 msgid "Preview as a browser icon"
 msgstr "Xem trước biểu tượng trình duyệt"
 
-#: wp-includes/class-wp-customize-nav-menus.php:1229
+#: wp-includes/class-wp-customize-nav-menus.php:1235
 msgid "No items"
 msgstr "Không có mục nào"
 
@@ -14085,7 +14084,7 @@ msgstr "Nhận diện trang web"
 
 #. translators: Hidden accessibility text. 1: Title of a menu item, 2: Type of
 #. a menu item.
-#: wp-includes/class-wp-customize-nav-menus.php:1082
+#: wp-includes/class-wp-customize-nav-menus.php:1088
 msgid "Add to menu: %1$s (%2$s)"
 msgstr "Thêm vào menu: %1$s (%2$s)"
 
@@ -14128,26 +14127,26 @@ msgstr "Đang xem trước giao diện"
 msgid "Active theme"
 msgstr "Giao diện đang sử dụng"
 
-#: wp-includes/class-wp-customize-nav-menus.php:663
+#: wp-includes/class-wp-customize-nav-menus.php:669
 msgid "Menus can be displayed in locations defined by your theme."
 msgstr "Menu có thể được hiển thị trong các vị trí được xác định bởi giao diện của bạn."
 
 #. translators: %s: URL to the Widgets panel of the Customizer.
-#: wp-includes/class-wp-customize-nav-menus.php:659
+#: wp-includes/class-wp-customize-nav-menus.php:665
 msgid "Menus can be displayed in locations defined by your theme or in <a href=\"%s\">widget areas</a> by adding a &#8220;Navigation Menu&#8221; widget."
 msgstr "Menu có thể được hiển thị trong các vị trí được xác định bởi giao diện của bạn hoặc trong <a href=\"%s\">Tiện ích</a> bằng cách thêm tiện ích &#8220;Menu tuỳ chọn&#8221;."
 
-#: wp-includes/class-wp-customize-nav-menus.php:535
+#: wp-includes/class-wp-customize-nav-menus.php:541
 #: wp-includes/class-wp-customize-widgets.php:815
 msgid "Reorder mode closed"
 msgstr "Chế độ sắp xếp lại đã đóng"
 
-#: wp-includes/class-wp-customize-nav-menus.php:534
+#: wp-includes/class-wp-customize-nav-menus.php:540
 #: wp-includes/class-wp-customize-widgets.php:814
 msgid "Reorder mode enabled"
 msgstr "Chế độ sắp xếp lại đã bật"
 
-#: wp-includes/class-wp-customize-nav-menus.php:506
+#: wp-includes/class-wp-customize-nav-menus.php:512
 #: wp-includes/customize/class-wp-customize-nav-menu-setting.php:440
 msgctxt "Missing menu name."
 msgid "(unnamed)"
@@ -14158,11 +14157,11 @@ msgstr "(Chưa có tên)"
 msgid "When in reorder mode, additional controls to reorder menu items will be available in the items list above."
 msgstr "Khi trong chế độ sắp xếp, các công cụ bổ sung để thay đổi thứ tự các mục trong menu sẽ xuất hiện trong danh sách bên dưới."
 
-#: wp-includes/class-wp-customize-nav-menus.php:537
+#: wp-includes/class-wp-customize-nav-menus.php:543
 msgid "Close reorder mode"
 msgstr "Đóng chế độ sắp xếp lại"
 
-#: wp-includes/class-wp-customize-nav-menus.php:536
+#: wp-includes/class-wp-customize-nav-menus.php:542
 #: wp-includes/customize/class-wp-customize-nav-menu-control.php:55
 msgid "Reorder menu items"
 msgstr "Sắp xếp lại các mục menu"
@@ -14365,19 +14364,19 @@ msgstr "Tùy chỉnh"
 msgid "Menu Options"
 msgstr "Tùy chọn Menu"
 
-#: wp-includes/class-wp-customize-nav-menus.php:1280
+#: wp-includes/class-wp-customize-nav-menus.php:1286
 #: wp-admin/includes/nav-menu.php:369 wp-admin/includes/nav-menu.php:817
 #: wp-admin/includes/nav-menu.php:1112
 msgid "Add to Menu"
 msgstr "Thêm vào menu"
 
-#: wp-includes/class-wp-customize-nav-menus.php:1262
+#: wp-includes/class-wp-customize-nav-menus.php:1268
 #: wp-admin/includes/nav-menu.php:174
 msgid "Custom Links"
 msgstr "Liên kết tự tạo"
 
 #. translators: Hidden accessibility text.
-#: wp-includes/class-wp-customize-nav-menus.php:1173
+#: wp-includes/class-wp-customize-nav-menus.php:1179
 #: wp-includes/class-wp-customize-widgets.php:950
 #: wp-includes/customize/class-wp-customize-themes-section.php:134
 #: wp-includes/customize/class-wp-customize-themes-section.php:148
@@ -14386,137 +14385,137 @@ msgstr "Liên kết tự tạo"
 msgid "The search results will be updated as you type."
 msgstr "Kết quả tìm kiếm sẽ cập nhật ngay khi bạn đang gõ."
 
-#: wp-includes/class-wp-customize-nav-menus.php:1168
+#: wp-includes/class-wp-customize-nav-menus.php:1174
 msgid "Search Menu Items"
 msgstr "Tìm kiếm mục Menu"
 
-#: wp-includes/class-wp-customize-nav-menus.php:1163
+#: wp-includes/class-wp-customize-nav-menus.php:1169
 msgid "Add Menu Items"
 msgstr "Thêm mục menu"
 
 #. translators: &#9656; is the unicode right-pointing triangle. %s: Section
 #. title in the Customizer.
-#: wp-includes/class-wp-customize-nav-menus.php:524
-#: wp-includes/class-wp-customize-nav-menus.php:1160
+#: wp-includes/class-wp-customize-nav-menus.php:530
+#: wp-includes/class-wp-customize-nav-menus.php:1166
 #: wp-includes/class-wp-customize-section.php:246
 #: wp-includes/class-wp-customize-widgets.php:926
 msgid "Customizing &#9656; %s"
 msgstr "Tùy chỉnh &#9656; %s"
 
-#: wp-includes/class-wp-customize-nav-menus.php:1099
+#: wp-includes/class-wp-customize-nav-menus.php:1105
 msgid "Move one level down"
 msgstr "Chuyển xuống dưới"
 
-#: wp-includes/class-wp-customize-nav-menus.php:1098
+#: wp-includes/class-wp-customize-nav-menus.php:1104
 msgid "Move one level up"
 msgstr "Chuyển lên trên"
 
-#: wp-includes/class-wp-customize-nav-menus.php:511
+#: wp-includes/class-wp-customize-nav-menus.php:517
 msgid "Menu Locations"
 msgstr "Vị trí Menu"
 
 #. translators: %s: Number of menu locations.
-#: wp-includes/class-wp-customize-nav-menus.php:691
+#: wp-includes/class-wp-customize-nav-menus.php:697
 msgid "Your theme can display menus in %s location. Select which menu you would like to use."
 msgid_plural "Your theme can display menus in %s locations. Select which menu appears in each location."
 msgstr[0] "Giao diện của bạn có %s vị trí trình đơn. Chọn trình đơn mà bạn muốn sử dụng."
 
-#: wp-includes/class-wp-customize-nav-menus.php:655
+#: wp-includes/class-wp-customize-nav-menus.php:661
 msgid "This panel is used for managing navigation menus for content you have already published on your site. You can create menus and add items for existing content such as pages, posts, categories, tags, formats, or custom links."
 msgstr "Bảng điều khiển này được sử dụng để quản lý menu điều hướng cho nội dung bạn đã xuất bản trên trang web của mình. Bạn có thể tạo menu và thêm các mục cho nội dung hiện có như trang, bài đăng, danh mục, thẻ, định dạng hoặc liên kết tùy chỉnh."
 
 #. translators: %s: Previous item name.
-#: wp-includes/class-wp-customize-nav-menus.php:564 wp-admin/nav-menus.php:582
+#: wp-includes/class-wp-customize-nav-menus.php:570 wp-admin/nav-menus.php:582
 msgid "Out from under %s"
 msgstr "Ở ngoài từ dưới %s"
 
 #. translators: %s: Previous item name.
-#: wp-includes/class-wp-customize-nav-menus.php:562 wp-admin/nav-menus.php:580
+#: wp-includes/class-wp-customize-nav-menus.php:568 wp-admin/nav-menus.php:580
 msgid "Under %s"
 msgstr "Dưới %s"
 
 #. translators: %s: Previous item name.
-#: wp-includes/class-wp-customize-nav-menus.php:560 wp-admin/nav-menus.php:578
+#: wp-includes/class-wp-customize-nav-menus.php:566 wp-admin/nav-menus.php:578
 msgid "Move out from under %s"
 msgstr "Chuyển chỉ mục dưới %s ra ngoài"
 
 #. translators: %s: Previous item name.
-#: wp-includes/class-wp-customize-nav-menus.php:558 wp-admin/nav-menus.php:576
+#: wp-includes/class-wp-customize-nav-menus.php:564 wp-admin/nav-menus.php:576
 msgid "Move under %s"
 msgstr "Chuyển xuống dưới %s"
 
-#: wp-includes/class-wp-customize-nav-menus.php:556 wp-admin/nav-menus.php:574
+#: wp-includes/class-wp-customize-nav-menus.php:562 wp-admin/nav-menus.php:574
 msgid "Move to the top"
 msgstr "Đưa lên đầu tiên"
 
-#: wp-includes/class-wp-customize-nav-menus.php:555 wp-admin/nav-menus.php:573
+#: wp-includes/class-wp-customize-nav-menus.php:561 wp-admin/nav-menus.php:573
 msgid "Move down one"
 msgstr "Đẩy xuống một nấc"
 
-#: wp-includes/class-wp-customize-nav-menus.php:554 wp-admin/nav-menus.php:572
+#: wp-includes/class-wp-customize-nav-menus.php:560 wp-admin/nav-menus.php:572
 msgid "Move up one"
 msgstr "Đẩy lên một nấc"
 
-#: wp-includes/class-wp-customize-nav-menus.php:533
+#: wp-includes/class-wp-customize-nav-menus.php:539
 msgid "Loading more results... please wait."
 msgstr "Đang tải thêm kết quả... vui lòng đợi."
 
 #. translators: %d: Number of additional menu items found.
-#: wp-includes/class-wp-customize-nav-menus.php:532
+#: wp-includes/class-wp-customize-nav-menus.php:538
 msgid "Additional items found: %d"
 msgstr "Các mục bổ sung tìm thấy: %d"
 
 #. translators: %d: Number of menu items found.
-#: wp-includes/class-wp-customize-nav-menus.php:530
+#: wp-includes/class-wp-customize-nav-menus.php:536
 msgid "Number of items found: %d"
 msgstr "Số mục tìm thấy: %d"
 
 #. translators: %s: Title of a menu item in draft status.
-#: wp-includes/class-wp-customize-nav-menus.php:528
+#: wp-includes/class-wp-customize-nav-menus.php:534
 #: wp-admin/includes/class-walker-nav-menu-edit.php:113
 msgid "%s (Pending)"
 msgstr "%s (Chờ duyệt)"
 
 #. translators: %s: Title of an invalid menu item.
-#: wp-includes/class-wp-customize-nav-menus.php:526
+#: wp-includes/class-wp-customize-nav-menus.php:532
 #: wp-admin/includes/class-walker-nav-menu-edit.php:109
 msgid "%s (Invalid)"
 msgstr "%s (Không hợp lệ)"
 
-#: wp-includes/class-wp-customize-nav-menus.php:522 wp-admin/nav-menus.php:599
+#: wp-includes/class-wp-customize-nav-menus.php:528 wp-admin/nav-menus.php:599
 msgid "Menu item is now a sub-item"
 msgstr "Mục này đã được chuyển thành mục con"
 
-#: wp-includes/class-wp-customize-nav-menus.php:521 wp-admin/nav-menus.php:598
+#: wp-includes/class-wp-customize-nav-menus.php:527 wp-admin/nav-menus.php:598
 msgid "Menu item moved out of submenu"
 msgstr "Mục trình đơn đã chuyển khỏi trình đơn phụ"
 
-#: wp-includes/class-wp-customize-nav-menus.php:520 wp-admin/nav-menus.php:596
+#: wp-includes/class-wp-customize-nav-menus.php:526 wp-admin/nav-menus.php:596
 msgid "Menu item moved down"
 msgstr "Mục đã chuyển xuống dưới"
 
-#: wp-includes/class-wp-customize-nav-menus.php:519 wp-admin/nav-menus.php:595
+#: wp-includes/class-wp-customize-nav-menus.php:525 wp-admin/nav-menus.php:595
 msgid "Menu item moved up"
 msgstr "Mục đã chuyển lên trên"
 
-#: wp-includes/class-wp-customize-nav-menus.php:518
+#: wp-includes/class-wp-customize-nav-menus.php:524
 msgid "Menu deleted"
 msgstr "Menu đã được xóa"
 
-#: wp-includes/class-wp-customize-nav-menus.php:517
+#: wp-includes/class-wp-customize-nav-menus.php:523
 msgid "Menu created"
 msgstr "Menu đã được tạo"
 
-#: wp-includes/class-wp-customize-nav-menus.php:516
+#: wp-includes/class-wp-customize-nav-menus.php:522
 msgid "Menu item deleted"
 msgstr "Mục trong menu đã được xóa"
 
-#: wp-includes/class-wp-customize-nav-menus.php:515 wp-admin/nav-menus.php:593
+#: wp-includes/class-wp-customize-nav-menus.php:521 wp-admin/nav-menus.php:593
 msgid "Menu item added"
 msgstr "Mục trong menu đã được thêm"
 
 #: wp-includes/class-wp-customize-nav-menus.php:167
-#: wp-includes/class-wp-customize-nav-menus.php:451
+#: wp-includes/class-wp-customize-nav-menus.php:457
 #: wp-admin/includes/nav-menu.php:455
 msgctxt "nav menu home label"
 msgid "Home"
@@ -14570,12 +14569,12 @@ msgstr "Nhãn Điều Hướng"
 msgid "Automatically add new top-level pages to this menu"
 msgstr "Tự động thêm các trang cấp cao nhất mới vào trình đơn này"
 
-#: wp-includes/class-wp-customize-nav-menus.php:511
+#: wp-includes/class-wp-customize-nav-menus.php:517
 #: wp-includes/js/dist/core-data.js:1634
 msgid "Menu Location"
 msgstr "Vị trí trình đơn"
 
-#: wp-includes/class-wp-customize-nav-menus.php:1108
+#: wp-includes/class-wp-customize-nav-menus.php:1114
 #: wp-admin/nav-menus.php:1269
 msgid "Delete Menu"
 msgstr "Xóa menu"
@@ -14641,9 +14640,9 @@ msgid "F j, Y @ H:i:s"
 msgstr "F j, Y @ H:i:s"
 
 #: wp-includes/class-wp-customize-nav-menus.php:169
-#: wp-includes/class-wp-customize-nav-menus.php:458
-#: wp-includes/class-wp-customize-nav-menus.php:507
-#: wp-includes/customize/class-wp-customize-nav-menu-item-setting.php:321
+#: wp-includes/class-wp-customize-nav-menus.php:464
+#: wp-includes/class-wp-customize-nav-menus.php:513
+#: wp-includes/customize/class-wp-customize-nav-menu-item-setting.php:339
 #: wp-includes/nav-menu.php:955
 msgid "Custom Link"
 msgstr "Link tùy chọn"
@@ -14785,7 +14784,7 @@ msgstr "1 bình luận <span class=\"screen-reader-text\"> ở %s</span>"
 msgid "No Comments<span class=\"screen-reader-text\"> on %s</span>"
 msgstr "Không có bình luận<span class=\"screen-reader-text\"> ở %s</span>"
 
-#: wp-includes/class-wp-customize-nav-menus.php:1274
+#: wp-includes/class-wp-customize-nav-menus.php:1280
 #: wp-includes/class-wp-editor.php:1897 wp-includes/media-template.php:1057
 #: wp-admin/includes/nav-menu.php:358
 msgid "Link Text"
@@ -15143,7 +15142,7 @@ msgstr "Chọn nhiều"
 msgid "%s: %l."
 msgstr "%s: %l."
 
-#: wp-includes/class-wp-customize-nav-menus.php:505 wp-admin/js/nav-menu.js:837
+#: wp-includes/class-wp-customize-nav-menus.php:511 wp-admin/js/nav-menu.js:841
 msgctxt "missing menu item navigation label"
 msgid "(no label)"
 msgstr "(không có nhãn)"
@@ -15797,7 +15796,7 @@ msgid "Create a new playlist"
 msgstr "Tạo một danh sách chơi nhạc mới"
 
 #. translators: Hidden accessibility text.
-#: wp-includes/class-wp-customize-nav-menus.php:1152
+#: wp-includes/class-wp-customize-nav-menus.php:1158
 #: wp-includes/class-wp-customize-panel.php:380
 #: wp-includes/class-wp-customize-section.php:370
 #: wp-includes/class-wp-customize-widgets.php:918
@@ -16099,7 +16098,7 @@ msgid "Select an area to move this widget into:"
 msgstr "Chọn một khu vực để chuyển tiện ích này vào:"
 
 #. translators: Hidden accessibility text.
-#: wp-includes/class-wp-customize-nav-menus.php:1096
+#: wp-includes/class-wp-customize-nav-menus.php:1102
 #: wp-includes/class-wp-customize-widgets.php:723
 #: wp-includes/js/dist/block-editor.js:53026
 #: wp-includes/js/dist/block-editor.js:53027
@@ -16112,7 +16111,7 @@ msgid "Move up"
 msgstr "Di chuyển lên"
 
 #. translators: Hidden accessibility text.
-#: wp-includes/class-wp-customize-nav-menus.php:1097
+#: wp-includes/class-wp-customize-nav-menus.php:1103
 #: wp-includes/class-wp-customize-widgets.php:722
 #: wp-includes/js/dist/block-editor.js:53039
 #: wp-includes/js/dist/block-editor.js:53040
@@ -16424,9 +16423,9 @@ msgstr[0] "%s tuần"
 #. translators: %d: ID of a term.
 #: wp-includes/class-walker-page-dropdown.php:81
 #: wp-includes/class-walker-page.php:164
-#: wp-includes/class-wp-customize-nav-menus.php:238
-#: wp-includes/class-wp-customize-nav-menus.php:399
-#: wp-includes/customize/class-wp-customize-nav-menu-item-setting.php:277
+#: wp-includes/class-wp-customize-nav-menus.php:240
+#: wp-includes/class-wp-customize-nav-menus.php:405
+#: wp-includes/customize/class-wp-customize-nav-menu-item-setting.php:296
 #: wp-includes/nav-menu.php:907 wp-includes/nav-menu.php:949
 #: wp-includes/nav-menu.php:996
 msgid "#%d (no title)"
@@ -16541,7 +16540,7 @@ msgstr "Địa chỉ WordPress (URL)"
 
 #: wp-includes/class-wp-xmlrpc-server.php:2728
 #: wp-includes/rest-api/endpoints/class-wp-rest-application-passwords-controller.php:692
-#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:442
+#: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:446
 #: wp-includes/user.php:2208 wp-includes/user.php:2654
 #: wp-includes/user.php:2660 wp-admin/user-edit.php:28
 #: wp-admin/user-edit.php:30
@@ -17179,8 +17178,8 @@ msgstr "Bạn không được phép chỉnh sửa phân loại này."
 #: wp-includes/class-wp-xmlrpc-server.php:2256
 #: wp-includes/rest-api/endpoints/class-wp-rest-menus-controller.php:213
 #: wp-includes/rest-api/endpoints/class-wp-rest-menus-controller.php:307
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:538
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:685
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:542
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:689
 #: wp-includes/taxonomy.php:2458 wp-includes/taxonomy.php:3260
 msgid "Parent term does not exist."
 msgstr "Term cha không tồn tại."
@@ -17195,7 +17194,7 @@ msgid "The term name cannot be empty."
 msgstr "Tên loại không được để trống."
 
 #: wp-includes/class-wp-xmlrpc-server.php:2112
-#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:507
+#: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:511
 #: wp-admin/edit-tags.php:86
 msgid "Sorry, you are not allowed to create terms in this taxonomy."
 msgstr "Xin lỗi, bạn không có quyền tạo các term trong phân loại này."
@@ -17269,7 +17268,7 @@ msgid "Customize: %s"
 msgstr "Tùy chỉnh: %s"
 
 #: wp-includes/class-wp-customize-control.php:596
-#: wp-includes/class-wp-customize-nav-menus.php:709
+#: wp-includes/class-wp-customize-nav-menus.php:715
 #: wp-includes/widgets/class-wp-nav-menu-widget.php:191 wp-admin/export.php:226
 #: wp-admin/export.php:231 wp-admin/export.php:278 wp-admin/export.php:283
 #: wp-admin/export.php:323 wp-admin/export.php:328
@@ -17331,8 +17330,8 @@ msgstr "Kiểu liên kết mặc định cho hình ảnh"
 #: wp-includes/class-wp-xmlrpc-server.php:6508
 #: wp-includes/class-wp-xmlrpc-server.php:6698
 #: wp-includes/class-wp-xmlrpc-server.php:6756
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:575
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:890
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:581
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:896
 #: wp-admin/includes/ajax-actions.php:2075 wp-admin/includes/media.php:3834
 #: wp-admin/includes/post.php:288 wp-admin/includes/post.php:2084
 #: wp-admin/includes/post.php:2088
@@ -17361,7 +17360,7 @@ msgid "Sorry, you are not allowed to edit posts in this post type."
 msgstr "Bạn không được phép chỉnh sửa bài viết trong loại (type) bài viết này."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-menu-items-controller.php:309
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1164
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1170
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:521
 msgid "The post cannot be deleted."
 msgstr "Bài viết không thể xóa."
@@ -17395,15 +17394,15 @@ msgstr "Xin lỗi, bạn không được phép xem phần này."
 
 #: wp-includes/class-wp-xmlrpc-server.php:1510
 #: wp-includes/class-wp-xmlrpc-server.php:5489
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1387
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1393
 #: wp-includes/rest-api/endpoints/class-wp-rest-templates-controller.php:651
 msgid "Invalid author ID."
 msgstr "ID tác giả không hợp lệ."
 
 #: wp-includes/class-wp-xmlrpc-server.php:1504
 #: wp-includes/class-wp-xmlrpc-server.php:5476
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:687
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:703
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:693
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:709
 #: wp-admin/includes/post.php:43 wp-admin/includes/post.php:88
 #: wp-admin/post-new.php:61 wp-admin/press-this.php:20
 msgid "Sorry, you are not allowed to create posts as this user."
@@ -17414,7 +17413,7 @@ msgid "Sorry, you are not allowed to create password protected posts in this pos
 msgstr "Xin lỗi, bạn không được phép tạo mật khẩu ẩn bài viết trong loại bài này."
 
 #: wp-includes/class-wp-xmlrpc-server.php:1481
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1533
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1539
 msgid "Sorry, you are not allowed to create private posts in this post type."
 msgstr "Xin lỗi, bạn không được phép tạo bài viết riêng tư trong loại bài này"
 
@@ -18544,7 +18543,7 @@ msgid "One response to %s"
 msgstr "Một bình luận cho %s"
 
 #: wp-includes/admin-bar.php:1111
-#: wp-includes/class-wp-customize-nav-menus.php:675
+#: wp-includes/class-wp-customize-nav-menus.php:681
 #: wp-includes/customize/class-wp-customize-nav-menus-panel.php:113
 #: wp-includes/js/dist/block-library.js:34424 wp-admin/menu.php:232
 #: wp-admin/nav-menus.php:32 wp-admin/nav-menus.php:781
@@ -18604,11 +18603,11 @@ msgstr "Xin lỗi, bạn không có quyền thay đổi tác giả của trang."
 msgid "Sorry, you are not allowed to change the post author as this user."
 msgstr "Xin lỗi, bạn không có quyền thay đổi tác giả của bài viết này."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:898
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:904
 msgid "Sorry, you are not allowed to update posts as this user."
 msgstr "Bạn không có quyền tạo trang mới."
 
-#: wp-includes/class-wp-customize-nav-menus.php:951
+#: wp-includes/class-wp-customize-nav-menus.php:957
 #: wp-includes/class-wp-xmlrpc-server.php:1454
 #: wp-includes/class-wp-xmlrpc-server.php:2011
 #: wp-includes/class-wp-xmlrpc-server.php:3690
@@ -18626,7 +18625,7 @@ msgid "Invalid post type."
 msgstr "Định dạng bài viết không hợp lệ."
 
 #: wp-includes/class-wp-xmlrpc-server.php:1487
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1543
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1549
 msgid "Sorry, you are not allowed to publish posts in this post type."
 msgstr "Xin lỗi, bạn không có quyền xuất bản bài viết."
 
@@ -18681,7 +18680,7 @@ msgstr "Bình luận của tác giả phải cung cấp tên và email."
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:374
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:841
 #: wp-includes/rest-api/endpoints/class-wp-rest-menu-items-controller.php:445
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:542
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:548
 #: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:205
 #: wp-includes/revision.php:362
 msgid "Invalid post ID."
@@ -18760,7 +18759,7 @@ msgstr "Nhưng trước khi bạn có thể sử dụng tại khoản của mìn
 msgid "%s is your new username"
 msgstr "%s là tên người dùng mới của bạn"
 
-#: wp-includes/class-wp-customize-nav-menus.php:1115
+#: wp-includes/class-wp-customize-nav-menus.php:1121
 #: wp-includes/script-loader.php:2002 wp-signup.php:660
 #: wp-includes/js/dist/block-library.js:45134
 #: wp-includes/js/dist/components.js:58773
@@ -19621,7 +19620,7 @@ msgid "Document properties"
 msgstr "Thuộc tính tài liệu"
 
 #: wp-includes/class-wp-editor.php:1373 wp-includes/script-loader.php:1311
-#: wp-includes/theme.php:3746 wp-admin/js/nav-menu.js:1555
+#: wp-includes/theme.php:3746 wp-admin/js/nav-menu.js:1564
 #: wp-admin/js/post.js:493 wp-admin/js/theme-plugin-editor.js:71
 #: wp-admin/js/user-profile.js:519 wp-admin/js/widgets.js:98
 msgid "The changes you made will be lost if you navigate away from this page."
@@ -20310,7 +20309,7 @@ msgstr "Nhập mật khẩu để xem các bình luận."
 msgid "Comments on %s"
 msgstr "Bình luận cho %s"
 
-#: wp-includes/class-wp-customize-nav-menus.php:336
+#: wp-includes/class-wp-customize-nav-menus.php:342
 #: wp-includes/script-loader.php:1270
 #: wp-includes/js/dist/block-directory.js:1794
 #: wp-includes/js/dist/block-editor.js:48828
@@ -20319,7 +20318,7 @@ msgstr "Bình luận cho %s"
 #: wp-includes/js/dist/block-library.js:63257
 #: wp-includes/js/dist/commands.js:3793 wp-includes/js/dist/components.js:60459
 #: wp-admin/includes/nav-menu.php:721 wp-admin/includes/nav-menu.php:1097
-#: wp-admin/js/nav-menu.js:1758 wp-admin/js/tags-suggest.js:141
+#: wp-admin/js/nav-menu.js:1774 wp-admin/js/tags-suggest.js:141
 msgid "No results found."
 msgstr "Không tìm thấy kết quả."
 
@@ -20591,7 +20590,7 @@ msgstr "Độ bảo mật"
 #: wp-admin/network/site-info.php:146 wp-admin/network/site-settings.php:95
 #: wp-admin/network/site-themes.php:181 wp-admin/network/site-users.php:226
 msgid "Dashboard"
-msgstr "Trang quản trị"
+msgstr "Bảng tin"
 
 #: wp-includes/class-wp-widget.php:144 wp-admin/includes/widgets.php:278
 #: wp-admin/widgets-form.php:293
@@ -20857,7 +20856,7 @@ msgid "All Categories"
 msgstr "Tất cả danh mục"
 
 #: wp-includes/class-wp-customize-control.php:648
-#: wp-includes/class-wp-customize-nav-menus.php:1241
+#: wp-includes/class-wp-customize-nav-menus.php:1247
 #: wp-includes/class-wp-post-type.php:992
 #: wp-includes/js/dist/block-library.js:22666
 #: wp-includes/js/dist/editor.js:6186 wp-includes/js/dist/editor.js:29355
@@ -21642,7 +21641,7 @@ msgctxt "noun"
 msgid "Comment"
 msgstr "Bình luận"
 
-#: wp-includes/class-wp-customize-nav-menus.php:1269
+#: wp-includes/class-wp-customize-nav-menus.php:1275
 #: wp-includes/class-wp-editor.php:1271 wp-includes/class-wp-editor.php:1893
 #: wp-includes/customize/class-wp-customize-nav-menu-item-control.php:111
 #: wp-includes/embed.php:1192 wp-includes/media-template.php:899

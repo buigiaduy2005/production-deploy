@@ -165,47 +165,99 @@
             background-color: #d4af37;
         }
 
-        /* Dropdown Submenu Styles */
+        /* Enhanced Dropdown Submenu Styles */
         .main-navigation .menu-item {
             position: relative;
         }
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #fff;
-            min-width: 800px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-            padding: 20px;
-            display: flex;
-            gap: 20px;
+        /* Override default dropdown styles for better integration */
+        .main-navigation .dropdown-content {
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: nowrap !important;
+            justify-content: space-evenly !important;
+            align-items: center !important;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .main-navigation .menu-item-has-children:hover .dropdown-content {
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+        }
+
+        /* Ensure dropdown items are properly styled */
+        .main-navigation .dropdown-item {
+            color: #2c3e50 !important;
+            text-decoration: none;
+        }
+
+        .main-navigation .dropdown-item:hover {
+            color: #1a202c !important;
+        }
+
+        .main-navigation .dropdown-item img {
+            display: block;
+            border-radius: 8px;
+        }
+
+        .main-navigation .dropdown-item span {
+            color: inherit;
+            font-weight: 600;
+        }
+        
+        /* Force horizontal layout for dropdown items */
+        .main-nav .dropdown-item,
+        .main-navigation .dropdown-item {
             display: flex !important;
-            opacity: 1;
-            visibility: visible;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 120px !important;
+            height: 120px !important;
+            flex-shrink: 0 !important;
+            flex-grow: 0 !important;
         }
-
-        .dropdown-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
+        
+        /* Ultra force horizontal layout */
+        .dropdown-content {
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: nowrap !important;
+            justify-content: space-evenly !important;
+            align-items: center !important;
+            gap: 20px !important;
         }
-
-        .dropdown-item img {
-            width: 50px;
-            height: 50px;
-            margin-bottom: 10px;
+        
+        .dropdown-content > * {
+            flex: 0 0 auto !important;
         }
-
-        .dropdown-item span {
-            color: #333;
+        
+        /* Debug styles to force horizontal */
+        .dropdown-content a {
+            display: inline-block !important;
+            vertical-align: top !important;
+            margin: 0 10px !important;
+        }
+        
+        /* Specific targeting - Full width */
+        ul.main-nav .dropdown-content,
+        .main-navigation .dropdown-content,
+        .main-nav .menu-item-has-children .dropdown-content {
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: nowrap !important;
+            justify-content: space-evenly !important;
+            position: fixed !important;
+            top: 80px !important;
+            left: 0 !important;
+            right: 0 !important;
+            width: 100vw !important;
+            max-width: none !important;
+            padding: 25px 50px !important;
         }
 
         .menu-toggle {

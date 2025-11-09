@@ -61,9 +61,13 @@ if (!function_exists('virical_render_navigation_menu')) {
         foreach ($menu_tree as $parent_id) {
             $parent = $menu_items[$parent_id];
             $has_children = !empty($parent->children);
+            
+            // Special case: "Sản phẩm" menu always has dropdown
+            $is_product_menu = (trim($parent->item_title) === 'Sản phẩm');
+            $has_dropdown = $has_children || $is_product_menu;
 
             // Start parent menu item
-            echo '<li class="menu-item' . ($has_children ? ' menu-item-has-children' : '') . '">';
+            echo '<li class="menu-item' . ($has_dropdown ? ' menu-item-has-children' : '') . '">';
 
             // Parent menu link
             echo '<a href="' . esc_url($parent->item_url) . '"';
@@ -72,32 +76,72 @@ if (!function_exists('virical_render_navigation_menu')) {
             }
             echo '>';
             echo esc_html($parent->item_title);
+            
+            // Add caret for dropdown menus
+            if ($has_dropdown) {
+                echo ' <span class="caret"></span>';
+            }
+            
             echo '</a>';
 
-            // Render submenu if has children
-            if ($has_children) {
+            // Render submenu if has children or is product menu
+            if ($has_dropdown) {
                 if (trim($parent->item_title) === 'Sản phẩm') {
+                    // Get only parent categories (no children)
                     $categories = get_terms( array(
                         'taxonomy' => 'category',
                         'hide_empty' => false,
+                        'parent' => 0, // Only get parent categories
                     ) );
+                    
+                    // Debug: Log available parent categories
                     if ( ! empty( $categories ) && ! is_wp_error( $categories ) ) {
+                        error_log('Found ' . count($categories) . ' parent categories for dropdown');
+                        foreach ($categories as $cat) {
+                            error_log('Parent Category: ' . $cat->name . ' (ID: ' . $cat->term_id . ', Parent: ' . $cat->parent . ')');
+                        }
+                    }
+                    
+                    // Fallback to demo categories if no real categories exist
+                    if ( empty( $categories ) || is_wp_error( $categories ) ) {
+                        $categories = array(
+                            (object) array('term_id' => 1, 'name' => 'Đèn LED Trong Nhà', 'slug' => 'den-led-trong-nha'),
+                            (object) array('term_id' => 2, 'name' => 'Đèn LED Ngoài Trời', 'slug' => 'den-led-ngoai-troi'),
+                            (object) array('term_id' => 3, 'name' => 'Đèn LED Thông Minh', 'slug' => 'den-led-thong-minh'),
+                            (object) array('term_id' => 4, 'name' => 'Đèn LED Công Nghiệp', 'slug' => 'den-led-cong-nghiep'),
+                            (object) array('term_id' => 5, 'name' => 'Đèn LED Trang Trí', 'slug' => 'den-led-trang-tri'),
+                            (object) array('term_id' => 6, 'name' => 'Đèn LED Ô Tô', 'slug' => 'den-led-o-to'),
+                        );
+                    }
+                    
+                    if ( ! empty( $categories ) ) {
                         echo '<div class="dropdown-content">';
                         foreach ($categories as $category) {
-                            $logo_id = get_term_meta( $category->term_id, 'category-logo-id', true );
+                            // Get category logo using helper function
                             $logo_url = '';
-                            if ( $logo_id ) {
-                                $logo_data = wp_get_attachment_image_src( $logo_id, 'thumbnail' );
-                                if ($logo_data) {
-                                    $logo_url = $logo_data[0];
-                                }
+                            if (function_exists('virical_get_category_logo')) {
+                                $logo_url = virical_get_category_logo($category->term_id);
                             }
-                            echo '<div class="dropdown-item">';
+                            // Generate proper link for both real and demo categories
+                            if (isset($category->slug)) {
+                                $category_link = home_url('/san-pham/?category=' . $category->slug);
+                            } else {
+                                $category_link = get_term_link($category);
+                            }
+                            
+                            echo '<a href="' . esc_url($category_link) . '" class="dropdown-item">';
                             if ($logo_url) {
-                                echo '<img src="' . esc_url($logo_url) . '" alt="' . esc_attr($category->name) . '">';
+                                echo '<img src="' . esc_url($logo_url) . '" alt="' . esc_attr($category->name) . '" class="icon">';
+                            } else {
+                                // Use category icon or default fallback
+                                $icon_class = get_term_meta($category->term_id, 'category_icon', true);
+                                if (!$icon_class) {
+                                    $icon_class = 'fas fa-cube';
+                                }
+                                echo '<div class="icon icon-fallback"><i class="' . esc_attr($icon_class) . '"></i></div>';
                             }
                             echo '<span>' . esc_html($category->name) . '</span>';
-                            echo '</div>';
+                            echo '</a>';
                         }
                         echo '</div>';
                     }

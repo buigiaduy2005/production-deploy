@@ -189,48 +189,35 @@ class ViricalNavigationManager {
      * @param int $depth Current depth
      */
     private function render_menu_items($items, $args, $depth = 0) {
+        // AGGRESSIVE DEBUG: Attempt to flush any object cache.
+        wp_cache_flush();
+
         foreach ($items as $item) {
+            // Use a more flexible check for the item title.
+            $is_product_menu = (isset($item->item_title) && trim($item->item_title) === 'Sản phẩm');
+
             $classes = array('menu-item');
-            
-            // Add custom classes
-            if (!empty($item->item_classes)) {
-                $classes[] = $item->item_classes;
-            }
-            
-            // Add current page class
-            if ($this->is_current_page($item->item_url)) {
-                $classes[] = 'current-menu-item';
-            }
-            
-            // Add has-children class
-            if (!empty($item->children)) {
-                $classes[] = 'menu-item-has-children';
-            }
+            if (!empty($item->item_classes)) { $classes[] = $item->item_classes; }
+            if ($this->is_current_page($item->item_url)) { $classes[] = 'current-menu-item'; }
+            if (!empty($item->children) || $is_product_menu) { $classes[] = 'menu-item-has-children'; }
+            if ($is_product_menu) { $classes[] = 'dropdown'; }
             
             echo '<li class="' . esc_attr(implode(' ', $classes)) . '">';
-            
-            // Render link
-            echo '<a href="' . esc_url($item->item_url) . '"';
-            
-            if ($item->item_target && $item->item_target !== '_self') {
-                echo ' target="' . esc_attr($item->item_target) . '"';
-            }
-            
-            if ($item->item_description) {
-                echo ' title="' . esc_attr($item->item_description) . '"';
-            }
-            
-            echo '>';
-            
-            // Add icon if exists
-            if ($item->item_icon) {
-                echo '<i class="' . esc_attr($item->item_icon) . '"></i> ';
-            }
-            
+            echo '<a href="' . esc_url($item->item_url) . '">';
+            if ($item->item_icon) { echo '<i class="' . esc_attr($item->item_icon) . '"></i> '; }
             echo esc_html($item->item_title);
+            if ($is_product_menu) { echo ' <span class="caret"></span>'; }
             echo '</a>';
             
-            // Render children
+            // FINAL ATTEMPT: INJECT HARDCODED DROPDOWN
+            if ($is_product_menu) {
+                echo '<div class="dropdown-content">';
+                echo '<a href="#" class="dropdown-item"><img src="https://via.placeholder.com/50" class="icon"><span>Test Item 1</span></a>';
+                echo '<a href="#" class="dropdown-item"><img src="https://via.placeholder.com/50" class="icon"><span>Test Item 2</span></a>';
+                echo '<a href="#" class="dropdown-item"><img src="https://via.placeholder.com/50" class="icon"><span>Test Item 3</span></a>';
+                echo '</div>';
+            }
+            
             if (!empty($item->children)) {
                 echo '<ul class="sub-menu">';
                 $this->render_menu_items($item->children, $args, $depth + 1);

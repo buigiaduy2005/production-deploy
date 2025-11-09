@@ -9,6 +9,68 @@
         </div><!-- .ast-container -->
     </div><!-- #content -->
 
+    <!-- Service Info Section -->
+    <section class="service-info-section">
+        <div class="ast-container">
+            <div class="service-info-grid">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="service-content">
+                        <h4>Bảo hành 1 đổi 1 trong 15 tháng</h4>
+                        <p>Cam kết chất lượng với chính sách bảo hành toàn diện</p>
+                    </div>
+                </div>
+                
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <div class="service-content">
+                        <h4>Bảo hành nhanh chóng</h4>
+                        <p>Xử lý bảo hành nhanh chóng, chuyên nghiệp</p>
+                    </div>
+                </div>
+                
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="service-content">
+                        <h4>Hỗ trợ khách trọn đời</h4>
+                        <p>Tư vấn và hỗ trợ khách hàng suốt quá trình sử dụng</p>
+                    </div>
+                </div>
+                
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <div class="service-content">
+                        <h4>Vận chuyển nội bộc toàn quốc</h4>
+                        <p>Giao hàng an toàn, nhanh chóng trên toàn quốc</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="ast-container">
+            <div class="newsletter-content">
+                <h3>Nhận thông tin tư vấn từ chúng tôi</h3>
+                <form class="newsletter-form-main" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post">
+                    <div class="form-group">
+                        <input type="text" name="phone" placeholder="Nhập số điện thoại" required>
+                        <button type="submit" class="btn-submit">Gửi đi</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
     <footer id="colophon" class="site-footer" role="contentinfo">
         <div class="footer-main">
             <div class="ast-container">
@@ -104,12 +166,191 @@
     </footer><!-- #colophon -->
 
     <style>
+    /* Service Info Section Styles */
+    .service-info-section {
+        background: #f8f9fa;
+        padding: 60px 0;
+        margin-top: 0;
+    }
+    
+    .service-info-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .service-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        text-align: left;
+    }
+    
+    .service-icon {
+        width: 60px;
+        height: 60px;
+        background: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        flex-shrink: 0;
+    }
+    
+    .service-icon i {
+        font-size: 24px;
+        color: #666;
+    }
+    
+    .service-content h4 {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+        margin: 0 0 8px 0;
+        line-height: 1.3;
+    }
+    
+    .service-content p {
+        font-size: 14px;
+        color: #666;
+        margin: 0;
+        line-height: 1.5;
+    }
+    
+    /* Responsive for Service Info */
+    @media (max-width: 1200px) {
+        .service-info-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .service-info-section {
+            padding: 40px 0;
+        }
+        
+        .service-info-grid {
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+        
+        .service-item {
+            gap: 15px;
+        }
+        
+        .service-icon {
+            width: 50px;
+            height: 50px;
+        }
+        
+        .service-icon i {
+            font-size: 20px;
+        }
+        
+        .service-content h4 {
+            font-size: 15px;
+        }
+        
+        .service-content p {
+            font-size: 13px;
+        }
+    }
+
+    /* Newsletter Section Styles */
+    .newsletter-section {
+        background: #fff;
+        padding: 50px 0;
+        text-align: center;
+        border-top: 1px solid #e0e0e0;
+    }
+    
+    .newsletter-content h3 {
+        font-size: 24px;
+        font-weight: 600;
+        color: #333;
+        margin: 0 0 30px 0;
+    }
+    
+    .newsletter-form-main {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .form-group {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+    
+    .form-group input {
+        flex: 1;
+        padding: 15px 20px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 16px;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+    
+    .form-group input:focus {
+        border-color: #007bff;
+    }
+    
+    .form-group input::placeholder {
+        color: #999;
+    }
+    
+    .btn-submit {
+        padding: 15px 30px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s;
+        white-space: nowrap;
+    }
+    
+    .btn-submit:hover {
+        background: #0056b3;
+    }
+    
+    /* Responsive for Newsletter */
+    @media (max-width: 768px) {
+        .newsletter-section {
+            padding: 40px 0;
+        }
+        
+        .newsletter-content h3 {
+            font-size: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .form-group {
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .form-group input,
+        .btn-submit {
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 15px;
+        }
+    }
+
     /* Footer Styles */
     .site-footer {
         background: #1a1a1a;
         color: #bbb;
         padding: 0;
-        margin-top: 80px;
+        margin-top: 0;
         position: relative;
         z-index: 60;
     }

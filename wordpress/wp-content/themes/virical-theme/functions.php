@@ -827,3 +827,271 @@ function virical_display_category_logo_column( $content, $column_name, $term_id 
     return $content;
 }
 add_filter( 'manage_category_custom_column', 'virical_display_category_logo_column', 10, 3 );
+// =========== CUSTOM MEGA MENU BY GEMINI START ===========
+
+// 1. Enqueue the custom menu stylesheet
+if (!function_exists('gemini_enqueue_menu_styles')) {
+    add_action('wp_enqueue_scripts', 'gemini_enqueue_menu_styles');
+    function gemini_enqueue_menu_styles() {
+        wp_enqueue_style(
+            'gemini-custom-menu',
+            get_stylesheet_directory_uri() . '/css/custom-menu.css',
+            array(),
+            '1.0.1' // Version bump
+        );
+    }
+}
+
+// 2. Add SVG support for uploads
+if (!function_exists('gemini_add_svg_to_upload_mimes')) {
+    add_filter('upload_mimes', 'gemini_add_svg_to_upload_mimes');
+    function gemini_add_svg_to_upload_mimes($mimes) {
+        $mimes['svg'] = 'image/svg+xml';
+        return $mimes;
+    }
+}
+
+// 3. Filter the navigation menu to add the dynamic dropdown
+if (!function_exists('gemini_add_product_dropdown')) {
+    add_filter('wp_nav_menu_items', 'gemini_add_product_dropdown', 10, 2);
+    function gemini_add_product_dropdown($items, $args) {
+        // DEBUG: This will run on ALL menus to ensure it triggers.
+        // if (isset($args->theme_location) && $args->theme_location == 'primary') {
+            
+            if (!empty($items) && strpos($items, 'menu-item') !== false) {
+                $doc = new DOMDocument();
+                @$doc->loadHTML('<?xml encoding="utf-8" ?>' . $items);
+                $xpath = new DOMXPath($doc);
+
+                // DEBUG: Target the 2nd menu item instead of searching for text.
+                $product_lis = $xpath->query('//li[contains(@class, "menu-item")][2]');
+
+                if ($product_lis->length > 0) {
+                    $product_li = $product_lis->item(0);
+                    $product_link = $xpath->query('.//a', $product_li)->item(0);
+
+                    // Get product categories (WooCommerce)
+                    $product_categories = get_terms(array('taxonomy' => 'product_cat', 'hide_empty' => true, 'parent' => 0));
+
+                    if (!empty($product_categories) && !is_wp_error($product_categories)) {
+                        $dropdown_div = $doc->createElement('div');
+                        $dropdown_div->setAttribute('class', 'dropdown-content');
+
+                        foreach ($product_categories as $category) {
+                            $category_link_url = get_term_link($category);
+                            $category_name = $category->name;
+                            $logo_id = get_term_meta($category->term_id, 'category-logo-id', true);
+                            if (!$logo_id) { $logo_id = get_term_meta($category->term_id, 'thumbnail_id', true); }
+                            $image_url = $logo_id ? wp_get_attachment_url($logo_id) : get_stylesheet_directory_uri() . '/assets/images/default-product.jpg';
+
+                            $item_a = $doc->createElement('a');
+                            $item_a->setAttribute('href', esc_url($category_link_url));
+                            $item_a->setAttribute('class', 'dropdown-item');
+                            $img = $doc->createElement('img');
+                            $img->setAttribute('src', esc_url($image_url));
+                            $img->setAttribute('alt', esc_attr($category_name));
+                            $img->setAttribute('class', 'icon');
+                            $span = $doc->createElement('span', esc_html($category_name));
+                            $item_a->appendChild($img);
+                            $item_a->appendChild($span);
+                            $dropdown_div->appendChild($item_a);
+                        }
+
+                        $product_li->setAttribute('class', $product_li->getAttribute('class') . ' menu-item-has-children dropdown');
+                        
+                        if ($product_link) {
+                            $product_link->nodeValue = '';
+                            $toggle_span = $doc->createElement('span', 'DEBUG MENU ');
+                            $toggle_span->setAttribute('class', 'dropdown-toggle');
+                            $caret_span = $doc->createElement('span');
+                            $caret_span->setAttribute('class', 'caret');
+                            $toggle_span->appendChild($caret_span);
+                            $product_link->appendChild($toggle_span);
+                        }
+
+                        $product_li->appendChild($dropdown_div);
+                    }
+                }
+                
+                $items = $doc->saveHTML();
+                $items = preg_replace('~<(?:!DOCTYPE|/?(?:html|body|xml))[^>]*>\s*~i', '', $items);
+            }
+        // }
+        return $items;
+    }
+}
+
+// =========== CUSTOM MEGA MENU BY GEMINI END ===========
+
+// =========== CATEGORY LOGO MANAGEMENT ===========
+
+/**
+ * Add category logo field to category add/edit forms
+ */
+if (!function_exists('virical_add_category_logo_field')) {
+    add_action('category_add_form_fields', 'virical_add_category_logo_field');
+    add_action('category_edit_form_fields', 'virical_edit_category_logo_field');
+    
+    function virical_add_category_logo_field() {
+        ?>
+        <div class="form-field">
+            <label for="category_logo"><?php _e('Category Logo'); ?></label>
+            <input type="hidden" id="category_logo" name="category_logo" value="" />
+            <button type="button" class="button" id="upload_category_logo"><?php _e('Upload Logo'); ?></button>
+            <div id="category_logo_preview"></div>
+            <p class="description"><?php _e('Upload a logo for this category to display in dropdown menu.'); ?></p>
+        </div>
+        <script>
+        jQuery(document).ready(function($) {
+            $('#upload_category_logo').click(function(e) {
+                e.preventDefault();
+                var image = wp.media({
+                    title: 'Upload Category Logo',
+                    multiple: false
+                }).open().on('select', function(e){
+                    var uploaded_image = image.state().get('selection').first();
+                    var image_url = uploaded_image.toJSON().url;
+                    var image_id = uploaded_image.toJSON().id;
+                    $('#category_logo').val(image_id);
+                    $('#category_logo_preview').html('<img src="' + image_url + '" style="max-width: 100px; height: auto;" />');
+                });
+            });
+        });
+        </script>
+        <?php
+    }
+    
+    function virical_edit_category_logo_field($term) {
+        $logo_id = get_term_meta($term->term_id, 'category_logo', true);
+        $logo_url = $logo_id ? wp_get_attachment_url($logo_id) : '';
+        ?>
+        <tr class="form-field">
+            <th scope="row" valign="top"><label for="category_logo"><?php _e('Category Logo'); ?></label></th>
+            <td>
+                <input type="hidden" id="category_logo" name="category_logo" value="<?php echo esc_attr($logo_id); ?>" />
+                <button type="button" class="button" id="upload_category_logo"><?php _e('Upload Logo'); ?></button>
+                <div id="category_logo_preview">
+                    <?php if ($logo_url): ?>
+                        <img src="<?php echo esc_url($logo_url); ?>" style="max-width: 100px; height: auto;" />
+                    <?php endif; ?>
+                </div>
+                <p class="description"><?php _e('Upload a logo for this category to display in dropdown menu.'); ?></p>
+            </td>
+        </tr>
+        <script>
+        jQuery(document).ready(function($) {
+            $('#upload_category_logo').click(function(e) {
+                e.preventDefault();
+                var image = wp.media({
+                    title: 'Upload Category Logo',
+                    multiple: false
+                }).open().on('select', function(e){
+                    var uploaded_image = image.state().get('selection').first();
+                    var image_url = uploaded_image.toJSON().url;
+                    var image_id = uploaded_image.toJSON().id;
+                    $('#category_logo').val(image_id);
+                    $('#category_logo_preview').html('<img src="' + image_url + '" style="max-width: 100px; height: auto;" />');
+                });
+            });
+        });
+        </script>
+        <?php
+    }
+}
+
+/**
+ * Save category logo field
+ */
+if (!function_exists('virical_save_category_logo')) {
+    add_action('created_category', 'virical_save_category_logo');
+    add_action('edited_category', 'virical_save_category_logo');
+    
+    function virical_save_category_logo($term_id) {
+        if (isset($_POST['category_logo'])) {
+            update_term_meta($term_id, 'category_logo', sanitize_text_field($_POST['category_logo']));
+        }
+    }
+}
+
+/**
+ * Get category logo URL
+ */
+if (!function_exists('virical_get_category_logo')) {
+    function virical_get_category_logo($term_id, $size = 'thumbnail') {
+        // Try multiple possible meta keys for category logo
+        $logo_id = get_term_meta($term_id, 'category_logo', true);
+        if (!$logo_id) {
+            $logo_id = get_term_meta($term_id, 'category-logo-id', true);
+        }
+        if (!$logo_id) {
+            $logo_id = get_term_meta($term_id, 'thumbnail_id', true);
+        }
+        if (!$logo_id) {
+            $logo_id = get_term_meta($term_id, 'category_image', true);
+        }
+        
+        if ($logo_id) {
+            $logo_data = wp_get_attachment_image_src($logo_id, $size);
+            if ($logo_data) {
+                return $logo_data[0];
+            }
+        }
+        
+        return false;
+    }
+}
+
+/**
+ * Enqueue media uploader for category logo
+ */
+if (!function_exists('virical_enqueue_category_media')) {
+    add_action('admin_enqueue_scripts', 'virical_enqueue_category_media');
+    
+    function virical_enqueue_category_media($hook) {
+        if ($hook == 'edit-tags.php' || $hook == 'term.php') {
+            wp_enqueue_media();
+        }
+    }
+}
+
+/**
+ * Create demo categories with icons if none exist
+ */
+if (!function_exists('virical_create_demo_categories')) {
+    add_action('init', 'virical_create_demo_categories');
+    
+    function virical_create_demo_categories() {
+        // Only run once
+        if (get_option('virical_demo_categories_created')) {
+            return;
+        }
+        
+        $demo_categories = array(
+            'Đèn LED Trong Nhà' => 'fas fa-home',
+            'Đèn LED Ngoài Trời' => 'fas fa-tree',
+            'Đèn LED Thông Minh' => 'fas fa-wifi',
+            'Đèn LED Công Nghiệp' => 'fas fa-industry',
+            'Đèn LED Trang Trí' => 'fas fa-star',
+            'Đèn LED Ô Tô' => 'fas fa-car'
+        );
+        
+        foreach ($demo_categories as $name => $icon) {
+            // Check if category already exists
+            $existing = get_term_by('name', $name, 'category');
+            if (!$existing) {
+                $term = wp_insert_term($name, 'category', array(
+                    'description' => 'Danh mục sản phẩm ' . $name,
+                    'slug' => sanitize_title($name)
+                ));
+                
+                if (!is_wp_error($term)) {
+                    // Store icon class as meta for fallback
+                    update_term_meta($term['term_id'], 'category_icon', $icon);
+                }
+            }
+        }
+        
+        // Mark as created
+        update_option('virical_demo_categories_created', true);
+    }
+}
