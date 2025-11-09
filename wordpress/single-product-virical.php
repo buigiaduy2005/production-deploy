@@ -101,7 +101,7 @@ require_once(dirname(__FILE__) . '/wp-load.php');
             <h1 class="text-4xl md:text-5xl font-bold">Virical Dual Smart Dimmer T2 Zigbee Driver Quốc Tế</h1>
             <p class="text-lg text-gray-300">Bộ driver điều khiển thông minh Zigbee, tương thích Apple HomeKit và ứng dụng Virical Home.</p>
             <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                <button class="virical-yellow font-bold py-3 px-8 rounded-lg text-lg hover:opacity-90 transition-opacity">LIÊN HỆ NHẬN BÁO GIÁ</button>
+                <button class="virical-yellow font-bold py-3 px-8 rounded-full text-lg hover:opacity-90 transition-opacity">LIÊN HỆ NHẬN BÁO GIÁ</button>
                 <button class="virical-gray-border font-bold py-3 px-8 rounded-lg text-lg hover:bg-white hover:text-black transition-colors">TẢI CATALOGUE</button>
             </div>
         </div>
