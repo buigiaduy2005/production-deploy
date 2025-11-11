@@ -141,8 +141,9 @@ function virical_add_menu_updater_page() {
 
 /**
  * Filter menu items on frontend to ensure correct URLs
+ * DISABLED: This filter may cause duplicate menus when using custom Virical menu system
  */
-add_filter('wp_nav_menu_objects', 'virical_filter_menu_urls', 10, 2);
+// add_filter('wp_nav_menu_objects', 'virical_filter_menu_urls', 10, 2);
 function virical_filter_menu_urls($items, $args) {
     global $wpdb;
     

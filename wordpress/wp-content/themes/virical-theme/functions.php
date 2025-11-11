@@ -868,8 +868,9 @@ if (!function_exists('gemini_add_svg_to_upload_mimes')) {
 }
 
 // 3. Filter the navigation menu to add the dynamic dropdown
+// DISABLED: This filter is causing duplicate menu items. The custom menu is rendered via virical_render_navigation_menu() instead.
 if (!function_exists('gemini_add_product_dropdown')) {
-    add_filter('wp_nav_menu_items', 'gemini_add_product_dropdown', 10, 2);
+    // add_filter('wp_nav_menu_items', 'gemini_add_product_dropdown', 10, 2);
     function gemini_add_product_dropdown($items, $args) {
         // DEBUG: This will run on ALL menus to ensure it triggers.
         // if (isset($args->theme_location) && $args->theme_location == 'primary') {
@@ -1069,6 +1070,18 @@ if (!function_exists('virical_enqueue_category_media')) {
         }
     }
 }
+
+/**
+ * Disable WordPress default menu rendering to prevent duplicates
+ */
+function virical_disable_wp_menu_rendering() {
+    // Remove all WordPress menu-related filters and actions
+    remove_all_actions('wp_nav_menu');
+    remove_all_filters('wp_nav_menu_objects');
+    remove_all_filters('wp_nav_menu_items');
+    remove_all_filters('wp_nav_menu_args');
+}
+add_action('init', 'virical_disable_wp_menu_rendering', 1);
 
 /**
  * Create demo categories with icons if none exist

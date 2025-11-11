@@ -55,8 +55,8 @@ class ViricalNavigationManager {
         // Register nav menu locations
         add_action('after_setup_theme', array($this, 'register_nav_locations'));
         
-        // Filter for nav menu fallback
-        add_filter('wp_nav_menu_args', array($this, 'set_database_fallback'));
+        // DISABLED: Filter for nav menu fallback to prevent duplicate menus
+        // add_filter('wp_nav_menu_args', array($this, 'set_database_fallback'));
         
         // Admin hooks
         if (is_admin()) {

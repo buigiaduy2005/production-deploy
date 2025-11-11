@@ -365,6 +365,10 @@
         <nav class="main-navigation">
             <?php
             // Render custom Virical navigation menu with dropdown support
+            // Disable WordPress default menu to prevent duplicates
+            remove_all_filters('wp_nav_menu_objects');
+            remove_all_filters('wp_nav_menu_items');
+            remove_all_filters('wp_nav_menu_args');
             virical_render_navigation_menu('primary', 'main-nav');
             ?>
         </nav>
