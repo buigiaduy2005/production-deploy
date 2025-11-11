@@ -14,6 +14,17 @@ if (!function_exists('virical_render_navigation_menu')) {
      */
     function virical_render_navigation_menu($location = 'primary', $menu_class = 'main-nav') {
         global $wpdb;
+        
+        // Prevent multiple renders of the same menu (CRITICAL FIX)
+        static $rendered_menus = array();
+        $menu_key = $location . '_' . $menu_class;
+        
+        if (isset($rendered_menus[$menu_key])) {
+            error_log("VIRICAL MENU: Prevented duplicate render of {$menu_key}");
+            return; // Already rendered, prevent duplicate
+        }
+        $rendered_menus[$menu_key] = true;
+        error_log("VIRICAL MENU: Rendering {$menu_key}");
 
         // Get all active menus for this location
         $menus = $wpdb->get_results($wpdb->prepare(
