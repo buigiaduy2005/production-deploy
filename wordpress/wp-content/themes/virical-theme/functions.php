@@ -239,6 +239,11 @@ if (file_exists(get_template_directory() . '/includes/customizer.php')) {
     require_once get_template_directory() . '/includes/customizer.php';
 }
 
+// Include admin menu manager
+if (file_exists(get_template_directory() . '/includes/admin-menu-manager.php')) {
+    require_once get_template_directory() . '/includes/admin-menu-manager.php';
+}
+
 /**
  * Navigation menu fallback
  * 
