@@ -15,6 +15,29 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <script>
+    // Remove duplicate menus on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Remove all menus except the first one in .main-navigation
+        const navContainer = document.querySelector('.main-navigation');
+        if (navContainer) {
+            const allMenus = navContainer.querySelectorAll('ul.main-nav');
+            // Keep only the first menu, remove all others
+            for (let i = 1; i < allMenus.length; i++) {
+                console.log('Removing duplicate menu #' + i);
+                allMenus[i].remove();
+            }
+        }
+        
+        // Remove any WordPress default menus
+        const wpMenus = document.querySelectorAll('#menu-primary-menu, .menu-primary-menu-container');
+        wpMenus.forEach(function(menu) {
+            console.log('Removing WordPress default menu');
+            menu.remove();
+        });
+    });
+    </script>
+    
     <?php
     wp_head();
 
@@ -163,6 +186,16 @@
         
         .site-header.scrolled .main-navigation a::after {
             background-color: #d4af37;
+        }
+
+        /* Force hide any duplicate menus */
+        .main-navigation ul.main-nav ~ ul.main-nav {
+            display: none !important;
+        }
+        
+        /* Hide WordPress default menu if it appears */
+        #menu-primary-menu {
+            display: none !important;
         }
 
         /* Enhanced Dropdown Submenu Styles */
