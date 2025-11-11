@@ -1084,6 +1084,34 @@ function virical_disable_wp_menu_rendering() {
 add_action('init', 'virical_disable_wp_menu_rendering', 1);
 
 /**
+ * Output buffer to remove duplicate menus from final HTML
+ */
+function virical_remove_duplicate_menus_from_html($buffer) {
+    // Count how many times ul.main-nav appears
+    $nav_count = substr_count($buffer, 'class="main-nav"');
+    
+    if ($nav_count > 1) {
+        // Remove duplicate ul.main-nav elements - keep only the first one
+        $pattern = '/(<ul[^>]*class="[^"]*main-nav[^"]*"[^>]*>.*?<\/ul>)/s';
+        preg_match_all($pattern, $buffer, $matches);
+        
+        if (count($matches[0]) > 1) {
+            // Replace all occurrences after the first one with empty string
+            for ($i = 1; $i < count($matches[0]); $i++) {
+                $buffer = str_replace($matches[0][$i], '', $buffer);
+            }
+        }
+    }
+    
+    return $buffer;
+}
+
+function virical_start_output_buffering() {
+    ob_start('virical_remove_duplicate_menus_from_html');
+}
+add_action('template_redirect', 'virical_start_output_buffering', 1);
+
+/**
  * Create demo categories with icons if none exist
  */
 if (!function_exists('virical_create_demo_categories')) {
