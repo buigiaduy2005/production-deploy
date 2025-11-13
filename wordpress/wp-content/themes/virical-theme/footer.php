@@ -309,7 +309,7 @@
         background: #007bff;
         color: white;
         border: none;
-        border-radius: 8px;
+        border-radius: 999px; /* Increased for fully rounded corners */
         font-size: 16px;
         font-weight: 600;
         cursor: pointer;
