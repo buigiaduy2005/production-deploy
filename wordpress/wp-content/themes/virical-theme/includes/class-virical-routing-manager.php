@@ -56,7 +56,7 @@ class ViricalRoutingManager {
         add_action('init', array($this, 'register_routing_rules'), 1);
         add_filter('query_vars', array($this, 'add_query_vars'));
         add_action('template_redirect', array($this, 'handle_redirects'));
-        // // add_filter('template_include', array($this, 'handle_custom_templates'), 99);
+        add_filter('template_include', array($this, 'handle_custom_templates'), 99);
         
         // Admin hooks
         if (is_admin()) {
@@ -141,9 +141,6 @@ class ViricalRoutingManager {
         if ($product_slug) {
             // Check if single-product.php exists
             $single_product = get_template_directory() . '/single-product.php';
-
-            
-
             if (file_exists($single_product)) {
                 // Get product data
                 global $wpdb;
@@ -220,25 +217,17 @@ class ViricalRoutingManager {
         
         $rules = $this->wpdb->get_results($query);
         
+        // Process rules
         foreach ($rules as &$rule) {
-            // Decode JSON fields
-            if ($rule->conditions !== null) {
-                $rule->conditions = json_decode($rule->conditions, true);
-            } else {
-                $rule->conditions = [];
-            }
-
-            if ($rule->meta_data !== null) {
-                $rule->meta_data = json_decode($rule->meta_data, true);
-            } else {
-                $rule->meta_data = [];
-            }
-
+            // Decode JSON fields with empty string check
+            $rule->conditions = !empty($rule->conditions) ? json_decode($rule->conditions, true) : [];
+            $rule->meta_data = !empty($rule->meta_data) ? json_decode($rule->meta_data, true) : [];
+            
             // Validate decoded data
-            if (!is_array($rule->conditions)) {
+            if ($rule->conditions === null) {
                 $rule->conditions = [];
             }
-            if (!is_array($rule->meta_data)) {
+            if ($rule->meta_data === null) {
                 $rule->meta_data = [];
             }
         }
