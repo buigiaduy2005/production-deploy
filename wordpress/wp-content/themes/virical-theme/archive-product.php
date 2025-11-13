@@ -14,57 +14,7 @@
     </button>
 
     <div class="product-archive-container">
-        <aside class="product-archive-sidebar">
-            <div class="widget">
-                <h2 class="widget-title" style="color: #000 !important;">Danh mục sản phẩm</h2>
-                <ul class="product-categories-list">
-                    <li><a href="<?php echo esc_url(add_query_arg('ver', wp_rand(), get_post_type_archive_link('product'))); ?>" class="<?php echo is_post_type_archive('product') ? 'active' : ''; ?>">Tất cả sản phẩm</a></li>
-                    <?php
-                    $parent_categories = get_terms( array(
-                        'taxonomy' => 'category',
-                        'hide_empty' => false,
-                        'parent' => 0,
-                    ) );
-                    $current_cat_id = get_queried_object_id();
 
-                    if ( ! empty( $parent_categories ) && ! is_wp_error( $parent_categories ) ) {
-                        foreach ( $parent_categories as $parent_category ) {
-                            $child_categories = get_terms( array(
-                                'taxonomy' => 'category',
-                                'hide_empty' => false,
-                                'parent' => $parent_category->term_id,
-                            ) );
-
-                            $has_children = ! empty( $child_categories );
-                            $is_current_parent = ($current_cat_id == $parent_category->term_id);
-                            $li_class = 'cat-item';
-                            if ($has_children) {
-                                $li_class .= ' has-children';
-                            }
-                            if ($is_current_parent) {
-                                $li_class .= ' current-cat-parent';
-                            }
-
-                            echo '<li class="' . $li_class . '">';
-                            echo '<a href="' . esc_url( get_term_link( $parent_category ) ) . '" class="' . ($is_current_parent ? 'active' : '') . '">' . esc_html( $parent_category->name ) . '</a>';
-
-                            if ( $has_children ) {
-                                echo '<ul class="children" style="display:none;">';
-                                foreach ( $child_categories as $child_category ) {
-                                    $is_current_child = ($current_cat_id == $child_category->term_id);
-                                    echo '<li class="cat-item ' . ($is_current_child ? 'current-cat' : '') . '">';
-                                    echo '<a href="' . esc_url( get_term_link( $child_category ) ) . '" class="' . ($is_current_child ? 'active' : '') . '">' . esc_html( $child_category->name ) . '</a>';
-                                    echo '</li>';
-                                }
-                                echo '</ul>';
-                            }
-                            echo '</li>';
-                        }
-                    }
-                    ?>
-                </ul>
-            </div>
-        </aside>
 
         <div class="product-archive-main">
             <div id="product-grid-container" class="product-grid-archive">

@@ -1009,12 +1009,6 @@ h4 {
     width: 100%; /* Ensure it takes full width */
 }
 
-.product-archive-container {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
 .product-archive-main {
-    flex-grow: 1;
+    width: 100%;
 }
