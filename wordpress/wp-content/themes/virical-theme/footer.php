@@ -290,7 +290,7 @@
         flex: 1;
         padding: 15px 20px;
         border: 2px solid #e0e0e0;
-        border-radius: 8px;
+        border-radius: 20px; /* Increased for more rounding */
         font-size: 16px;
         outline: none;
         transition: border-color 0.3s;
