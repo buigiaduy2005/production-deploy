@@ -106,6 +106,14 @@ $products = $wpdb->get_results($query);
     .sidebar-content::-webkit-scrollbar-track { background: #f1f1f1; }
     .sidebar-content::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 5px; }
     .sidebar-content::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
+    
+    /* Line clamp utility */
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
 </style>
 
 <div class="bg-gray-50 font-sans">
@@ -160,49 +168,149 @@ $products = $wpdb->get_results($query);
                     <h1 class="text-4xl font-extrabold text-black" style="color: black !important;">Sản phẩm</h1>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-6">
+                <!-- Desktop Grid Layout (4 columns) -->
+                <div class="hidden lg:grid lg:grid-cols-4 gap-6">
                     <?php if (!empty($products)):
-                        foreach ($products as $product): ?>
-                        <div class="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden group transform hover:-translate-y-1 transition-all duration-300 hover:shadow-lg flex flex-col">
-                            <a href="<?php echo home_url('/san-pham/' . $product->slug . '/'); ?>" class="block">
-                                <div class="aspect-square overflow-hidden">
-                                    <img src="<?php echo esc_url($product->image_url); ?>" alt="<?php echo esc_attr($product->name); ?>" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                                </div>
-                            </a>
-                            <div class="p-5 flex flex-col flex-grow">
-                                <div class="flex-grow">
-                                                                    <a href="<?php echo home_url('/san-pham/' . $product->slug . '/'); ?>">
-                                                                        <h3 class="text-gray-900 font-bold text-lg h-14 overflow-hidden mb-2" style="color: black !important;"><?php echo esc_html($product->name); ?></h3>
-                                                                    </a>
-                                    <?php if (!empty($product->description)): ?>
-                                        <p class="text-gray-600 text-sm mb-4"><?php echo esc_html($product->description); ?></p>
-                                    <?php endif; ?>
-
-                                    <?php
-                                    if (!empty($product->features)) {
-                                        $features = json_decode($product->features, true);
-                                        if (is_array($features)) {
-                                            echo '<ul class="text-sm text-gray-600 list-disc list-inside mb-4">';
-                                            foreach ($features as $feature) {
-                                                echo '<li>' . esc_html($feature) . '</li>';
-                                            }
-                                            echo '</ul>';
-                                        }
-                                    }
-                                    ?>
-                                </div>
-
-                                <div class="flex items-baseline mb-4">
-                                    <span class="text-gray-600 font-semibold">Liên hệ</span>
-                                </div>
-                                <a href="<?php echo home_url('/san-pham/' . $product->slug . '/'); ?>" class="w-full text-center block bg-white text-gray-800 border-2 border-gray-800 rounded-md py-2 px-4 font-semibold hover:bg-gray-800 hover:text-white transition-all duration-300">
-                                    Xem chi tiết
+                        foreach ($products as $product): 
+                            // Calculate if product is new (created within last 30 days)
+                            $is_new = false;
+                            if (!empty($product->created_at)) {
+                                $created_date = strtotime($product->created_at);
+                                $is_new = (time() - $created_date) < (30 * 24 * 60 * 60);
+                            }
+                            
+                            // Get discount info (if available in meta or calculate from price)
+                            $original_price = !empty($product->original_price) ? floatval($product->original_price) : 0;
+                            $current_price = !empty($product->price) ? floatval($product->price) : 0;
+                            $discount_percent = 0;
+                            if ($original_price > 0 && $current_price > 0 && $original_price > $current_price) {
+                                $discount_percent = round((($original_price - $current_price) / $original_price) * 100);
+                            }
+                            
+                            $product_url = home_url('/san-pham/' . $product->slug . '/');
+                            $image_url = !empty($product->image_url) ? $product->image_url : get_template_directory_uri() . '/assets/images/placeholder.jpg';
+                            ?>
+                        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+                            <!-- Product Image with Badges -->
+                            <div class="relative aspect-square overflow-hidden">
+                                <a href="<?php echo esc_url($product_url); ?>" class="block">
+                                    <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($product->name); ?>" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
                                 </a>
+                                <!-- Badges -->
+                                <div class="absolute top-3 left-3 flex flex-col gap-2">
+                                    <?php if ($is_new): ?>
+                                        <span class="bg-green-500 text-white text-xs font-bold px-2.5 py-1 rounded">Mới</span>
+                                    <?php endif; ?>
+                                    <?php if ($discount_percent > 0): ?>
+                                        <span class="bg-orange-500 text-white text-xs font-bold px-2.5 py-1 rounded">Giảm <?php echo $discount_percent; ?>%</span>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            
+                            <!-- Product Info -->
+                            <div class="p-5 flex flex-col flex-grow">
+                                <!-- Product Name -->
+                                <a href="<?php echo esc_url($product_url); ?>">
+                                    <h3 class="text-center font-bold text-base mb-3 text-gray-900 line-clamp-2 min-h-[48px]"><?php echo esc_html($product->name); ?></h3>
+                                </a>
+                                
+                                <!-- Price -->
+                                <div class="text-center mb-4">
+                                    <?php if ($current_price > 0): ?>
+                                        <div class="flex items-center justify-center gap-2">
+                                            <span class="text-lg font-bold text-orange-500"><?php echo number_format($current_price, 0, ',', '.'); ?> ₫</span>
+                                            <?php if ($original_price > 0 && $original_price > $current_price): ?>
+                                                <span class="text-sm text-gray-400 line-through"><?php echo number_format($original_price, 0, ',', '.'); ?> ₫</span>
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php else: ?>
+                                        <span class="text-gray-600 font-semibold">Liên hệ</span>
+                                    <?php endif; ?>
+                                </div>
+                                
+                                <!-- Action Buttons -->
+                                <div class="flex gap-2 mt-auto">
+                                    <a href="<?php echo esc_url($product_url); ?>" class="flex-1 bg-gray-900 text-white text-center py-2.5 px-4 rounded-md font-semibold hover:bg-gray-800 transition-colors text-sm">
+                                        Mua ngay
+                                    </a>
+                                    <a href="<?php echo esc_url($product_url); ?>" class="flex-1 bg-white text-gray-900 border-2 border-gray-900 text-center py-2.5 px-4 rounded-md font-semibold hover:bg-gray-50 transition-colors text-sm">
+                                        Tìm hiểu thêm
+                                    </a>
+                                </div>
                             </div>
                         </div>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <div class="col-span-full text-center py-12">
+                        <div class="col-span-4 text-center py-12">
+                            <p class="text-gray-500 text-lg">Không tìm thấy sản phẩm nào.</p>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                
+                <!-- Mobile List Layout (Vertical) -->
+                <div class="lg:hidden space-y-4">
+                    <?php if (!empty($products)):
+                        foreach ($products as $product): 
+                            // Calculate if product is new
+                            $is_new = false;
+                            if (!empty($product->created_at)) {
+                                $created_date = strtotime($product->created_at);
+                                $is_new = (time() - $created_date) < (30 * 24 * 60 * 60);
+                            }
+                            
+                            // Get discount info
+                            $original_price = !empty($product->original_price) ? floatval($product->original_price) : 0;
+                            $current_price = !empty($product->price) ? floatval($product->price) : 0;
+                            $discount_percent = 0;
+                            if ($original_price > 0 && $current_price > 0 && $original_price > $current_price) {
+                                $discount_percent = round((($original_price - $current_price) / $original_price) * 100);
+                            }
+                            
+                            $product_url = home_url('/san-pham/' . $product->slug . '/');
+                            $image_url = !empty($product->image_url) ? $product->image_url : get_template_directory_uri() . '/assets/images/placeholder.jpg';
+                            ?>
+                        <div class="bg-white rounded-lg overflow-hidden shadow-sm flex gap-4 p-4">
+                            <!-- Product Image -->
+                            <div class="relative flex-shrink-0 w-24 h-24 rounded-lg overflow-hidden">
+                                <a href="<?php echo esc_url($product_url); ?>" class="block w-full h-full">
+                                    <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($product->name); ?>" class="w-full h-full object-cover">
+                                </a>
+                                <!-- Badges -->
+                                <div class="absolute top-1 left-1 flex flex-col gap-1">
+                                    <?php if ($is_new): ?>
+                                        <span class="bg-green-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">Mới</span>
+                                    <?php endif; ?>
+                                    <?php if ($discount_percent > 0): ?>
+                                        <span class="bg-orange-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">Giảm <?php echo $discount_percent; ?>%</span>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            
+                            <!-- Product Info -->
+                            <div class="flex-1 flex flex-col justify-between min-w-0">
+                                <!-- Product Name -->
+                                <a href="<?php echo esc_url($product_url); ?>">
+                                    <h3 class="font-bold text-base text-gray-900 mb-2 line-clamp-2"><?php echo esc_html($product->name); ?></h3>
+                                </a>
+                                
+                                <!-- Price -->
+                                <div class="mb-2">
+                                    <?php if ($current_price > 0): ?>
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-lg font-bold text-orange-500"><?php echo number_format($current_price, 0, ',', '.'); ?> ₫</span>
+                                            <?php if ($original_price > 0 && $original_price > $current_price): ?>
+                                                <span class="text-sm text-gray-400 line-through"><?php echo number_format($original_price, 0, ',', '.'); ?> ₫</span>
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php else: ?>
+                                        <span class="text-gray-600 font-semibold text-sm">Liên hệ</span>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <div class="text-center py-12">
                             <p class="text-gray-500 text-lg">Không tìm thấy sản phẩm nào.</p>
                         </div>
                     <?php endif; ?>

@@ -60,6 +60,7 @@ body {
 /* The dropdown container */
 .dropdown {
     position: relative;
+    padding-top: 15px;
 }
 
 .dropdown-content {

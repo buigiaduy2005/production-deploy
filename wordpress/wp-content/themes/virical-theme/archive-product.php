@@ -8,10 +8,7 @@
         <h1 class="page-title text-3xl font-bold text-black" style="color: #000 !important;">Tất cả sản phẩm</h1>
     </header>
 
-    <button class="mobile-category-toggle">
-        <span class="hamburger-icon"><span></span><span></span><span></span></span>
-        <span>Danh mục sản phẩm</span>
-    </button>
+
 
     <div class="product-archive-container">
 
@@ -45,9 +42,6 @@
 
 <script>
 jQuery(document).ready(function($) {
-    $('.mobile-category-toggle').on('click', function() {
-        $('.product-archive-sidebar').slideToggle();
-    });
 
     // Reset sidebar style on window resize to fix display issue
     $(window).on('resize', function() {
