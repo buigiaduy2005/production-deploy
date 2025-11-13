@@ -71,6 +71,12 @@ if (!function_exists('virical_render_navigation_menu')) {
 
         foreach ($menu_tree as $parent_id) {
             $parent = $menu_items[$parent_id];
+
+            // Skip rendering if the menu item title is "Danh mục sản phẩm"
+            if (trim($parent->item_title) === 'Danh mục sản phẩm') {
+                continue;
+            }
+
             $has_children = !empty($parent->children);
             
             // Special case: "Sản phẩm" menu always has dropdown
@@ -266,11 +272,8 @@ if (!function_exists('virical_render_navigation_menu')) {
                         }
 
                         if (!empty($featured_cards)) {
-                            $active_label = $active_product_count > 0 ? sprintf(
-                                /* translators: %d: number of active products */
-                                __('Trực tuyến %d sản phẩm', 'virical'),
-                                $active_product_count
-                            ) : __('Sản phẩm nổi bật', 'virical');
+                            // Always show "Sản phẩm nổi bật" instead of product count
+                            $active_label = __('Sản phẩm nổi bật', 'virical');
 
                             echo '<div class="product-mega-featured">';
                             echo '<div class="product-mega-featured-header">';
