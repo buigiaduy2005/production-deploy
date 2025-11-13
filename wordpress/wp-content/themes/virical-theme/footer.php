@@ -18,7 +18,7 @@
                         <i class="fas fa-tools"></i>
                     </div>
                     <div class="service-content">
-                        <h4>Bảo hành 1 đổi 1 trong 15 tháng</h4>
+                        <h4 style="color: #000000 !important;">Bảo hành 1 đổi 1 trong 15 tháng</h4>
                         <p>Cam kết chất lượng với chính sách bảo hành toàn diện</p>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                         <i class="fas fa-clipboard-check"></i>
                     </div>
                     <div class="service-content">
-                        <h4>Bảo hành nhanh chóng</h4>
+                        <h4 style="color: #000000 !important;">Bảo hành nhanh chóng</h4>
                         <p>Xử lý bảo hành nhanh chóng, chuyên nghiệp</p>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                         <i class="fas fa-shield-alt"></i>
                     </div>
                     <div class="service-content">
-                        <h4>Hỗ trợ khách trọn đời</h4>
+                        <h4 style="color: #000000 !important;">Hỗ trợ khách trọn đời</h4>
                         <p>Tư vấn và hỗ trợ khách hàng suốt quá trình sử dụng</p>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                         <i class="fas fa-shipping-fast"></i>
                     </div>
                     <div class="service-content">
-                        <h4>Vận chuyển nội bộc toàn quốc</h4>
+                        <h4 style="color: #000000 !important;">Vận chuyển nội bộc toàn quốc</h4>
                         <p>Giao hàng an toàn, nhanh chóng trên toàn quốc</p>
                     </div>
                 </div>
