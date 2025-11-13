@@ -1018,3 +1018,13 @@ h4 {
 .product-archive-main {
     flex-grow: 1;
 }
+
+.product-archive-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.product-archive-main {
+    flex-grow: 1;
+}
