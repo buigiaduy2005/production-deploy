@@ -246,12 +246,12 @@
             top: 80px;
             left: 0;
             right: 0;
-            width: calc(100% - 80px);
+            width: 100%;
             max-width: none;
-            margin: 0 auto;
+            margin: 0;
             padding: 34px 40px 40px;
             background: rgba(255,255,255,0.97);
-            border-radius: 0 0 32px 32px;
+            border-radius: 0;
             box-shadow: 0 25px 50px rgba(15,23,42,0.12);
             transform: translateY(-10px);
             opacity: 0;
@@ -362,8 +362,9 @@
             content: '';
             position: absolute;
             inset: 0;
-            border-radius: 0 0 32px 32px;
+            border-radius: 0;
             border: 1px solid rgba(199,150,0,0.08);
+            border-top: none;
             pointer-events: none;
         }
 
