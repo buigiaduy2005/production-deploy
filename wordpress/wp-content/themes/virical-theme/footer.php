@@ -83,21 +83,40 @@
                         </div>
                         <p><?php echo esc_html(virical_get_company_info('description', 'Thương hiệu đèn chiếu sáng hàng đầu Việt Nam với các giải pháp chiếu sáng thông minh và hiện đại.')); ?></p>
                         <div class="social-links">
-                            <a href="<?php echo esc_url(virical_get_social_link('facebook')); ?>" target="_blank" rel="noopener">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                            <a href="<?php echo esc_url(virical_get_social_link('youtube')); ?>" target="_blank" rel="noopener">
-                                <i class="fab fa-youtube"></i>
-                            </a>
-                            <a href="<?php echo esc_url(virical_get_social_link('zalo', 'https://zalo.me/virical')); ?>" target="_blank" rel="noopener">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/zalo-icon.png" alt="Zalo" style="width: 16px; height: 16px;">
-                            </a>
-                            <a href="<?php echo esc_url(virical_get_social_link('instagram')); ?>" target="_blank" rel="noopener">
-                                <i class="fab fa-instagram"></i>
-                            </a>
-                            <a href="<?php echo esc_url(virical_get_social_link('linkedin')); ?>" target="_blank" rel="noopener">
-                                <i class="fab fa-linkedin-in"></i>
-                            </a>
+                            <?php $facebook_url = virical_get_social_link('facebook'); ?>
+                            <?php if (!empty($facebook_url)): ?>
+                                <a href="<?php echo esc_url($facebook_url); ?>" target="_blank" rel="noopener">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                            <?php endif; ?>
+                            
+                            <?php $youtube_url = virical_get_social_link('youtube'); ?>
+                            <?php if (!empty($youtube_url)): ?>
+                                <a href="<?php echo esc_url($youtube_url); ?>" target="_blank" rel="noopener">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                            <?php endif; ?>
+                            
+                            <?php $zalo_url = virical_get_social_link('zalo'); ?>
+                            <?php if (!empty($zalo_url)): ?>
+                                <a href="<?php echo esc_url($zalo_url); ?>" target="_blank" rel="noopener">
+                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/zalo-icon.png" alt="Zalo" style="width: 16px; height: 16px;">
+                                </a>
+                            <?php endif; ?>
+                            
+                            <?php $instagram_url = virical_get_social_link('instagram'); ?>
+                            <?php if (!empty($instagram_url)): ?>
+                                <a href="<?php echo esc_url($instagram_url); ?>" target="_blank" rel="noopener">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            <?php endif; ?>
+                            
+                            <?php $linkedin_url = virical_get_social_link('linkedin'); ?>
+                            <?php if (!empty($linkedin_url)): ?>
+                                <a href="<?php echo esc_url($linkedin_url); ?>" target="_blank" rel="noopener">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                            <?php endif; ?>
                         </div>
                     </div>
 

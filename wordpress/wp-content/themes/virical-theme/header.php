@@ -140,22 +140,22 @@
         }
         
         .main-navigation a {
-            color: #fff;
+            color: #000000;
             text-decoration: none;
             font-size: 13px;
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease, transform 0.2s ease;
             text-transform: uppercase;
-            transition: all 0.3s ease;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+            text-shadow: none;
             position: relative;
             padding: 5px 0;
         }
         
         .main-navigation a:hover {
-            color: #ffd700;
+            color: #000000;
             transform: translateY(-1px);
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
+            text-shadow: none;
         }
         
         .main-navigation a::after {
@@ -165,7 +165,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background-color: #ffd700;
+            background-color: #000000;
             transition: width 0.3s ease;
         }
         
@@ -174,18 +174,18 @@
         }
         
         .site-header.scrolled .main-navigation a {
-            color: #000;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+            color: #000000;
+            text-shadow: none;
             font-weight: 700;
         }
         
         .site-header.scrolled .main-navigation a:hover {
-            color: #d4af37;
-            text-shadow: 2px 2px 3px rgba(0,0,0,0.2);
+            color: #000000;
+            text-shadow: none;
         }
         
         .site-header.scrolled .main-navigation a::after {
-            background-color: #d4af37;
+            background-color: #000000;
         }
 
         /* Force hide any duplicate menus */

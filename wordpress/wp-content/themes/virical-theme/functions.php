@@ -56,7 +56,8 @@ add_action('wp_enqueue_scripts', 'virical_enqueue_scripts');
 /**
  * Admin scripts and styles
  */
-function virical_admin_enqueue_scripts() {
+function virical_admin_enqueue_scripts($hook) {
+    // Load admin.js for all admin pages
     wp_enqueue_script('virical-admin', get_template_directory_uri() . '/assets/js/admin.js', array('jquery'), '1.0.0', true);
     
     // Localize script for AJAX
@@ -64,6 +65,11 @@ function virical_admin_enqueue_scripts() {
         'ajax_url' => admin_url('admin-ajax.php'),
         'nonce' => wp_create_nonce('virical_menu_nonce')
     ));
+    
+    // Load FontAwesome for social media settings page
+    if ($hook === 'settings_page_virical-social-media') {
+        wp_enqueue_style('fontawesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+    }
 }
 add_action('admin_enqueue_scripts', 'virical_admin_enqueue_scripts');
 
@@ -628,9 +634,16 @@ function virical_get_company_info($key, $default = '') {
  * @param string $default Default URL if not set
  * @return string
  */
-function virical_get_social_link($platform, $default = '#') {
+function virical_get_social_link($platform, $default = '') {
     $option_name = 'virical_social_' . strtolower($platform);
-    return get_option($option_name, $default);
+    $url = get_option($option_name, $default);
+    
+    // Return empty string if URL is empty or just '#'
+    if (empty($url) || $url === '#') {
+        return '';
+    }
+    
+    return $url;
 }
 
 /**
@@ -1395,4 +1408,188 @@ function virical_set_flush_rewrite_rules_flag() {
 if (!get_option('virical_blog_post_type_created')) {
     add_option('virical_blog_post_type_created', true);
     virical_set_flush_rewrite_rules_flag();
+}
+
+/**
+ * Add Social Media Settings Admin Page
+ */
+add_action('admin_menu', 'virical_add_social_media_admin_page');
+
+function virical_add_social_media_admin_page() {
+    add_options_page(
+        'Cài đặt Social Media', // Page title
+        'Social Media', // Menu title
+        'manage_options', // Capability
+        'virical-social-media', // Menu slug
+        'virical_social_media_admin_page' // Function
+    );
+}
+
+function virical_social_media_admin_page() {
+    // Handle form submission
+    if (isset($_POST['submit']) && wp_verify_nonce($_POST['virical_social_nonce'], 'virical_social_settings')) {
+        // Update social media links
+        $social_platforms = array('facebook', 'youtube', 'instagram', 'linkedin', 'zalo');
+        
+        foreach ($social_platforms as $platform) {
+            $option_name = 'virical_social_' . $platform;
+            $url = sanitize_url($_POST[$platform] ?? '');
+            update_option($option_name, $url);
+        }
+        
+        echo '<div class="notice notice-success is-dismissible"><p>Cài đặt đã được lưu thành công!</p></div>';
+    }
+    
+    // Get current values
+    $facebook = get_option('virical_social_facebook', '');
+    $youtube = get_option('virical_social_youtube', '');
+    $instagram = get_option('virical_social_instagram', '');
+    $linkedin = get_option('virical_social_linkedin', '');
+    $zalo = get_option('virical_social_zalo', '');
+    ?>
+    
+    <div class="wrap">
+        <h1>Cài đặt Social Media</h1>
+        <p>Quản lý các liên kết mạng xã hội hiển thị trên website.</p>
+        
+        <form method="post" action="">
+            <?php wp_nonce_field('virical_social_settings', 'virical_social_nonce'); ?>
+            
+            <table class="form-table">
+                <tbody>
+                    <tr>
+                        <th scope="row">
+                            <label for="facebook">
+                                <i class="fab fa-facebook-f" style="color: #1877f2; margin-right: 8px;"></i>
+                                Facebook
+                            </label>
+                        </th>
+                        <td>
+                            <input type="url" id="facebook" name="facebook" value="<?php echo esc_attr($facebook); ?>" class="regular-text" placeholder="https://facebook.com/yourpage" />
+                            <p class="description">Nhập URL trang Facebook của bạn</p>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th scope="row">
+                            <label for="youtube">
+                                <i class="fab fa-youtube" style="color: #ff0000; margin-right: 8px;"></i>
+                                YouTube
+                            </label>
+                        </th>
+                        <td>
+                            <input type="url" id="youtube" name="youtube" value="<?php echo esc_attr($youtube); ?>" class="regular-text" placeholder="https://youtube.com/yourchannel" />
+                            <p class="description">Nhập URL kênh YouTube của bạn</p>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th scope="row">
+                            <label for="instagram">
+                                <i class="fab fa-instagram" style="color: #e4405f; margin-right: 8px;"></i>
+                                Instagram
+                            </label>
+                        </th>
+                        <td>
+                            <input type="url" id="instagram" name="instagram" value="<?php echo esc_attr($instagram); ?>" class="regular-text" placeholder="https://instagram.com/youraccount" />
+                            <p class="description">Nhập URL tài khoản Instagram của bạn</p>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th scope="row">
+                            <label for="linkedin">
+                                <i class="fab fa-linkedin-in" style="color: #0077b5; margin-right: 8px;"></i>
+                                LinkedIn
+                            </label>
+                        </th>
+                        <td>
+                            <input type="url" id="linkedin" name="linkedin" value="<?php echo esc_attr($linkedin); ?>" class="regular-text" placeholder="https://linkedin.com/company/yourcompany" />
+                            <p class="description">Nhập URL trang LinkedIn của bạn</p>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th scope="row">
+                            <label for="zalo">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/zalo-icon.png" alt="Zalo" style="width: 16px; height: 16px; margin-right: 8px;">
+                                Zalo
+                            </label>
+                        </th>
+                        <td>
+                            <input type="url" id="zalo" name="zalo" value="<?php echo esc_attr($zalo); ?>" class="regular-text" placeholder="https://zalo.me/yourpage" />
+                            <p class="description">Nhập URL Zalo của bạn</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div style="margin-top: 30px; padding: 20px; background: #f9f9f9; border-left: 4px solid #0073aa;">
+                <h3 style="margin-top: 0;">Hướng dẫn sử dụng:</h3>
+                <ul>
+                    <li><strong>Facebook:</strong> Vào trang Facebook của bạn và copy URL từ thanh địa chỉ</li>
+                    <li><strong>YouTube:</strong> Vào kênh YouTube và copy URL từ thanh địa chỉ</li>
+                    <li><strong>Instagram:</strong> Vào tài khoản Instagram và copy URL từ thanh địa chỉ</li>
+                    <li><strong>LinkedIn:</strong> Vào trang LinkedIn company và copy URL từ thanh địa chỉ</li>
+                    <li><strong>Zalo:</strong> Tạo Zalo Page và sử dụng format: https://zalo.me/yourpage</li>
+                </ul>
+                <p><strong>Lưu ý:</strong> Để trống nếu không muốn hiển thị liên kết nào đó. Các icon sẽ tự động ẩn nếu không có URL.</p>
+            </div>
+            
+            <?php submit_button('Lưu cài đặt', 'primary', 'submit', false); ?>
+        </form>
+        
+        <div style="margin-top: 30px; padding: 15px; background: #fff; border: 1px solid #ddd;">
+            <h3>Xem trước các liên kết hiện tại:</h3>
+            <div style="display: flex; gap: 15px; margin-top: 15px;">
+                <?php if ($facebook): ?>
+                    <a href="<?php echo esc_url($facebook); ?>" target="_blank" style="width: 40px; height: 40px; border-radius: 50%; background: #1877f2; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none;">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                <?php endif; ?>
+                
+                <?php if ($youtube): ?>
+                    <a href="<?php echo esc_url($youtube); ?>" target="_blank" style="width: 40px; height: 40px; border-radius: 50%; background: #ff0000; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none;">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                <?php endif; ?>
+                
+                <?php if ($instagram): ?>
+                    <a href="<?php echo esc_url($instagram); ?>" target="_blank" style="width: 40px; height: 40px; border-radius: 50%; background: #e4405f; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none;">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                <?php endif; ?>
+                
+                <?php if ($linkedin): ?>
+                    <a href="<?php echo esc_url($linkedin); ?>" target="_blank" style="width: 40px; height: 40px; border-radius: 50%; background: #0077b5; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none;">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                <?php endif; ?>
+                
+                <?php if ($zalo): ?>
+                    <a href="<?php echo esc_url($zalo); ?>" target="_blank" style="width: 40px; height: 40px; border-radius: 50%; background: #0068ff; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none;">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/zalo-icon.png" alt="Zalo" style="width: 16px; height: 16px;">
+                    </a>
+                <?php endif; ?>
+            </div>
+            <?php if (!$facebook && !$youtube && !$instagram && !$linkedin && !$zalo): ?>
+                <p style="color: #666; font-style: italic;">Chưa có liên kết nào được thiết lập.</p>
+            <?php endif; ?>
+        </div>
+    </div>
+    
+    <style>
+        .form-table th {
+            width: 200px;
+        }
+        .form-table td input[type="url"] {
+            width: 100%;
+            max-width: 500px;
+        }
+        .form-table .description {
+            font-style: italic;
+            color: #666;
+        }
+    </style>
+    <?php
 }
