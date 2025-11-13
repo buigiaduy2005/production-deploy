@@ -246,8 +246,8 @@
         }
         
         .menu-item-products .product-mega-menu {
-            position: absolute;
-            top: 100%;
+            position: fixed;
+            top: 80px;
             left: 50%;
             transform: translateX(-50%) translateY(-10px);
             width: 1400px;
@@ -261,6 +261,7 @@
             pointer-events: none;
             transition: opacity 0.25s ease, transform 0.25s ease;
             display: block;
+            z-index: 1000;
         }
 
         .menu-item-products .product-mega-inner {
