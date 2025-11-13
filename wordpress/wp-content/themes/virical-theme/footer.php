@@ -60,7 +60,7 @@
     <section class="newsletter-section">
         <div class="ast-container">
             <div class="newsletter-content">
-                <h3>Nhận thông tin tư vấn từ chúng tôi</h3>
+                <h3 style="color: #000000 !important;">Nhận thông tin tư vấn từ chúng tôi</h3>
                 <form class="newsletter-form-main" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post">
                     <div class="form-group">
                         <input type="text" name="phone" placeholder="Nhập số điện thoại" required>
