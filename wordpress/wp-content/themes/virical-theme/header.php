@@ -267,6 +267,9 @@
             gap: 60px;
             align-items: start;
             justify-items: stretch;
+            max-width: 1600px;
+            margin: 0 auto;
+            width: 100%;
         }
         
         .menu-item-products .product-mega-featured {
@@ -282,6 +285,7 @@
             grid-template-columns: repeat(5, minmax(180px, 1fr));
             gap: 24px 36px;
             width: 100%;
+            justify-content: space-between;
         }
 
         .menu-item-products:hover .product-mega-menu {
