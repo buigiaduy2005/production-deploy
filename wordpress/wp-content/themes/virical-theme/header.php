@@ -247,9 +247,9 @@
             left: 0;
             right: 0;
             width: 100%;
-            max-width: none;
-            margin: 0;
-            padding: 34px 40px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 32px 40px 36px;
             background: rgba(255,255,255,0.97);
             border-radius: 0;
             box-shadow: 0 25px 50px rgba(15,23,42,0.12);
@@ -263,12 +263,10 @@
 
         .menu-item-products .product-mega-inner {
             display: grid;
-            grid-template-columns: 2.5fr 1fr;
-            gap: 60px;
+            grid-template-columns: minmax(0, 1fr) 280px;
+            gap: 40px;
             align-items: start;
             justify-items: stretch;
-            max-width: 1600px;
-            margin: 0 auto;
             width: 100%;
         }
         
@@ -283,9 +281,8 @@
         .menu-item-products .product-mega-categories {
             display: grid;
             grid-template-columns: repeat(5, minmax(180px, 1fr));
-            gap: 24px 36px;
+            gap: 24px 32px;
             width: 100%;
-            justify-content: space-between;
         }
 
         .menu-item-products:hover .product-mega-menu {
@@ -400,8 +397,8 @@
 
         .menu-item-products .product-mega-featured-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
+            grid-template-columns: 1fr;
+            gap: 14px;
             width: 100%;
         }
 
@@ -504,14 +501,13 @@
         
         @media (max-width: 1400px) {
             .menu-item-products .product-mega-menu {
-                padding: 32px 30px 38px;
+                max-width: 1280px;
+                padding: 28px 32px 34px;
             }
-
             .menu-item-products .product-mega-inner {
-                grid-template-columns: 2fr 1fr;
-                gap: 40px;
+                grid-template-columns: minmax(0, 1fr) 260px;
+                gap: 36px;
             }
-
             .menu-item-products .product-mega-categories {
                 grid-template-columns: repeat(4, minmax(180px, 1fr));
             }
@@ -519,21 +515,19 @@
 
         @media (max-width: 1200px) {
             .menu-item-products .product-mega-menu {
-                padding: 30px 26px 36px;
+                max-width: 100%;
+                padding: 26px 28px 32px;
             }
-
             .menu-item-products .product-mega-inner {
-                grid-template-columns: 2fr 1fr;
-                gap: 32px;
+                grid-template-columns: minmax(0, 1fr) 240px;
+                gap: 28px;
             }
-
             .menu-item-products .product-mega-categories {
                 grid-template-columns: repeat(3, minmax(180px, 1fr));
                 gap: 20px 24px;
             }
-
             .menu-item-products .product-mega-featured-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+                grid-template-columns: 1fr;
             }
         }
 
