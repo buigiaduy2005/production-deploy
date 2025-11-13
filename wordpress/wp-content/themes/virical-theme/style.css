@@ -1002,3 +1002,9 @@ h4 {
 .cta-feature h4 {
     color: #000000 !important;
 }
+
+.product-mega-inner {
+    display: flex;
+    justify-content: space-between;
+    width: 100%; /* Ensure it takes full width */
+}
