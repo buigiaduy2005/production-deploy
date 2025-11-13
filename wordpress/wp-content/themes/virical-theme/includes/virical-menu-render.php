@@ -78,7 +78,15 @@ if (!function_exists('virical_render_navigation_menu')) {
             $has_dropdown = $has_children || $is_product_menu;
 
             // Start parent menu item
-            echo '<li class="menu-item' . ($has_dropdown ? ' menu-item-has-children' : '') . '">';
+            $additional_classes = [];
+            if ($has_dropdown) {
+                $additional_classes[] = 'menu-item-has-children';
+            }
+            if ($is_product_menu) {
+                $additional_classes[] = 'menu-item-products';
+            }
+            $class_attribute = 'menu-item' . (!empty($additional_classes) ? ' ' . implode(' ', $additional_classes) : '');
+            echo '<li class="' . esc_attr($class_attribute) . '">';
 
             // Parent menu link
             echo '<a href="' . esc_url($parent->item_url) . '"';
@@ -98,63 +106,197 @@ if (!function_exists('virical_render_navigation_menu')) {
             // Render submenu if has children or is product menu
             if ($has_dropdown) {
                 if (trim($parent->item_title) === 'Sản phẩm') {
-                    // Get only parent categories (no children)
-                    $categories = get_terms( array(
-                        'taxonomy' => 'category',
+                    // Build mega menu from post categories with featured products
+                    $categories = get_terms(array(
+                        'taxonomy'   => 'category',
                         'hide_empty' => false,
-                        'parent' => 0, // Only get parent categories
-                    ) );
-                    
-                    // Debug: Log available parent categories
-                    if ( ! empty( $categories ) && ! is_wp_error( $categories ) ) {
-                        error_log('Found ' . count($categories) . ' parent categories for dropdown');
-                        foreach ($categories as $cat) {
-                            error_log('Parent Category: ' . $cat->name . ' (ID: ' . $cat->term_id . ', Parent: ' . $cat->parent . ')');
-                        }
-                    }
-                    
-                    // Fallback to demo categories if no real categories exist
-                    if ( empty( $categories ) || is_wp_error( $categories ) ) {
-                        $categories = array(
-                            (object) array('term_id' => 1, 'name' => 'Đèn LED Trong Nhà', 'slug' => 'den-led-trong-nha'),
-                            (object) array('term_id' => 2, 'name' => 'Đèn LED Ngoài Trời', 'slug' => 'den-led-ngoai-troi'),
-                            (object) array('term_id' => 3, 'name' => 'Đèn LED Thông Minh', 'slug' => 'den-led-thong-minh'),
-                            (object) array('term_id' => 4, 'name' => 'Đèn LED Công Nghiệp', 'slug' => 'den-led-cong-nghiep'),
-                            (object) array('term_id' => 5, 'name' => 'Đèn LED Trang Trí', 'slug' => 'den-led-trang-tri'),
-                            (object) array('term_id' => 6, 'name' => 'Đèn LED Ô Tô', 'slug' => 'den-led-o-to'),
+                        'parent'     => 0,
+                        'orderby'    => 'name',
+                        'order'      => 'ASC',
+                    ));
+
+                    $has_categories = !is_wp_error($categories) && !empty($categories);
+
+                    // Prepare featured product cards (Virical custom products or fallback posts)
+                    $featured_cards = array();
+                    $active_product_count = 0;
+
+                    global $wpdb;
+                    $product_table = $wpdb->prefix . 'virical_products';
+                    $table_check   = $wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $product_table));
+
+                    if ($table_check === $product_table) {
+                        $active_product_count = (int) $wpdb->get_var("SELECT COUNT(*) FROM {$product_table} WHERE is_active = 1");
+
+                        $product_results = $wpdb->get_results(
+                            $wpdb->prepare(
+                                "SELECT name, slug, image_url, description, features 
+                                 FROM {$product_table} 
+                                 WHERE is_active = 1 
+                                 ORDER BY sort_order ASC, id DESC 
+                                 LIMIT %d",
+                                4
+                            )
                         );
-                    }
-                    
-                    if ( ! empty( $categories ) ) {
-                        echo '<div class="dropdown-content">';
-                        foreach ($categories as $category) {
-                            // Get category logo using helper function
-                            $logo_url = '';
-                            if (function_exists('virical_get_category_logo')) {
-                                $logo_url = virical_get_category_logo($category->term_id);
-                            }
-                            // Generate proper link for both real and demo categories
-                            if (isset($category->slug)) {
-                                $category_link = home_url('/san-pham/?category=' . $category->slug);
-                            } else {
-                                $category_link = get_term_link($category);
-                            }
-                            
-                            echo '<a href="' . esc_url($category_link) . '" class="dropdown-item">';
-                            if ($logo_url) {
-                                echo '<img src="' . esc_url($logo_url) . '" alt="' . esc_attr($category->name) . '" class="icon">';
-                            } else {
-                                // Use category icon or default fallback
-                                $icon_class = get_term_meta($category->term_id, 'category_icon', true);
-                                if (!$icon_class) {
-                                    $icon_class = 'fas fa-cube';
+
+                        if (!empty($product_results)) {
+                            foreach ($product_results as $product_entry) {
+                                $image_url = $product_entry->image_url ? $product_entry->image_url : get_template_directory_uri() . '/assets/images/placeholder.jpg';
+                                $raw_excerpt = $product_entry->description;
+                                if (!$raw_excerpt && !empty($product_entry->features)) {
+                                    $decoded_features = json_decode($product_entry->features, true);
+                                    if (is_array($decoded_features) && !empty($decoded_features)) {
+                                        $raw_excerpt = implode('. ', array_slice(array_filter($decoded_features), 0, 2));
+                                    }
                                 }
-                                echo '<div class="icon icon-fallback"><i class="' . esc_attr($icon_class) . '"></i></div>';
+
+                                $featured_cards[] = array(
+                                    'title'   => $product_entry->name,
+                                    'url'     => home_url('/san-pham/' . $product_entry->slug . '/'),
+                                    'image'   => $image_url,
+                                    'excerpt' => $raw_excerpt ? wp_trim_words(wp_strip_all_tags($raw_excerpt), 14, '&hellip;') : '',
+                                );
                             }
-                            echo '<span>' . esc_html($category->name) . '</span>';
-                            echo '</a>';
                         }
-                        echo '</div>';
+                    }
+
+                    // Fallback: use recent posts if custom product table not available or empty
+                    if (empty($featured_cards)) {
+                        $fallback_args = array(
+                            'post_type'           => 'post',
+                            'posts_per_page'      => 4,
+                            'post_status'         => 'publish',
+                            'ignore_sticky_posts' => true,
+                        );
+
+                        if ($has_categories) {
+                            $fallback_args['tax_query'] = array(
+                                array(
+                                    'taxonomy'         => 'category',
+                                    'field'            => 'term_id',
+                                    'terms'            => wp_list_pluck($categories, 'term_id'),
+                                    'include_children' => true,
+                                ),
+                            );
+                        }
+
+                        $fallback_query = new WP_Query($fallback_args);
+
+                        if ($fallback_query->have_posts()) {
+                            $active_product_count = (int) $fallback_query->found_posts;
+
+                            while ($fallback_query->have_posts()) {
+                                $fallback_query->the_post();
+                                $image_url = get_the_post_thumbnail_url(get_the_ID(), 'medium');
+                                if (!$image_url) {
+                                    $image_url = get_template_directory_uri() . '/assets/images/placeholder.jpg';
+                                }
+                                $featured_cards[] = array(
+                                    'title'   => get_the_title(),
+                                    'url'     => get_permalink(),
+                                    'image'   => $image_url,
+                                    'excerpt' => wp_trim_words(wp_strip_all_tags(get_the_excerpt()), 18, '&hellip;'),
+                                );
+                            }
+
+                            wp_reset_postdata();
+                        }
+                    }
+
+                    if ($has_categories || !empty($featured_cards)) {
+                        echo '<div class="dropdown-content product-mega-menu">';
+                        echo '<div class="product-mega-inner">';
+
+                        if ($has_categories) {
+                            echo '<div class="product-mega-categories">';
+
+                            foreach ($categories as $category) {
+                                $parent_link = get_term_link($category);
+                                if (is_wp_error($parent_link)) {
+                                    continue;
+                                }
+
+                                $child_categories = get_terms(array(
+                                    'taxonomy'   => 'category',
+                                    'hide_empty' => false,
+                                    'parent'     => $category->term_id,
+                                    'orderby'    => 'name',
+                                    'order'      => 'ASC',
+                                ));
+
+                                $badge_text = '';
+                                $potential_badges = array(
+                                    'virical_category_badge',
+                                    'category_badge',
+                                    'category_label',
+                                );
+
+                                foreach ($potential_badges as $badge_key) {
+                                    $meta_value = get_term_meta($category->term_id, $badge_key, true);
+                                    if (!empty($meta_value)) {
+                                        $badge_text = $meta_value;
+                                        break;
+                                    }
+                                }
+
+                                echo '<div class="product-mega-column">';
+                                echo '<div class="mega-column-header">';
+                                echo '<a href="' . esc_url($parent_link) . '" class="mega-column-title">' . esc_html($category->name) . '</a>';
+                                if (!empty($badge_text)) {
+                                    echo '<span class="product-mega-badge">' . esc_html($badge_text) . '</span>';
+                                }
+                                echo '</div>';
+
+                                if (!is_wp_error($child_categories) && !empty($child_categories)) {
+                                    echo '<ul class="mega-column-list">';
+                                    foreach ($child_categories as $child_category) {
+                                        $child_link = get_term_link($child_category);
+                                        if (is_wp_error($child_link)) {
+                                            continue;
+                                        }
+                                        echo '<li class="mega-column-item"><a href="' . esc_url($child_link) . '">' . esc_html($child_category->name) . '</a></li>';
+                                    }
+                                    echo '</ul>';
+                                }
+
+                                echo '</div>';
+                            }
+
+                            echo '</div>'; // .product-mega-categories
+                        }
+
+                        if (!empty($featured_cards)) {
+                            $active_label = $active_product_count > 0 ? sprintf(
+                                /* translators: %d: number of active products */
+                                __('Trực tuyến %d sản phẩm', 'virical'),
+                                $active_product_count
+                            ) : __('Sản phẩm nổi bật', 'virical');
+
+                            echo '<div class="product-mega-featured">';
+                            echo '<div class="product-mega-featured-header">';
+                            echo '<span class="product-mega-featured-title">' . esc_html($active_label) . '</span>';
+                            echo '<a class="product-mega-featured-link" href="' . esc_url(home_url('/san-pham/')) . '">' . esc_html__('Xem tất cả', 'virical') . '</a>';
+                            echo '</div>';
+                            echo '<div class="product-mega-featured-grid">';
+
+                            foreach ($featured_cards as $card) {
+                                echo '<a class="product-mega-featured-item" href="' . esc_url($card['url']) . '">';
+                                echo '<div class="product-mega-featured-thumb"><img src="' . esc_url($card['image']) . '" alt="' . esc_attr($card['title']) . '"></div>';
+                                echo '<div class="product-mega-featured-info">';
+                                echo '<h4 class="product-mega-featured-name">' . esc_html($card['title']) . '</h4>';
+                                if (!empty($card['excerpt'])) {
+                                    echo '<p class="product-mega-featured-desc">' . esc_html($card['excerpt']) . '</p>';
+                                }
+                                echo '</div>';
+                                echo '</a>';
+                            }
+
+                            echo '</div>'; // .product-mega-featured-grid
+                            echo '</div>'; // .product-mega-featured
+                        }
+
+                        echo '</div>'; // .product-mega-inner
+                        echo '</div>'; // .product-mega-menu
                     }
                 } else {
                     echo '<div class="dropdown-content">';
