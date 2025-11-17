@@ -94,14 +94,13 @@ body {
 /* Dropdown items */
 .dropdown-item {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    text-align: center;
     padding: 12px;
     border-radius: 8px;
     text-decoration: none;
     transition: background-color 0.2s ease;
-    width: 120px; /* Fixed width for uniform items */
+    width: 150px; /* Fixed width for uniform items */
 }
 
 .dropdown-item:hover {
@@ -112,7 +111,7 @@ body {
     width: 44px;
     height: 44px;
     color: #888;
-    margin-bottom: 10px;
+    margin-right: 10px;
     transition: transform 0.2s ease, color 0.2s ease;
 }
 
