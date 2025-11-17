@@ -121,36 +121,33 @@ if (!function_exists('virical_render_navigation_menu')) {
 
             if ($has_dropdown) {
                 if (trim($parent->item_title) === 'Sản phẩm') {
-                    // Dropdown danh mục đơn giản cho database menu
-                    echo '<div class="dropdown-content">';
-                    
-                    // Lấy danh mục từ WordPress categories
-                    $categories = get_terms(array(
-                        'taxonomy'   => 'category',
+                    $categories = get_terms( array(
+                        'taxonomy' => 'category',
                         'hide_empty' => false,
-                        'parent'     => 0,
-                        'orderby'    => 'name',
-                        'order'      => 'ASC',
-                    ));
-                    
-                    if (!is_wp_error($categories) && !empty($categories)) {
+                        'parent' => 0,
+                    ) );
+                    if ( ! empty( $categories ) && ! is_wp_error( $categories ) ) {
+                        echo '<div class="dropdown-content product-mega-menu">';
+                        echo '<div class="product-mega-categories">';
                         foreach ($categories as $category) {
-                            $category_link = get_term_link($category);
-                            if (!is_wp_error($category_link)) {
-                                echo '<div class="dropdown-item">';
-                                echo '<a href="' . esc_url($category_link) . '">' . esc_html($category->name) . '</a>';
-                                echo '</div>';
+                            $logo_id = get_term_meta( $category->term_id, 'category-logo-id', true );
+                            $logo_url = '';
+                            if ( $logo_id ) {
+                                $logo_data = wp_get_attachment_image_src( $logo_id, 'thumbnail' );
+                                if ($logo_data) {
+                                    $logo_url = $logo_data[0];
+                                }
                             }
+                            echo '<a href="' . esc_url(get_term_link($category)) . '" class="product-mega-item">';
+                            if ($logo_url) {
+                                echo '<img src="' . esc_url($logo_url) . '" alt="' . esc_attr($category->name) . '">';
+                            }
+                            echo '<span class="product-mega-item-name">' . esc_html($category->name) . '</span>';
+                            echo '</a>';
                         }
-                    } else {
-                        // Fallback danh mục mẫu
-                        echo '<div class="dropdown-item"><a href="' . home_url('/san-pham/?category=den-led-trong-nha') . '">Đèn LED trong nhà</a></div>';
-                        echo '<div class="dropdown-item"><a href="' . home_url('/san-pham/?category=den-led-ngoai-troi') . '">Đèn LED ngoài trời</a></div>';
-                        echo '<div class="dropdown-item"><a href="' . home_url('/san-pham/?category=den-led-thong-minh') . '">Đèn LED thông minh</a></div>';
-                        echo '<div class="dropdown-item"><a href="' . home_url('/san-pham/?category=den-led-cong-nghiep') . '">Đèn LED công nghiệp</a></div>';
+                        echo '</div>'; // close product-mega-categories
+                        echo '</div>'; // close dropdown-content
                     }
-                    
-                    echo '</div>';
                 } else {
                     echo '<div class="dropdown-content">';
                     foreach ($parent->children as $child_id) {
