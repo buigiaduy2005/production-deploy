@@ -16,25 +16,24 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <script>
-    // Remove duplicate menus on page load
+    // Remove duplicate menus on page load - SAFER VERSION
     document.addEventListener('DOMContentLoaded', function() {
-        // Remove all menus except the first one in .main-navigation
-        const navContainer = document.querySelector('.main-navigation');
-        if (navContainer) {
-            const allMenus = navContainer.querySelectorAll('ul.main-nav');
-            // Keep only the first menu, remove all others
-            for (let i = 1; i < allMenus.length; i++) {
-                console.log('Removing duplicate menu #' + i);
-                allMenus[i].remove();
-            }
-        }
-        
-        // Remove any WordPress default menus
+        // Only remove WordPress default menus, keep our custom menu
         const wpMenus = document.querySelectorAll('#menu-primary-menu, .menu-primary-menu-container');
         wpMenus.forEach(function(menu) {
             console.log('Removing WordPress default menu');
             menu.remove();
         });
+        
+        // Debug: Check if our menu exists
+        const navContainer = document.querySelector('.main-navigation');
+        const ourMenu = navContainer ? navContainer.querySelector('ul.main-nav') : null;
+        console.log('Navigation container:', navContainer);
+        console.log('Our menu:', ourMenu);
+        
+        if (navContainer && !ourMenu) {
+            console.error('MENU ERROR: Navigation container exists but no menu found!');
+        }
     });
     </script>
     
@@ -42,7 +41,7 @@
     wp_head();
 
     // Load custom menu renderer
-    require_once get_template_directory() . '/includes/virical-menu-render.php';
+    require_once get_template_directory() . '/includes/virical-menu-render-fixed.php';
     ?>
 
     <style>
@@ -131,12 +130,35 @@
             text-shadow: 1px 1px 1px rgba(0,0,0,0.05);
         }
         
+        .main-navigation {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: flex-end !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            position: relative !important;
+            z-index: 999 !important;
+            flex: 1 1 auto;
+        }
+        
         .main-navigation ul {
-            display: flex;
-            list-style: none;
-            gap: 35px;
-            margin: 0;
-            padding: 0;
+            display: flex !important;
+            list-style: none !important;
+            gap: 35px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            flex-direction: row !important;
+            align-items: center !important;
+        }
+        
+        .main-navigation li {
+            display: inline-flex !important;
+            align-items: center !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            position: relative !important;
         }
         
         .main-navigation a {
@@ -197,6 +219,25 @@
         #menu-primary-menu {
             display: none !important;
         }
+        
+        /* DEBUG: Force show menu items */
+        .main-navigation ul.main-nav {
+            display: flex !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        
+        .main-navigation ul.main-nav li {
+            display: inline-flex !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        
+        .main-navigation ul.main-nav li a {
+            display: inline-block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
 
         /* Dropdown base */
         .main-navigation .menu-item {
@@ -246,27 +287,27 @@
         }
         
         .menu-item-products .product-mega-menu {
-            position: fixed;
-            top: 80px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-10px);
-            width: 1400px;
-            max-width: calc(100vw - 40px);
-            padding: 32px 40px 36px;
-            background: rgba(255,255,255,0.97);
-            border-radius: 0 0 16px 16px;
-            box-shadow: 0 25px 50px rgba(15,23,42,0.12);
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            transition: opacity 0.25s ease, transform 0.25s ease;
-            display: block;
-            z-index: 1000;
+            position: absolute !important;
+            top: calc(100% + 10px) !important;
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            padding: 32px 40px 36px !important;
+            background: rgba(255,255,255,0.97) !important;
+            border-radius: 0 !important;
+            box-shadow: 0 25px 50px rgba(15,23,42,0.12) !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+            transition: opacity 0.25s ease, visibility 0.25s ease !important;
+            display: block !important;
+            z-index: 1000 !important;
         }
 
         .menu-item-products .product-mega-inner {
             display: grid;
-            grid-template-columns: minmax(0, 1fr) 280px;
+            grid-template-columns: 1fr 300px;
             gap: 40px;
             align-items: start;
             justify-items: stretch;
@@ -283,18 +324,50 @@
 
         .menu-item-products .product-mega-categories {
             display: grid;
-            grid-template-columns: repeat(5, minmax(180px, 1fr));
-            gap: 24px 32px;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 20px;
             width: 100%;
-            justify-content: center;
-            justify-items: center;
+            max-height: 300px;
+        }
+        
+        .menu-item-products .product-mega-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 15px;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #e5e5e5;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .menu-item-products .product-mega-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        
+        .menu-item-products .product-mega-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 8px;
+        }
+        
+        .menu-item-products .product-mega-item-name {
+            font-size: 12px;
+            font-weight: 500;
+            color: #333;
+            line-height: 1.3;
         }
 
         .menu-item-products:hover .product-mega-menu {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-            transform: translateX(-50%) translateY(0);
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
         }
 
         .menu-item-products .mega-column-header {
@@ -646,12 +719,26 @@
         </a>
         <nav class="main-navigation">
             <?php
-            // Render custom Virical navigation menu with dropdown support
-            // Disable WordPress default menu to prevent duplicates
-            remove_all_filters('wp_nav_menu_objects');
-            remove_all_filters('wp_nav_menu_items');
-            remove_all_filters('wp_nav_menu_args');
-            virical_render_navigation_menu('primary', 'main-nav');
+            // DEBUG: Check if function exists
+            if (function_exists('virical_render_navigation_menu')) {
+                echo '<!-- VIRICAL MENU: Function exists, rendering... -->';
+                // Render custom Virical navigation menu with dropdown support
+                // Disable WordPress default menu to prevent duplicates
+                remove_all_filters('wp_nav_menu_objects');
+                remove_all_filters('wp_nav_menu_items');
+                remove_all_filters('wp_nav_menu_args');
+                virical_render_navigation_menu('primary', 'main-nav');
+                echo '<!-- VIRICAL MENU: Rendering complete -->';
+            } else {
+                echo '<!-- ERROR: virical_render_navigation_menu function not found! -->';
+                // Emergency fallback
+                echo '<ul class="main-nav">';
+                echo '<li><a href="' . home_url('/') . '">TRANG CHỦ</a></li>';
+                echo '<li><a href="' . home_url('/gioi-thieu') . '">GIỚI THIỆU</a></li>';
+                echo '<li><a href="' . home_url('/san-pham') . '">SẢN PHẨM</a></li>';
+                echo '<li><a href="' . home_url('/lien-he') . '">LIÊN HỆ</a></li>';
+                echo '</ul>';
+            }
             ?>
         </nav>
         <button class="menu-toggle" aria-label="Menu">

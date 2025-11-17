@@ -15,16 +15,8 @@ if (!function_exists('virical_render_navigation_menu')) {
     function virical_render_navigation_menu($location = 'primary', $menu_class = 'main-nav') {
         global $wpdb;
         
-        // Prevent multiple renders of the same menu (CRITICAL FIX)
-        static $rendered_menus = array();
-        $menu_key = $location . '_' . $menu_class;
-        
-        if (isset($rendered_menus[$menu_key])) {
-            error_log("VIRICAL MENU: Prevented duplicate render of {$menu_key}");
-            return; // Already rendered, prevent duplicate
-        }
-        $rendered_menus[$menu_key] = true;
-        error_log("VIRICAL MENU: Rendering {$menu_key}");
+        // DEBUG: Always render menu for now
+        error_log("VIRICAL MENU: Rendering {$location} with class {$menu_class}");
 
         // Get all active menus for this location
         $menus = $wpdb->get_results($wpdb->prepare(
@@ -36,9 +28,134 @@ if (!function_exists('virical_render_navigation_menu')) {
         ));
 
         if (empty($menus)) {
-            // Fallback menu if no menus found
+            // Enhanced fallback menu with product dropdown
             echo '<ul class="' . esc_attr($menu_class) . '">';
-            echo '<li><a href="' . home_url('/') . '">Trang Chủ</a></li>';
+            echo '<li><a href="' . home_url('/') . '">TRANG CHỦ</a></li>';
+            echo '<li><a href="' . home_url('/gioi-thieu') . '">GIỚI THIỆU</a></li>';
+            echo '<li class="menu-item-has-children menu-item-products">';
+            echo '<a href="' . home_url('/san-pham') . '">SẢN PHẨM <span class="caret"></span></a>';
+            
+            // Luôn hiển thị mega menu với grid layout
+            echo '<div class="dropdown-content product-mega-menu">';
+            echo '<div class="product-mega-inner">';
+            
+            // Grid sản phẩm bên trái
+            echo '<div class="product-mega-categories">';
+            
+            // Tạo array sản phẩm mẫu với hình ảnh
+            $sample_products = array(
+                array(
+                    'name' => 'Đèn pha LED 500W',
+                    'image' => get_template_directory_uri() . '/assets/images/products/den-pha-500w.jpg',
+                    'url' => home_url('/san-pham/den-pha-led-500w/')
+                ),
+                array(
+                    'name' => 'Đèn đường LED 200W',
+                    'image' => get_template_directory_uri() . '/assets/images/products/den-duong-200w.jpg',
+                    'url' => home_url('/san-pham/den-duong-led-200w/')
+                ),
+                array(
+                    'name' => 'Đèn đường LED 150W',
+                    'image' => get_template_directory_uri() . '/assets/images/products/den-duong-150w.jpg',
+                    'url' => home_url('/san-pham/den-duong-led-150w/')
+                ),
+                array(
+                    'name' => 'Đèn LED âm trần',
+                    'image' => get_template_directory_uri() . '/assets/images/products/den-am-tran.jpg',
+                    'url' => home_url('/san-pham/den-led-am-tran/')
+                ),
+                array(
+                    'name' => 'Đèn LED panel',
+                    'image' => get_template_directory_uri() . '/assets/images/products/den-panel.jpg',
+                    'url' => home_url('/san-pham/den-led-panel/')
+                ),
+                array(
+                    'name' => 'Đèn LED bulb',
+                    'image' => get_template_directory_uri() . '/assets/images/products/den-bulb.jpg',
+                    'url' => home_url('/san-pham/den-led-bulb/')
+                ),
+                array(
+                    'name' => 'Đèn LED dây',
+                    'image' => get_template_directory_uri() . '/assets/images/products/den-day.jpg',
+                    'url' => home_url('/san-pham/den-led-day/')
+                ),
+                array(
+                    'name' => 'Đèn LED spotlight',
+                    'image' => get_template_directory_uri() . '/assets/images/products/spotlight.jpg',
+                    'url' => home_url('/san-pham/den-led-spotlight/')
+                ),
+                array(
+                    'name' => 'Đèn LED downlight',
+                    'image' => get_template_directory_uri() . '/assets/images/products/downlight.jpg',
+                    'url' => home_url('/san-pham/den-led-downlight/')
+                ),
+                array(
+                    'name' => 'Đèn LED tracklight',
+                    'image' => get_template_directory_uri() . '/assets/images/products/tracklight.jpg',
+                    'url' => home_url('/san-pham/den-led-tracklight/')
+                )
+            );
+            
+            // Hiển thị 10 sản phẩm trong grid 5x2
+            foreach ($sample_products as $product) {
+                echo '<a href="' . esc_url($product['url']) . '" class="product-mega-item">';
+                echo '<img src="' . esc_url($product['image']) . '" alt="' . esc_attr($product['name']) . '" onerror="this.src=\'' . get_template_directory_uri() . '/assets/images/placeholder.jpg\'">';
+                echo '<span class="product-mega-item-name">' . esc_html($product['name']) . '</span>';
+                echo '</a>';
+            }
+            
+            echo '</div>'; // .product-mega-categories
+            
+            // Sản phẩm nổi bật bên phải
+            echo '<div class="product-mega-featured">';
+            echo '<div class="product-mega-featured-header">';
+            echo '<span class="product-mega-featured-title">Sản phẩm nổi bật</span>';
+            echo '<a class="product-mega-featured-link" href="' . home_url('/san-pham/') . '">Xem tất cả</a>';
+            echo '</div>';
+            echo '<div class="product-mega-featured-grid">';
+            
+            // Sản phẩm nổi bật mẫu
+            $featured_products = array(
+                array(
+                    'name' => 'Đèn pha LED 500W cao cấp',
+                    'image' => get_template_directory_uri() . '/assets/images/products/den-pha-500w.jpg',
+                    'url' => home_url('/san-pham/den-pha-led-500w/'),
+                    'excerpt' => 'Đèn pha LED công suất siêu cao 500W cho sân vận động, công trình...'
+                ),
+                array(
+                    'name' => 'Đèn đường LED module 200W',
+                    'image' => get_template_directory_uri() . '/assets/images/products/den-duong-200w.jpg',
+                    'url' => home_url('/san-pham/den-duong-led-200w/'),
+                    'excerpt' => 'Đèn đường LED module công suất 200W, thiết kế module linh hoạt...'
+                ),
+                array(
+                    'name' => 'Đèn đường LED COB 150W',
+                    'image' => get_template_directory_uri() . '/assets/images/products/den-duong-150w.jpg',
+                    'url' => home_url('/san-pham/den-duong-led-150w/'),
+                    'excerpt' => 'Đèn đường LED công suất cao 150W với công nghệ COB, tiết kiệm năng...'
+                )
+            );
+            
+            foreach ($featured_products as $product) {
+                echo '<a class="product-mega-featured-item" href="' . esc_url($product['url']) . '">';
+                echo '<div class="product-mega-featured-thumb">';
+                echo '<img src="' . esc_url($product['image']) . '" alt="' . esc_attr($product['name']) . '" onerror="this.src=\'' . get_template_directory_uri() . '/assets/images/placeholder.jpg\'">';
+                echo '</div>';
+                echo '<div class="product-mega-featured-info">';
+                echo '<h4 class="product-mega-featured-name">' . esc_html($product['name']) . '</h4>';
+                echo '<p class="product-mega-featured-desc">' . esc_html($product['excerpt']) . '</p>';
+                echo '</div>';
+                echo '</a>';
+            }
+            
+            echo '</div>'; // .product-mega-featured-grid
+            echo '</div>'; // .product-mega-featured
+            
+            echo '</div>'; // .product-mega-inner
+            echo '</div>'; // .dropdown-content
+            echo '</li>';
+            echo '<li><a href="' . home_url('/giai-phap-thong-minh') . '">GIẢI PHÁP THÔNG MINH</a></li>';
+            echo '<li><a href="' . home_url('/lien-he') . '">LIÊN HỆ</a></li>';
             echo '</ul>';
             return;
         }
@@ -204,78 +321,15 @@ if (!function_exists('virical_render_navigation_menu')) {
                                     'excerpt' => wp_trim_words(wp_strip_all_tags(get_the_excerpt()), 18, '&hellip;'),
                                 );
                             }
-
-                            wp_reset_postdata();
-                        }
-                    }
-
-                    if ($has_categories || !empty($featured_cards)) {
-                        echo '<div class="dropdown-content product-mega-menu">';
-                        echo '<div class="product-mega-inner">';
-
-                        if ($has_categories) {
-                            echo '<div class="product-mega-categories">';
-
-                            foreach ($categories as $category) {
-                                $parent_link = get_term_link($category);
-                                if (is_wp_error($parent_link)) {
-                                    continue;
-                                }
-
-                                $child_categories = get_terms(array(
-                                    'taxonomy'   => 'category',
-                                    'hide_empty' => false,
-                                    'parent'     => $category->term_id,
-                                    'orderby'    => 'name',
-                                    'order'      => 'ASC',
-                                ));
-
-                                $badge_text = '';
-                                $potential_badges = array(
-                                    'virical_category_badge',
-                                    'category_badge',
-                                    'category_label',
-                                );
-
-                                foreach ($potential_badges as $badge_key) {
-                                    $meta_value = get_term_meta($category->term_id, $badge_key, true);
-                                    if (!empty($meta_value)) {
-                                        $badge_text = $meta_value;
-                                        break;
-                                    }
-                                }
-
-                                echo '<div class="product-mega-column">';
-                                echo '<div class="mega-column-header">';
-                                echo '<a href="' . esc_url($parent_link) . '" class="mega-column-title">' . esc_html($category->name) . '</a>';
-                                if (!empty($badge_text)) {
-                                    echo '<span class="product-mega-badge">' . esc_html($badge_text) . '</span>';
-                                }
-                                echo '</div>';
-
-                                if (!is_wp_error($child_categories) && !empty($child_categories)) {
-                                    echo '<ul class="mega-column-list">';
-                                    foreach ($child_categories as $child_category) {
-                                        $child_link = get_term_link($child_category);
-                                        if (is_wp_error($child_link)) {
-                                            continue;
-                                        }
-                                        echo '<li class="mega-column-item"><a href="' . esc_url($child_link) . '">' . esc_html($child_category->name) . '</a></li>';
-                                    }
-                                    echo '</ul>';
-                                }
-
-                                echo '</div>';
                             }
 
-                            echo '</div>'; // .product-mega-categories
+                            $featured_cards[] = array(
+                                'title'   => $product_entry->name,
+                                'url'     => home_url('/san-pham/' . $product_entry->slug . '/'),
+                                'image'   => $image_url,
+                                'excerpt' => $raw_excerpt ? wp_trim_words(wp_strip_all_tags($raw_excerpt), 14, '&hellip;') : '',
+                            );
                         }
-
-                        if (!empty($featured_cards)) {
-                            // Always show "Sản phẩm nổi bật" instead of product count
-                            $active_label = __('Sản phẩm nổi bật', 'virical');
-
-                            echo '<div class="product-mega-featured">';
                             echo '<div class="product-mega-featured-header">';
                             echo '<span class="product-mega-featured-title">' . esc_html($active_label) . '</span>';
                             echo '<a class="product-mega-featured-link" href="' . esc_url(home_url('/san-pham/')) . '">' . esc_html__('Xem tất cả', 'virical') . '</a>';
