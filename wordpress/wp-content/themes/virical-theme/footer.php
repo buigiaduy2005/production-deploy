@@ -100,7 +100,7 @@
                             <?php $zalo_url = virical_get_social_link('zalo'); ?>
                             <?php if (!empty($zalo_url)): ?>
                                 <a href="<?php echo esc_url($zalo_url); ?>" target="_blank" rel="noopener">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/zalo-icon.png" alt="Zalo" style="width: 16px; height: 16px;">
+                                    <i class="fas fa-comment"></i>
                                 </a>
                             <?php endif; ?>
                             

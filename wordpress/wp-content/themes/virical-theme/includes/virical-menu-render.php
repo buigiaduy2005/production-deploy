@@ -33,7 +33,7 @@ if (!function_exists('virical_render_navigation_menu')) {
             echo '<li><a href="' . home_url('/') . '">TRANG CHỦ</a></li>';
             echo '<li><a href="' . home_url('/gioi-thieu') . '">GIỚI THIỆU</a></li>';
             echo '<li class="menu-item-has-children menu-item-products">';
-            echo '<a href="' . home_url('/san-pham') . '">SẢN PHẨM <span class="caret"></span></a>';
+            echo '<a href="' . home_url('/san-pham') . '">SẢN PHẨM</a>';
             
             // Luôn hiển thị mega menu với grid layout
             echo '<div class="dropdown-content product-mega-menu">';
@@ -221,7 +221,7 @@ if (!function_exists('virical_render_navigation_menu')) {
             
             // Add caret for dropdown menus
             if ($has_dropdown) {
-                echo ' <span class="caret"></span>';
+                
             }
             
             echo '</a>';

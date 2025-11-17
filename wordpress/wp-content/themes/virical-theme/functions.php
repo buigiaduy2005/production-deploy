@@ -1512,7 +1512,7 @@ function virical_social_media_admin_page() {
                     <tr>
                         <th scope="row">
                             <label for="zalo">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/zalo-icon.png" alt="Zalo" style="width: 16px; height: 16px; margin-right: 8px;">
+                                <i class="fas fa-comment" style="margin-right: 8px;"></i>
                                 Zalo
                             </label>
                         </th>
@@ -1568,7 +1568,7 @@ function virical_social_media_admin_page() {
                 
                 <?php if ($zalo): ?>
                     <a href="<?php echo esc_url($zalo); ?>" target="_blank" style="width: 40px; height: 40px; border-radius: 50%; background: #0068ff; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none;">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/zalo-icon.png" alt="Zalo" style="width: 16px; height: 16px;">
+                        <i class="fas fa-comment"></i>
                     </a>
                 <?php endif; ?>
             </div>
