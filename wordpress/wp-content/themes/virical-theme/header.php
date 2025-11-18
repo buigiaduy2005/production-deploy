@@ -909,4 +909,80 @@
         </button>
     </div>
 </header>
+<button class="menu-toggle-products" aria-label="Product Categories">
+    <span class="menu-toggle-icon-products">
+        <span></span>
+        <span></span>
+        <span></span>
+    </span>
+</button>
+<div class="product-categories-mobile-menu" style="display: none;">
+    <ul>
+        <li><a href="#">Category 1</a></li>
+        <li><a href="#">Category 2</a></li>
+        <li><a href="#">Category 3</a></li>
+    </ul>
+</div>
+
+<style>
+    .menu-toggle-products {
+        display: none; /* Hidden by default, shown on mobile */
+        position: fixed; /* Fixed position */
+        top: 80px; /* Below the header */
+        right: 20px; /* On the right side */
+        z-index: 1001; /* Above the header */
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+    }
+
+    .menu-toggle-icon-products {
+        display: block;
+        width: 20px; /* Smaller width */
+        height: 16px; /* Smaller height */
+        position: relative;
+    }
+
+    .menu-toggle-icon-products span {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background: #000; /* Black lines */
+        position: absolute;
+        left: 0;
+        transition: all 0.3s;
+    }
+
+    .menu-toggle-icon-products span:nth-child(1) {
+        top: 0;
+    }
+
+    .menu-toggle-icon-products span:nth-child(2) {
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .menu-toggle-icon-products span:nth-child(3) {
+        bottom: 0;
+    }
+
+    .product-categories-mobile-menu {
+        display: none;
+        position: fixed;
+        top: 130px; /* Below the new button */
+        left: 0;
+        right: 0;
+        background: #fff;
+        z-index: 1000;
+        padding: 20px;
+        border-top: 1px solid #eee;
+    }
+
+    @media (max-width: 768px) {
+        .menu-toggle-products {
+            display: block; /* Show on mobile */
+        }
+    }
+</style>
 

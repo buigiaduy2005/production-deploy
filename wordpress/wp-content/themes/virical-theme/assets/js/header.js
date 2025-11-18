@@ -22,9 +22,19 @@ jQuery(document).ready(function($) {
     // Dropdown menu handling for mobile
     $('.menu-item-has-children > a').on('click', function(e) {
         if ($(window).width() <= 768) {
-            e.preventDefault();
-            $(this).parent().toggleClass('submenu-open');
-            $(this).next('.sub-menu').slideToggle(300);
+            e.stopPropagation(); // Stop the event from bubbling up
+            var parentLi = $(this).parent();
+            if (parentLi.hasClass('submenu-open')) {
+                // If the submenu is already open, follow the link
+                window.location.href = $(this).attr('href');
+            } else {
+                // If the submenu is closed, open it and prevent the link from being followed
+                e.preventDefault();
+                // Close any other open submenus
+                $('.submenu-open').removeClass('submenu-open').find('.sub-menu').slideUp(300);
+                parentLi.toggleClass('submenu-open');
+                $(this).next('.sub-menu').slideToggle(300);
+            }
         }
     });
     
@@ -77,5 +87,11 @@ jQuery(document).ready(function($) {
         var parentLi = $(this).closest('li');
         parentLi.toggleClass('open');
         parentLi.children('.sub-menu').slideToggle(300);
+    });
+
+    // Product category menu toggle for mobile
+    $('.menu-toggle-products').on('click', function(e) {
+        e.preventDefault();
+        $('.product-categories-mobile-menu').slideToggle(300);
     });
 });
