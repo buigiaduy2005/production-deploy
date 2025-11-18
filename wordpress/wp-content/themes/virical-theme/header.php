@@ -309,6 +309,8 @@
         /* Product mega menu */
         .menu-item-products {
             position: relative; /* Keep it relative */
+            border-bottom: 20px solid transparent;
+            margin-bottom: -20px;
         }
         
         .menu-item-products .product-mega-menu {
