@@ -489,7 +489,7 @@ body {
 <aside class="product-sidebar">
     <div class="commitment-box">
         <div class="commitment-header">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo_virical1.png" alt="Virical Logo" class="virical-logo">
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logoVirical.svg" alt="Virical Logo" class="virical-logo">
             <div class="commitment-title">
                 <h4>Phân phối chính hãng tại Việt Nam</h4>
             </div>

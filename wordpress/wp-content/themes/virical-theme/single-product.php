@@ -220,7 +220,7 @@ get_header();
                 <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
                     <h3 class="text-center font-bold text-black uppercase tracking-wider text-sm mb-4" style="color: black !important;">Cam kết chính hiệu bởi</h3>
                     <div class="flex items-center justify-center space-x-4 mb-5">
-                        <img src="<?php echo get_template_directory_uri() . '/assets/images/logo_virical1.png'; ?>" alt="Virical Logo" class="h-12">
+                        <img src="<?php echo get_template_directory_uri() . '/assets/images/logoVirical.svg'; ?>" alt="Virical Logo" class="h-12">
                         <span class="text-gray-700 font-semibold text-sm leading-tight">Phân phối Virical<br>chính hãng tại Việt Nam</span>
                     </div>
                     <div class="space-y-3 text-gray-600 text-sm">
