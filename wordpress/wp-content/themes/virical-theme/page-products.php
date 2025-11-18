@@ -68,14 +68,31 @@ document.addEventListener('DOMContentLoaded', function() {
 global $wpdb;
 
 // --- DATA FETCHING ---
-$categories_table = $wpdb->prefix . 'virical_product_categories';
 $products_table = $wpdb->prefix . 'virical_products';
 
-$product_categories = $wpdb->get_results("
-    SELECT * FROM {$categories_table} 
-    WHERE is_active = 1 
-    ORDER BY sort_order, name
-");
+// Build hierarchical category tree from WordPress taxonomy 'category'
+$all_terms = get_terms(array(
+    'taxonomy'   => 'category',
+    'hide_empty' => false,
+));
+
+$category_tree  = array();
+$category_index = array();
+
+if (!is_wp_error($all_terms) && !empty($all_terms)) {
+    foreach ($all_terms as $term) {
+        $term->children = array();
+        $category_index[$term->term_id] = $term;
+    }
+
+    foreach ($all_terms as $term) {
+        if ($term->parent && isset($category_index[$term->parent])) {
+            $category_index[$term->parent]->children[] = $term;
+        } else {
+            $category_tree[] = $term;
+        }
+    }
+}
 
 $current_category_slug = isset($_GET['category']) ? sanitize_text_field($_GET['category']) : '';
 
@@ -98,6 +115,37 @@ if (!empty($sql_params)) {
 
 $products = $wpdb->get_results($query);
 
+if (!function_exists('virical_render_category_sidebar_items')) {
+    function virical_render_category_sidebar_items($terms, $current_category_slug, $level = 0) {
+        if (empty($terms)) {
+            return;
+        }
+
+        foreach ($terms as $term) {
+            $is_active    = ($current_category_slug === $term->slug);
+            $has_children = !empty($term->children);
+            $indent_px    = $level * 16;
+            $link_url     = add_query_arg('category', $term->slug, home_url('/san-pham'));
+            ?>
+            <li class="border-b border-gray-200 last:border-b-0">
+                <a href="<?php echo esc_url($link_url); ?>" class="flex items-center justify-between p-4 hover:bg-gray-100 transition-colors duration-200 <?php echo $is_active ? 'bg-blue-50 text-blue-600' : 'text-gray-700'; ?>">
+                    <span class="font-semibold" style="margin-left: <?php echo (int) $indent_px; ?>px;">
+                        <?php echo esc_html($term->name); ?>
+                    </span>
+                    <?php if ($has_children): ?>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    <?php endif; ?>
+                </a>
+                <?php if ($has_children): ?>
+                    <ul>
+                        <?php virical_render_category_sidebar_items($term->children, $current_category_slug, $level + 1); ?>
+                    </ul>
+                <?php endif; ?>
+            </li>
+            <?php
+        }
+    }
+}
 ?>
 
 <script src="https://cdn.tailwindcss.com"></script>
@@ -118,12 +166,12 @@ $products = $wpdb->get_results($query);
 
 <div class="bg-gray-50 font-sans">
 
-    <!-- Mobile Header -->
+    <!-- Mobile Header with small category hamburger under main menu -->
     <header class="lg:hidden bg-white shadow-md sticky top-20 z-40">
         <div class="container mx-auto flex items-center justify-between p-4">
             <h1 class="text-xl font-bold text-black" style="color: black !important;">Sản phẩm</h1>
-            <button id="hamburger-button" class="text-gray-600 hover:text-gray-800 focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            <button id="hamburger-button" class="w-9 h-9 bg-gray-600 text-white rounded-md flex items-center justify-center shadow-md hover:bg-gray-700 focus:outline-none" aria-label="Danh mục sản phẩm">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
         </div>
     </header>
@@ -145,14 +193,7 @@ $products = $wpdb->get_results($query);
                                 <span class="font-semibold">Tất cả sản phẩm</span>
                             </a>
                         </li>
-                        <?php foreach ($product_categories as $category): ?>
-                        <li class="border-b border-gray-200 last:border-b-0">
-                            <a href="?category=<?php echo $category->slug; ?>" class="flex items-center justify-between p-4 hover:bg-gray-100 transition-colors duration-200 <?php echo $current_category_slug === $category->slug ? 'bg-blue-50 text-blue-600' : 'text-gray-700'; ?>">
-                                <span class="font-semibold"><?php echo $category->name; ?></span>
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                            </a>
-                        </li>
-                        <?php endforeach; ?>
+                        <?php virical_render_category_sidebar_items($category_tree, $current_category_slug); ?>
                     </ul>
                 </nav>
             </div>

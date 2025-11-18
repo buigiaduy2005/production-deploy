@@ -124,10 +124,10 @@ get_header();
         <span class="text-gray-500"><?php the_title(); ?></span>
     </nav>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div class="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12">
 
             <!-- Main Content -->
-            <div class="lg:col-span-2">
+            <div class="lg:col-span-1">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
                     <!-- Left: Product Image -->

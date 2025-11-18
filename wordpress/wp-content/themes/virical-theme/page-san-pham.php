@@ -180,21 +180,55 @@ $products = $wpdb->get_results($query);
             </div>
             <div class="sidebar-content max-h-[calc(100vh-68px)] overflow-y-auto">
                 <nav>
-                    <ul>
-                        <li class="border-b border-gray-200 last:border-b-0">
-                             <a href="<?php echo esc_url(home_url('/san-pham')); ?>" class="flex items-center justify-between p-4 hover:bg-gray-100 transition-colors duration-200 <?php echo empty($current_category_slug) ? 'bg-blue-50 text-blue-600' : 'text-gray-700'; ?>">
-                                <span class="font-semibold">Tất cả sản phẩm</span>
-                            </a>
-                        </li>
-                        <?php foreach ($product_categories as $category): ?>
-                        <li class="border-b border-gray-200 last:border-b-0">
-                            <a href="?category=<?php echo $category->slug; ?>" class="flex items-center justify-between p-4 hover:bg-gray-100 transition-colors duration-200 <?php echo $current_category_slug === $category->slug ? 'bg-blue-50 text-blue-600' : 'text-gray-700'; ?>">
-                                <span class="font-semibold"><?php echo $category->name; ?></span>
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                            </a>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
+                    <div class="widget">
+                        <h2 class="widget-title" style="color: #000 !important;">Danh mục sản phẩm</h2>
+                        <ul class="product-categories-list">
+                            <li><a href="<?php echo esc_url(add_query_arg('ver', wp_rand(), get_post_type_archive_link('product'))); ?>">Tất cả sản phẩm</a></li>
+                            <?php
+                            $parent_categories = get_terms( array(
+                                'taxonomy' => 'category',
+                                'hide_empty' => false,
+                                'parent' => 0,
+                            ) );
+                            $current_cat_id = get_queried_object_id();
+
+                            if ( ! empty( $parent_categories ) && ! is_wp_error( $parent_categories ) ) {
+                                foreach ( $parent_categories as $parent_category ) {
+                                    $child_categories = get_terms( array(
+                                        'taxonomy' => 'category',
+                                        'hide_empty' => false,
+                                        'parent' => $parent_category->term_id,
+                                    ) );
+
+                                    $has_children = ! empty( $child_categories );
+                                    $is_current_parent = ($current_cat_id == $parent_category->term_id);
+                                    $li_class = 'cat-item';
+                                    if ($has_children) {
+                                        $li_class .= ' has-children';
+                                    }
+                                    if ($is_current_parent) {
+                                        $li_class .= ' current-cat-parent';
+                                    }
+
+                                    echo '<li class="' . $li_class . '">';
+                                    echo '<a href="' . esc_url( get_term_link( $parent_category ) ) . '" class="' . ($is_current_parent ? 'active' : '') . '">' . esc_html( $parent_category->name ) . '</a>';
+
+                                    if ( $has_children ) {
+                                        echo '<ul class="children" style="display:none;">';
+                                        foreach ( $child_categories as $child_category ) {
+                                            $is_current_child = ($current_cat_id == $child_category->term_id);
+                                            echo '<li class="cat-item ' . ($is_current_child ? 'current-cat' : '') . '">';
+                                            echo '<a href="' . esc_url( get_term_link( $child_category ) ) . '" class="' . ($is_current_child ? 'active' : '') . '">' . esc_html( $child_category->name ) . '</a>';
+                                            echo '</li>';
+                                        }
+                                        echo '</ul>';
+                                    }
+                                    echo '</li>';
+                                }
+                            }
+                            ?>
+                        </ul>
+                    </div>
                 </nav>
             </div>
         </aside>
@@ -363,7 +397,7 @@ $products = $wpdb->get_results($query);
     <!-- Floating Contact Buttons -->
     <div class="fixed right-4 top-1/2 -translate-y-1/2 space-y-3 z-30">
         <a href="#" class="w-14 h-14 bg-blue-500 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-600 transition-colors">
-            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 2.55 1 4.93 2.66 6.7l-1.5 5.48 5.63-1.48c1.69.93 3.6 1.44 5.58 1.44h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.91-9.91zm0 18.16c-1.8 0-3.53-.48-5-1.35l-.36-.21-3.72.98.99-3.63-.23-.37c-1-1.65-1.54-3.6-1.54-5.68 0-4.54 3.69-8.23 8.23-8.23 4.54 0 8.23 3.69 8.23 8.23s-3.69 8.23-8.23 8.23zm4.49-5.44c-.25-.12-1.46-.72-1.69-.8s-.39-.12-.56.12c-.17.25-.64.8-.78.97s-.28.17-.53.06c-.25-.12-1.05-.39-2-1.23s-1.45-1.95-1.61-2.28c-.17-.33-.02-.52.11-.64s.25-.28.37-.42c.12-.15.17-.25.25-.42s.04-.3-.02-.42c-.06-.12-.56-1.35-.76-1.84s-.4-.4-.56-.4h-.5c-.17 0-.45.06-.68.3s-.88.86-.88 2.1c0 1.24.9 2.43 1.03 2.6s1.78 2.73 4.33 3.82c.6.25 1.07.4 1.42.52.6.2 1.14.17 1.56.1.48-.09 1.46-.6 1.67-1.18s.2-.54.15-.6c-.05-.07-.17-.12-.42-.24z"/></svg> <!-- Zalo -->
+            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 4.45-9.91 9.91 0 2.55 1 4.93 2.66 6.7l-1.5 5.48 5.63-1.48c1.69.93 3.6 1.44 5.58 1.44h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.91-9.91zm0 18.16c-1.8 0-3.53-.48-5-1.35l-.36-.21-3.72.98.99-3.63-.23-.37c-1-1.65-1.54-3.6-1.54-5.68 0-4.54 3.69-8.23 8.23-8.23 4.54 0 8.23 3.69 8.23 8.23s-3.69 8.23-8.23 8.23zm4.49-5.44c-.25-.12-1.46-.72-1.69-.8s-.39-.12-.56.12c-.17.25-.64.8-.78.97s-.28.17-.53.06c-.25-.12-1.05-.39-2-1.23s-1.45-1.95-1.61-2.28c-.17-.33-.02-.52.11-.64s.25-.28.37-.42c.12-.15.17-.25.25-.42s.04-.3-.02-.42c-.06-.12-.56-1.35-.76-1.84s-.4-.4-.56-.4h-.5c-.17 0-.45.06-.68.3s-.88.86-.88 2.1c0 1.24.9 2.43 1.03 2.6s1.78 2.73 4.33 3.82c.6.25 1.07.4 1.42.52.6.2 1.14.17 1.56.1.48-.09 1.46-.6 1.67-1.18s.2-.54.15-.6c-.05-.07-.17-.12-.42-.24z"/></svg> <!-- Zalo -->
         </a>
         <a href="#" class="w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-colors">
             <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c.37 0 .74-.02 1.1-.07l-1.04-3.11c-.49.12-1.01.18-1.56.18-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6c0 .79-.16 1.54-.44 2.22l3.11 1.04c.2-.58.33-1.2.33-1.85 0-5.52-4.48-10-10-10zm4.19 12.81c-1.39 1.39-3.64 1.39-5.04 0s-1.39-3.64 0-5.04c.7-.7 1.62-1.03 2.52-1.03s1.82.33 2.52 1.03c1.39 1.39 1.39 3.65 0 5.04zm-1.2-3.84c-.39-.39-1.02-.39-1.41 0s-.39 1.02 0 1.41.39.39 1.41 0 .39-1.02 0-1.41z"/></svg> <!-- Messenger -->

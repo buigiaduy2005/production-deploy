@@ -29,6 +29,7 @@ function virical_theme_setup() {
     register_nav_menus(array(
         'primary' => __('Primary Menu', 'virical'),
         'footer' => __('Footer Menu', 'virical'),
+        'product_category_menu' => __('Product Category Menu', 'virical'),
     ));
 }
 add_action('after_setup_theme', 'virical_theme_setup');
