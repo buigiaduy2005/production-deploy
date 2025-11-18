@@ -154,8 +154,8 @@ get_header();
                         <div class="pt-6">
                             <p class="text-sm text-gray-600 mb-2">Để lại số điện thoại, chúng tôi sẽ gọi lại ngay</p>
                             <div class="flex">
-                                <input type="tel" placeholder="Nhập số điện thoại" class="w-full px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <button class="px-6 py-2 bg-blue-700 text-white font-semibold rounded-r-md hover:bg-blue-800 transition-colors">Gửi đi</button>
+                                <input type="tel" placeholder="Nhập số điện thoại" class="w-full px-4 py-2 border border-gray-300 rounded-l-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <button class="px-6 py-2 bg-blue-700 text-white font-semibold rounded-r-full hover:bg-blue-800 transition-colors">Gửi đi</button>
                             </div>
                         </div>
                     </div>
