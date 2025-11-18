@@ -127,7 +127,7 @@ get_header();
         <div class="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12">
 
             <!-- Main Content -->
-            <div class="lg:col-span-1 max-w-lg">
+            <div class="lg:col-span-1">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
                     <!-- Left: Product Image -->
