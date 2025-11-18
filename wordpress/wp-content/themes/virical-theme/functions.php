@@ -547,6 +547,33 @@ function virical_get_product_categories_with_count() {
 }
 
 /**
+ * Renders the product category menu for mobile.
+ */
+function virical_render_mobile_product_category_menu() {
+    $categories = virical_get_product_categories_with_count();
+
+    if (empty($categories)) {
+        return;
+    }
+
+    echo '<div class="product-categories-mobile-menu">';
+    echo '<ul>';
+    foreach ($categories as $category) {
+        $category_link = get_term_link($category['slug'], 'category');
+        $term = get_term_by('slug', $category['slug'], 'category');
+        $logo_url = $term ? virical_get_category_logo($term->term_id) : false;
+        
+        echo '<li>';
+        echo '<a href="' . esc_url($category_link) . '">';
+        echo esc_html($category['name']);
+        echo '</a>';
+        echo '</li>';
+    }
+    echo '</ul>';
+    echo '</div>';
+}
+
+/**
  * Get contact office information from database
  */
 function virical_get_main_office() {

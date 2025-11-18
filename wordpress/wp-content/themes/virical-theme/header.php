@@ -910,18 +910,12 @@
     </div>
 </header>
 <button class="menu-toggle-products" aria-label="Product Categories">
-    <span class="menu-toggle-icon-products">
-        <span></span>
-        <span></span>
-        <span></span>
-    </span>
+    <span class="menu-toggle-icon-products"></span>
+    <span class="menu-toggle-icon-products"></span>
+    <span class="menu-toggle-icon-products"></span>
 </button>
 <div class="product-categories-mobile-menu" style="display: none;">
-    <ul>
-        <li><a href="#">Category 1</a></li>
-        <li><a href="#">Category 2</a></li>
-        <li><a href="#">Category 3</a></li>
-    </ul>
+    <?php virical_render_mobile_product_category_menu(); ?>
 </div>
 
 <style>

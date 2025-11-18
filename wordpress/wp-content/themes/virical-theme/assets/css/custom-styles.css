@@ -632,3 +632,50 @@ span.product-item-link:hover,
     font-size: 0.9rem;
     font-weight: 400;
 }
+/* Mobile Product Category Menu */
+.product-categories-mobile-menu {
+    display: none; /* Hidden by default, will be toggled by JS */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 10000;
+    overflow-y: auto;
+    padding-top: 80px; /* Space for header */
+}
+
+.product-categories-mobile-menu.active {
+    display: block;
+}
+
+.product-categories-mobile-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.product-categories-mobile-menu li a {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    color: #fff;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.product-categories-mobile-menu li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.product-categories-mobile-menu .category-logo {
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
+    object-fit: contain;
+    border-radius: 50%;
+    background-color: #fff; /* White background for logos */
+    padding: 5px;
+}
