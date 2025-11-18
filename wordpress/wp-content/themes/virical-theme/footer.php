@@ -178,7 +178,9 @@
                     <div class="copyright">
                         <p>&copy; <?php echo date('Y'); ?> Virical. All Rights Reserved. | Designed by Virical Team</p>
                     </div>
-
+                    <div class="footer-logo">
+                        <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/thongbaobocongthuonglogo.svg' ); ?>" alt="Logo Bo Cong Thuong" style="height: 50px;">
+                    </div>
                 </div>
             </div>
         </div>
