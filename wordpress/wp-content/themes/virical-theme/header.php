@@ -70,6 +70,10 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             border-bottom: 1px solid rgba(0,0,0,0.1);
         }
+
+        .site-header.product-page-header {
+            background-color: #D3D3D3 !important;
+        }
         
         /* Compressed header for project pages */
         body.project-nav-fixed .site-header {
@@ -861,7 +865,7 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
-<header class="site-header" id="site-header">
+<header class="site-header <?php if (is_post_type_archive('product') || is_page('san-pham')) echo 'product-page-header'; ?>" id="site-header">
     <div class="header-container">
         <a href="<?php echo home_url('/'); ?>" class="site-logo">
             <div class="logo-text">VIRICAL</div>
