@@ -925,7 +925,7 @@
         top: 80px; /* Below the header */
         right: 20px; /* On the right side */
         z-index: 1001; /* Above the header */
-        background: none;
+        background: #fff; /* Changed from none to white for visibility */
         border: none;
         cursor: pointer;
         padding: 10px;
