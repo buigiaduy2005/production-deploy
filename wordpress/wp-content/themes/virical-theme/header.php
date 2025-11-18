@@ -316,6 +316,11 @@
             border-bottom: 20px solid transparent;
             margin-bottom: -20px;
         }
+
+        .menu-item-products > a {
+            position: relative;
+            z-index: 1200; /* Higher than the mega menu's z-index */
+        }
         
         .menu-item-products .product-mega-menu {
             position: fixed !important;
