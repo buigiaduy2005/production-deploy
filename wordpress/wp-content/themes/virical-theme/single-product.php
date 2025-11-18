@@ -148,7 +148,7 @@ get_header();
                         </div>
 
                         <div class="grid grid-cols-1 gap-4">
-                            <a href="/lien-he/" class="px-6 py-3 text-center bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors w-full">Liên hệ</a>
+                            <a href="/lien-he/" class="px-6 py-3 text-center bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 transition-colors w-full">Liên hệ</a>
                         </div>
 
                         <div class="pt-6">
