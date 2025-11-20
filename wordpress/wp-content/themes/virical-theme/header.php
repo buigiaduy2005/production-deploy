@@ -146,7 +146,18 @@
                 position: relative !important;
                 z-index: 999 !important;
                 flex: 1 1 auto;
+                margin: 0 !important;
+                padding: 0 !important;
             }
+        }
+        
+        .main-navigation {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: flex-end !important;
+            flex: 1 1 auto;
+            margin: 0 !important;
+            padding: 0 !important;
         }
         
         .main-navigation ul {
@@ -710,23 +721,26 @@
         @media (max-width: 768px) {
             .header-container {
                 padding: 15px 20px;
+                gap: 15px;
             }
             
             .main-navigation {
                 display: none !important;
-                position: fixed;
-                top: 80px;
-                left: 0;
-                right: 0;
-                width: 100%;
-                background: #ffffff;
-                padding: 20px 24px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-                max-height: calc(100vh - 80px);
-                overflow-y: auto;
-                -ms-overflow-style: none;
-                scrollbar-width: none;
-                z-index: 998;
+                position: fixed !important;
+                top: 80px !important;
+                left: 0 !important;
+                right: 0 !important;
+                width: 100% !important;
+                background: #ffffff !important;
+                padding: 20px 24px !important;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2) !important;
+                max-height: calc(100vh - 80px) !important;
+                overflow-y: auto !important;
+                -ms-overflow-style: none !important;
+                scrollbar-width: none !important;
+                z-index: 998 !important;
+                flex: none !important;
+                justify-content: flex-start !important;
             }
 
             .main-navigation::-webkit-scrollbar {
