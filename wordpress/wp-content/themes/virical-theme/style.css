@@ -332,6 +332,13 @@ body.home .site-header.scrolled {
     transition: color 0.3s ease;
 }
 
+.logo-text img {
+    height: 50px; /* Ensure logo fits within header height */
+    width: auto; /* Maintain aspect ratio */
+    vertical-align: middle; /* Align with other content if any */
+    max-height: 100%; /* Ensure it doesn't exceed parent's height */
+}
+
 .logo-tagline {
     font-size: 11px;
     font-weight: 300;
@@ -1011,4 +1018,9 @@ h4 {
 
 .product-archive-main {
     width: 100%;
+}
+
+/* Custom CSS added by the agent */
+.main-navigation ul.main-nav {
+    background-color: gray;
 }
