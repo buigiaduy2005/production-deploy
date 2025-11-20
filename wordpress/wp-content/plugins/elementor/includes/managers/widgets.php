@@ -458,12 +458,16 @@ class Widgets_Manager {
 		$document = Plugin::$instance->documents->get_with_permissions( $request['editor_post_id'] );
 
 		// Override the global $post for the render.
-		query_posts(
+		$query = new \WP_Query(
 			[
 				'p' => $request['editor_post_id'],
 				'post_type' => 'any',
 			]
 		);
+
+		if ( $query->have_posts() ) {
+			$query->the_post();
+		}
 
 		$editor = Plugin::$instance->editor;
 		$is_edit_mode = $editor->is_edit_mode();
@@ -474,6 +478,8 @@ class Widgets_Manager {
 		$render_html = $document->render_element( $request['data'] );
 
 		$editor->set_edit_mode( $is_edit_mode );
+
+		wp_reset_postdata();
 
 		return [
 			'render' => $render_html,

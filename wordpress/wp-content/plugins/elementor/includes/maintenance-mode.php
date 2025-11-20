@@ -158,7 +158,8 @@ class Maintenance_Mode {
 		$GLOBALS['post'] = get_post( self::get( 'template_id' ) ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 
 		// Set the template as `$wp_query->current_object` for `wp_title` and etc.
-		query_posts( [
+		global $wp_query;
+		$wp_query = new \WP_Query( [
 			'p' => self::get( 'template_id' ),
 			'post_type' => Source_Local::CPT,
 		] );

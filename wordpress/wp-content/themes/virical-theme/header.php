@@ -873,7 +873,9 @@
 <header class="site-header <?php if (is_post_type_archive('product') || is_page('san-pham')) echo 'product-page-header'; ?>" id="site-header">
     <div class="header-container">
         <a href="<?php echo home_url('/'); ?>" class="site-logo">
-            <div class="logo-text">VIRICAL</div>
+            <div class="logo-text">
+    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logoVirical.svg" alt="Virical Logo">
+</div>
             <div class="logo-tagline">Feeling Light</div>
         </a>
         <nav class="main-navigation">

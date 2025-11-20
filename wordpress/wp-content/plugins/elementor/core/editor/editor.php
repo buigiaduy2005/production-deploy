@@ -96,7 +96,8 @@ class Editor {
 
 		// BC: From 2.9.0, the editor shouldn't handle the global post / current document.
 		// Use requested id and not the global in order to avoid conflicts with plugins that changes the global post.
-		query_posts( [
+		global $wp_query;
+		$wp_query = new \WP_Query( [
 			'p' => $this->post_id,
 			'post_type' => get_post_type( $this->post_id ),
 		] );
