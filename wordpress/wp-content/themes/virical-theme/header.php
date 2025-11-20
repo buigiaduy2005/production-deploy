@@ -90,7 +90,7 @@
             transition: padding 0.3s ease;
             height: 80px;
             width: 100%;
-            gap: 40px;
+            gap: 20px;
         }
         
         /* Compressed header state */
