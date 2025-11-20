@@ -880,9 +880,9 @@
             }
         }
     /* Ensure logo image stays inside header and properly sized */
-        .site-logo { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; text-align: left; }
-        .site-logo .logo-image img { height: 80px; width: auto; display: block; }
-        .site-header.compressed .site-logo .logo-image img { height: 70px; }
+        .site-logo { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; text-align: left; flex-shrink: 0; }
+        .site-logo .logo-image img { height: 65px; width: auto; display: block; }
+        .site-header.compressed .site-logo .logo-image img { height: 55px; }
     </style>
 </head>
 
