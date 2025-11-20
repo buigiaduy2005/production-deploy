@@ -4,7 +4,7 @@
 
 <main id="primary" class="site-main container mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-24">
 
-    <header class="page-header mb-8">
+    <header class="page-header mb-6">
         <h1 class="page-title text-3xl font-bold text-black" style="color: #000 !important;"><?php
             if (function_exists('is_product_category') && is_product_category()) {
                 single_cat_title();
@@ -14,7 +14,11 @@
         ?></h1>
     </header>
 
-
+    <!-- Mobile category toggle button -->
+    <button class="mobile-category-toggle mb-6">
+        <span class="hamburger-icon"><span></span><span></span><span></span></span>
+        <span>Danh mục sản phẩm</span>
+    </button>
 
     <div class="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-12">
 
@@ -110,6 +114,10 @@
 
 <script>
 jQuery(document).ready(function($) {
+    // Mobile: toggle category sidebar
+    $('.mobile-category-toggle').on('click', function() {
+        $('.product-archive-sidebar').slideToggle();
+    });
 
     // Reset sidebar style on window resize to fix display issue
     $(window).on('resize', function() {
@@ -118,6 +126,7 @@ jQuery(document).ready(function($) {
         }
     });
 
+    // Toggle child categories on click
     $('.product-categories-list .has-children > a').on('click', function(e) {
         // Prevent the default link behavior
         e.preventDefault();

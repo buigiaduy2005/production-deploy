@@ -1022,5 +1022,5 @@ h4 {
 
 /* Custom CSS added by the agent */
 .main-navigation ul.main-nav {
-    background-color: gray;
+    background-color: transparent; /* let header background show through */
 }

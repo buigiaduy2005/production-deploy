@@ -914,11 +914,7 @@
         </button>
     </div>
 </header>
-<button class="menu-toggle-products" aria-label="Product Categories">
-    <span class="menu-toggle-icon-products"></span>
-    <span class="menu-toggle-icon-products"></span>
-    <span class="menu-toggle-icon-products"></span>
-</button>
+
 <div class="product-categories-mobile-menu" style="display: none;">
     <?php virical_render_mobile_product_category_menu(); ?>
 </div>

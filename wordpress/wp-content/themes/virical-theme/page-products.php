@@ -382,18 +382,37 @@ document.addEventListener('DOMContentLoaded', function () {
     const sidebarOverlay = document.getElementById('sidebar-overlay');
 
     function openSidebar() {
+        if (!sidebar || !sidebarOverlay) return;
         sidebar.classList.remove('-translate-x-full');
         sidebarOverlay.classList.remove('hidden');
     }
 
     function closeSidebar() {
+        if (!sidebar || !sidebarOverlay) return;
         sidebar.classList.add('-translate-x-full');
         sidebarOverlay.classList.add('hidden');
     }
 
-    hamburgerButton.addEventListener('click', openSidebar);
-    closeSidebarButton.addEventListener('click', closeSidebar);
-    sidebarOverlay.addEventListener('click', closeSidebar);
+    function toggleSidebar() {
+        if (!sidebar) return;
+        if (sidebar.classList.contains('-translate-x-full')) {
+            openSidebar();
+        } else {
+            closeSidebar();
+        }
+    }
+
+    if (hamburgerButton) {
+        hamburgerButton.addEventListener('click', toggleSidebar);
+    }
+
+    if (closeSidebarButton) {
+        closeSidebarButton.addEventListener('click', closeSidebar);
+    }
+
+    if (sidebarOverlay) {
+        sidebarOverlay.addEventListener('click', closeSidebar);
+    }
 });
 </script>
 

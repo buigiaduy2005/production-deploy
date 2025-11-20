@@ -475,10 +475,7 @@
     }
 
     .newsletter h4 {
-        color: #fff;
-        font-size: 16px;
-        margin-bottom: 15px;
-    }
+        color: #8397AB; /* This is the current color */
 
     .newsletter-form {
         display: flex;
