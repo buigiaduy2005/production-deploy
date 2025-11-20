@@ -83,7 +83,7 @@
         .header-container {
             max-width: 100%;
             margin: 0 auto;
-            padding: 0 60px;
+            padding: 5px 60px;
             display: flex;
             justify-content: space-between;
             align-items: center;
