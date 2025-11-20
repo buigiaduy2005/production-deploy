@@ -89,6 +89,8 @@
             align-items: center;
             transition: padding 0.3s ease;
             height: 80px;
+            width: 100%;
+            gap: 40px;
         }
         
         /* Compressed header state */
@@ -865,9 +867,9 @@
             }
         }
     /* Ensure logo image stays inside header and properly sized */
-        .site-logo { display: flex; align-items: center; gap: 10px; text-align: left; }
-        .site-logo .logo-image img { height: 36px; width: auto; display: block; }
-        .site-header.compressed .site-logo .logo-image img { height: 32px; }
+        .site-logo { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; text-align: left; }
+        .site-logo .logo-image img { height: 56px; width: auto; display: block; }
+        .site-header.compressed .site-logo .logo-image img { height: 48px; }
         .site-header.scrolled .logo-tagline { color: #555; }
     </style>
 </head>
