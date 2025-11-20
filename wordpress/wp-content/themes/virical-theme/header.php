@@ -893,7 +893,6 @@
     <div class="header-container">
         <a href="<?php echo home_url('/'); ?>" class="site-logo">
             <div class="logo-image"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/logoVirical.svg" alt="Virical Logo" /></div>
-            <div class="logo-tagline">Feeling Light</div>
         </a>
         <nav class="main-navigation">
             <?php
