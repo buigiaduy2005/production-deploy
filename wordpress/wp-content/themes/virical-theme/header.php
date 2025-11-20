@@ -61,7 +61,7 @@
             background: transparent;
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
-            height: 80px;
+            height: 100px;
             border-bottom: none;
         }
         
@@ -336,7 +336,7 @@
         
         .menu-item-products .product-mega-menu {
             position: fixed !important;
-            top: 80px !important; /* Align just below the 80px header */
+            top: 100px !important; /* Align just below the 100px header */
             left: 0 !important;
             width: 100% !important;
             max-width: 100% !important;
