@@ -132,8 +132,7 @@
         }
         
         .site-header.scrolled .logo-tagline {
-            color: #555;
-            text-shadow: 1px 1px 1px rgba(0,0,0,0.05);
+            display: none;
         }
         
         @media (min-width: 769px) {
@@ -884,7 +883,6 @@
         .site-logo { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; text-align: left; }
         .site-logo .logo-image img { height: 56px; width: auto; display: block; }
         .site-header.compressed .site-logo .logo-image img { height: 48px; }
-        .site-header.scrolled .logo-tagline { color: #555; }
     </style>
 </head>
 
