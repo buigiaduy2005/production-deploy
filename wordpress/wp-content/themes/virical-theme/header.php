@@ -864,6 +864,11 @@
                 margin-top: 12px;
             }
         }
+    /* Ensure logo image stays inside header and properly sized */
+        .site-logo { display: flex; align-items: center; gap: 10px; text-align: left; }
+        .site-logo .logo-image img { height: 36px; width: auto; display: block; }
+        .site-header.compressed .site-logo .logo-image img { height: 32px; }
+        .site-header.scrolled .logo-tagline { color: #555; }
     </style>
 </head>
 
@@ -873,9 +878,7 @@
 <header class="site-header <?php if (is_post_type_archive('product') || is_page('san-pham')) echo 'product-page-header'; ?>" id="site-header">
     <div class="header-container">
         <a href="<?php echo home_url('/'); ?>" class="site-logo">
-            <div class="logo-text">
-    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logoVirical.svg" alt="Virical Logo">
-</div>
+            <div class="logo-image"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/logoVirical.svg" alt="Virical Logo" /></div>
             <div class="logo-tagline">Feeling Light</div>
         </a>
         <nav class="main-navigation">
