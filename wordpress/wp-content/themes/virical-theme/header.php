@@ -881,8 +881,8 @@
         }
     /* Ensure logo image stays inside header and properly sized */
         .site-logo { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; text-align: left; }
-        .site-logo .logo-image img { height: 56px; width: auto; display: block; }
-        .site-header.compressed .site-logo .logo-image img { height: 48px; }
+        .site-logo .logo-image img { height: 80px; width: auto; display: block; }
+        .site-header.compressed .site-logo .logo-image img { height: 70px; }
     </style>
 </head>
 
