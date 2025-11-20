@@ -147,6 +147,7 @@ body {
     }
     .nav-list a {
         text-align: center;
+        color: #808080; /* Changed to gray for mobile */
     }
     .dropdown-content {
         grid-template-columns: repeat(2, 1fr);
