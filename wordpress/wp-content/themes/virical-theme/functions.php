@@ -251,6 +251,112 @@ if (file_exists(get_template_directory() . '/includes/admin-menu-manager.php')) 
     require_once get_template_directory() . '/includes/admin-menu-manager.php';
 }
 
+// === Featured Categories on Homepage (Customizer) ===
+function virical_customize_register_featured_categories( $wp_customize ) {
+    // Section
+    $wp_customize->add_section( 'virical_featured_categories_section', array(
+        'title'       => __( 'Danh mục tiêu biểu trang chủ', 'virical' ),
+        'description' => __( 'Quản lý 6 ô danh mục tiêu biểu (2 cột x 3 hàng) hiển thị ở trang chủ.', 'virical' ),
+        'priority'    => 35,
+    ) );
+
+    // Section titles
+    $wp_customize->add_setting( 'virical_featured_categories_subtitle', array(
+        'default'           => 'DANH MỤC TIÊU BIỂU',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'virical_featured_categories_subtitle', array(
+        'label'   => __( 'Phụ đề', 'virical' ),
+        'section' => 'virical_featured_categories_section',
+        'type'    => 'text',
+    ) );
+
+    $wp_customize->add_setting( 'virical_featured_categories_title', array(
+        'default'           => 'GIẢI PHÁP ÁNH SÁNG THÔNG MINH CHO MỌI KHÔNG GIAN',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+    $wp_customize->add_control( 'virical_featured_categories_title', array(
+        'label'   => __( 'Tiêu đề', 'virical' ),
+        'section' => 'virical_featured_categories_section',
+        'type'    => 'text',
+    ) );
+
+    // 6 featured category items
+    for ( $i = 1; $i <= 6; $i++ ) {
+        // Image
+        $wp_customize->add_setting( "virical_featured_cat_{$i}_image", array(
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+        ) );
+        $wp_customize->add_control( new WP_Customize_Image_Control(
+            $wp_customize,
+            "virical_featured_cat_{$i}_image",
+            array(
+                'label'   => sprintf( __( 'Ảnh danh mục %d', 'virical' ), $i ),
+                'section' => 'virical_featured_categories_section',
+            )
+        ) );
+
+        // Title
+        $wp_customize->add_setting( "virical_featured_cat_{$i}_title", array(
+            'default'           => sprintf( 'Danh mục %d', $i ),
+            'sanitize_callback' => 'sanitize_text_field',
+        ) );
+        $wp_customize->add_control( "virical_featured_cat_{$i}_title", array(
+            'label'   => sprintf( __( 'Tiêu đề ô %d', 'virical' ), $i ),
+            'section' => 'virical_featured_categories_section',
+            'type'    => 'text',
+        ) );
+
+        // Description
+        $wp_customize->add_setting( "virical_featured_cat_{$i}_desc", array(
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+        ) );
+        $wp_customize->add_control( "virical_featured_cat_{$i}_desc", array(
+            'label'   => sprintf( __( 'Mô tả ngắn ô %d', 'virical' ), $i ),
+            'section' => 'virical_featured_categories_section',
+            'type'    => 'text',
+        ) );
+
+        // Link: chọn danh mục sản phẩm cha (product_cat)
+        $wp_customize->add_setting( "virical_featured_cat_{$i}_term", array(
+            'default'           => 0,
+            'sanitize_callback' => 'absint',
+        ) );
+
+        // Chuẩn bị danh sách danh mục product_cat cha
+        $choices = array( 0 => __( '— Chọn danh mục sản phẩm —', 'virical' ) );
+        $product_terms = get_terms( array(
+            'taxonomy'   => 'product_cat',
+            'hide_empty' => false,
+            'parent'     => 0, // chỉ lấy danh mục cha
+        ) );
+        
+        // Nếu không có danh mục cha nào (hoặc bạn muốn chọn cả danh mục con),
+        // fallback: lấy TẤT CẢ danh mục product_cat
+        if ( ( empty( $product_terms ) || is_wp_error( $product_terms ) ) ) {
+            $product_terms = get_terms( array(
+                'taxonomy'   => 'product_cat',
+                'hide_empty' => false,
+            ) );
+        }
+        if ( ! is_wp_error( $product_terms ) ) {
+            foreach ( $product_terms as $term ) {
+                $choices[ $term->term_id ] = $term->name;
+            }
+        }
+
+        $wp_customize->add_control( "virical_featured_cat_{$i}_term", array(
+            'label'   => sprintf( __( 'Danh mục sản phẩm (ô %d)', 'virical' ), $i ),
+            'section' => 'virical_featured_categories_section',
+            'type'    => 'select',
+            'choices' => $choices,
+        ) );
+    }
+}
+add_action( 'customize_register', 'virical_customize_register_featured_categories' );
+
 /**
  * Navigation menu fallback
  * 
