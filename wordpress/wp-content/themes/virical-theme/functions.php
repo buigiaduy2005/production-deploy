@@ -1444,8 +1444,13 @@ function virical_company_info_settings_init() {
     register_setting('virical_company_info_options', 'virical_company_phone');
     register_setting('virical_company_info_options', 'virical_company_address');
     register_setting('virical_company_info_options', 'virical_company_email');
+    register_setting('virical_company_info_options', 'virical_social_facebook');
+    register_setting('virical_company_info_options', 'virical_social_youtube');
+    register_setting('virical_company_info_options', 'virical_social_zalo');
+    register_setting('virical_company_info_options', 'virical_social_instagram');
+    register_setting('virical_company_info_options', 'virical_social_linkedin');
 
-    // Add a section
+    // Add Contact Info section
     add_settings_section(
         'virical_contact_info_section',
         'Thông tin liên hệ',
@@ -1453,63 +1458,60 @@ function virical_company_info_settings_init() {
         'virical-company-info'
     );
 
-    // Add the phone number field
-    add_settings_field(
-        'virical_company_phone',
-        'Số điện thoại',
-        'virical_phone_field_callback',
-        'virical-company-info',
-        'virical_contact_info_section'
+    add_settings_field('virical_company_phone', 'Số điện thoại', 'virical_phone_field_callback', 'virical-company-info', 'virical_contact_info_section');
+    add_settings_field('virical_company_address', 'Địa chỉ', 'virical_address_field_callback', 'virical-company-info', 'virical_contact_info_section');
+    add_settings_field('virical_company_email', 'Email', 'virical_email_field_callback', 'virical-company-info', 'virical_contact_info_section');
+
+    // Add Social Media section
+    add_settings_section(
+        'virical_social_media_section',
+        'Mạng xã hội',
+        'virical_social_media_section_callback',
+        'virical-company-info'
     );
 
-    // Add the address field
-    add_settings_field(
-        'virical_company_address',
-        'Địa chỉ',
-        'virical_address_field_callback',
-        'virical-company-info',
-        'virical_contact_info_section'
-    );
-
-    // Add the email field
-    add_settings_field(
-        'virical_company_email',
-        'Email',
-        'virical_email_field_callback',
-        'virical-company-info',
-        'virical_contact_info_section'
-    );
+    add_settings_field('virical_social_facebook', 'Facebook', 'virical_social_facebook_callback', 'virical-company-info', 'virical_social_media_section');
+    add_settings_field('virical_social_youtube', 'YouTube', 'virical_social_youtube_callback', 'virical-company-info', 'virical_social_media_section');
+    add_settings_field('virical_social_zalo', 'Zalo', 'virical_social_zalo_callback', 'virical-company-info', 'virical_social_media_section');
+    add_settings_field('virical_social_instagram', 'Instagram', 'virical_social_instagram_callback', 'virical-company-info', 'virical_social_media_section');
+    add_settings_field('virical_social_linkedin', 'LinkedIn', 'virical_social_linkedin_callback', 'virical-company-info', 'virical_social_media_section');
 }
 add_action('admin_init', 'virical_company_info_settings_init');
 
-// 4. Section callback (can be empty)
-function virical_contact_info_section_callback() {
-    echo '<p>Nhập các thông tin liên hệ của công ty vào các trường dưới đây.</p>';
-}
-
-// 5. Field callback for the phone number
+// Callbacks for Contact Info
+function virical_contact_info_section_callback() { echo '<p>Nhập các thông tin liên hệ của công ty vào các trường dưới đây.</p>'; }
 function virical_phone_field_callback() {
     $option = get_option('virical_company_phone');
-    ?>
-    <input type="text" name="virical_company_phone" value="<?php echo isset($option) ? esc_attr($option) : ''; ?>" class="regular-text">
-    <p class="description">Số điện thoại chính của công ty.</p>
-    <?php
+    echo '<input type="text" name="virical_company_phone" value="' . (isset($option) ? esc_attr($option) : '') . '" class="regular-text">';
 }
-
-// 6. Field callback for the address
 function virical_address_field_callback() {
     $option = get_option('virical_company_address');
-    ?>
-    <textarea name="virical_company_address" rows="3" class="large-text"><?php echo isset($option) ? esc_textarea($option) : ''; ?></textarea>
-    <p class="description">Địa chỉ đầy đủ của công ty.</p>
-    <?php
+    echo '<textarea name="virical_company_address" rows="3" class="large-text">' . (isset($option) ? esc_textarea($option) : '') . '</textarea>';
 }
-
-// 7. Field callback for the email
 function virical_email_field_callback() {
     $option = get_option('virical_company_email');
-    ?>
-    <input type="email" name="virical_company_email" value="<?php echo isset($option) ? esc_attr($option) : ''; ?>" class="regular-text">
-    <p class="description">Địa chỉ email liên hệ của công ty.</p>
-    <?php
+    echo '<input type="email" name="virical_company_email" value="' . (isset($option) ? esc_attr($option) : '') . '" class="regular-text">';
+}
+
+// Callbacks for Social Media
+function virical_social_media_section_callback() { echo '<p>Nhập URL đầy đủ cho các trang mạng xã hội của công ty.</p>'; }
+function virical_social_facebook_callback() {
+    $option = get_option('virical_social_facebook');
+    echo '<input type="url" name="virical_social_facebook" value="' . (isset($option) ? esc_url($option) : '') . '" class="regular-text" placeholder="https://www.facebook.com/your-page">';
+}
+function virical_social_youtube_callback() {
+    $option = get_option('virical_social_youtube');
+    echo '<input type="url" name="virical_social_youtube" value="' . (isset($option) ? esc_url($option) : '') . '" class="regular-text" placeholder="https://www.youtube.com/your-channel">';
+}
+function virical_social_zalo_callback() {
+    $option = get_option('virical_social_zalo');
+    echo '<input type="url" name="virical_social_zalo" value="' . (isset($option) ? esc_url($option) : '') . '" class="regular-text" placeholder="https://zalo.me/your-number">';
+}
+function virical_social_instagram_callback() {
+    $option = get_option('virical_social_instagram');
+    echo '<input type="url" name="virical_social_instagram" value="' . (isset($option) ? esc_url($option) : '') . '" class="regular-text" placeholder="https://www.instagram.com/your-profile">';
+}
+function virical_social_linkedin_callback() {
+    $option = get_option('virical_social_linkedin');
+    echo '<input type="url" name="virical_social_linkedin" value="' . (isset($option) ? esc_url($option) : '') . '" class="regular-text" placeholder="https://www.linkedin.com/company/your-company">';
 }
