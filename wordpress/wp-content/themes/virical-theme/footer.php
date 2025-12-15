@@ -159,6 +159,11 @@
                     <div class="copyright">
                         <p>&copy; <?php echo date('Y'); ?> Virical. All Rights Reserved. | Designed by Virical Team</p>
                     </div>
+                    <div class="footer-notification-logo">
+                        <a href="http://online.gov.vn/Home/WebDetails/113888" target="_blank" rel="nofollow noreferrer">
+                            <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/thongbaobocongthuonglogo.svg' ); ?>" alt="Đã thông báo Bộ Công Thương" width="150">
+                        </a>
+                    </div>
 
                 </div>
             </div>

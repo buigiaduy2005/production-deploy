@@ -215,6 +215,8 @@ get_header(); ?>
                 <p class="value-desc">Đội ngũ chuyên gia giàu kinh nghiệm, luôn sẵn sàng tư vấn và thiết kế giải pháp chiếu sáng phù hợp nhất cho từng dự án.</p>
             </div>
         </div>
+    </div>
+</section>
 
 <!-- Featured Products Section (Dynamically from gemini-product-manager) -->
 <?php
