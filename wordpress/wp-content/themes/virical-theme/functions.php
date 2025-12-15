@@ -1355,3 +1355,50 @@ if (!get_option('virical_blog_post_type_created')) {
     add_option('virical_blog_post_type_created', true);
     virical_set_flush_rewrite_rules_flag();
 }
+
+// Add "Featured Project" meta box to blog_post
+function virical_add_featured_project_meta_box() {
+    add_meta_box(
+        'virical_featured_project_meta',
+        'Công trình tiêu biểu',
+        'virical_featured_project_meta_box_callback',
+        'blog_post',
+        'side',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'virical_add_featured_project_meta_box');
+
+function virical_featured_project_meta_box_callback($post) {
+    wp_nonce_field('virical_save_featured_project_data', 'virical_featured_project_nonce');
+    $is_featured = get_post_meta($post->ID, '_is_featured_project', true);
+    ?>
+    <p>
+        <input type="checkbox" id="is_featured_project" name="is_featured_project" value="1" <?php checked($is_featured, '1'); ?> />
+        <label for="is_featured_project">Hiển thị trên trang chủ</label>
+    </p>
+    <?php
+}
+
+function virical_save_featured_project_data($post_id) {
+    if (!isset($_POST['virical_featured_project_nonce']) || !wp_verify_nonce($_POST['virical_featured_project_nonce'], 'virical_save_featured_project_data')) {
+        return;
+    }
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+    // Check the user's permissions.
+    if (isset($_POST['post_type']) && 'blog_post' == $_POST['post_type']) {
+        if (!current_user_can('edit_page', $post_id)) {
+            return;
+        }
+    } else {
+        if (!current_user_can('edit_post', $post_id)) {
+            return;
+        }
+    }
+
+    $is_featured = isset($_POST['is_featured_project']) ? '1' : '0';
+    update_post_meta($post_id, '_is_featured_project', $is_featured);
+}
+add_action('save_post', 'virical_save_featured_project_data');

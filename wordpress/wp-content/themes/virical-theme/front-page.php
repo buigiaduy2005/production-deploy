@@ -295,9 +295,11 @@ $projects_args = array(
         array(
             'taxonomy' => 'blog_category',
             'field'    => 'slug',
-            'terms'    => 'cong-trinh', // Slug for Projects category
+            'terms'    => 'cong-trinh',
         ),
     ),
+    'meta_key'       => '_is_featured_project',
+    'meta_value'     => '1',
     'orderby'        => 'date',
     'order'          => 'DESC',
     'post_status'    => 'publish'
