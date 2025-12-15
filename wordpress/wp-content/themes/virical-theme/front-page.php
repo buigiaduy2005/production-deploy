@@ -306,14 +306,7 @@ get_header(); ?>
             <h2 class="section-title">Hỗ trợ hầu hết<br>Hệ sinh thái nhà thông minh trên toàn cầu</h2>
             
             <div class="ecosystem-logos">
-                <div class="eco-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Matter_logo.svg/1200px-Matter_logo.svg.png" alt="Matter"></div>
-                <div class="eco-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Apple-logo.png/640px-Apple-logo.png" alt="Apple Home"> <span>Apple Home</span></div>
-                 <div class="eco-logo"><span>Works with</span> <strong>Alexa</strong></div>
-                 <div class="eco-logo"><span>Works with</span> <strong>Google Home</strong></div>
-                <div class="eco-logo"><span>SmartThings</span></div>
-                 <div class="eco-logo"><span>CLOVA</span></div>
-                 <div class="eco-logo"><span>IFTTT</span></div>
-                  <div class="eco-logo"><span>Home Connect Plus</span></div>
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ecosystem-banner.png" alt="Smart Home Ecosystems" style="width: 100%; height: auto; display: block;">
             </div>
         </div>
 
@@ -705,6 +698,12 @@ body {
     position: relative;
     height: 100vh;
     overflow: hidden;
+}
+
+.slide-title {
+    color: #ffffff !important;
+    text-transform: uppercase;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 .hero-slider .item {
