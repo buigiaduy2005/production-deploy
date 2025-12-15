@@ -268,6 +268,16 @@ if ( $products_query->have_posts() ) : ?>
     <?php wp_reset_postdata();
 endif; ?>
 
+<!-- Ecosystem Banner Section -->
+<section class="ecosystem-banner-section" style="padding: 60px 0; background: #f8f9fa;">
+    <div class="container" style="max-width: 1200px; margin: 0 auto; text-align: center;">
+        <h2 style="font-size: 32px; font-weight: 700; margin-bottom: 15px; color: #000;">Hỗ trợ hầu hết</h2>
+        <p style="font-size: 18px; color: #666; margin-bottom: 40px;">Hệ sinh thái nhà thông minh trên toàn cầu</p>
+        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ecosystem-banner.png" alt="Smart Home Ecosystem" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
+    </div>
+</section>
+
+
 <!-- Categories -->
 <section class="categories">
     <a href="<?php echo home_url('/indoor/'); ?>" class="category">
@@ -295,7 +305,8 @@ $projects_args = array(
         array(
             'taxonomy' => 'blog_category',
             'field'    => 'slug',
-            'terms'    => 'cong-trinh',
+            'terms'    => array('cong-trinh', 'cong-trinh-tieu-bieu'),
+            'operator' => 'IN',
         ),
     ),
     'meta_key'       => '_is_featured_project',
@@ -306,18 +317,25 @@ $projects_args = array(
 );
 $projects_query = new WP_Query( $projects_args );
 
-// DEBUGGING OUTPUT
-echo "<!-- DEBUG: Featured Projects Query Args -->\n";
-echo "<!--\n";
-print_r($projects_args);
-echo "\n-->\n";
-echo "<!-- DEBUG: Found " . $projects_query->post_count . " featured projects. -->\n";
-if ( $projects_query->have_posts() ) {
-    echo "<!-- DEBUG: Primary query has posts. Loop is starting. -->\n";
-} else {
-    echo "<!-- DEBUG: Primary query found NO featured posts. Showing placeholders. -->\n";
+// Fallback: If no featured projects found, get latest projects from category
+if ( ! $projects_query->have_posts() ) {
+    $projects_args_fallback = array(
+        'post_type'      => 'blog_post',
+        'posts_per_page' => 4,
+        'tax_query'      => array(
+            array(
+                'taxonomy' => 'blog_category',
+                'field'    => 'slug',
+                'terms'    => array('cong-trinh', 'cong-trinh-tieu-bieu'),
+                'operator' => 'IN',
+            ),
+        ),
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+        'post_status'    => 'publish'
+    );
+    $projects_query = new WP_Query( $projects_args_fallback );
 }
-// END DEBUGGING OUTPUT
 
 ?>
 <section class="projects-grid-section">

@@ -36,7 +36,9 @@ body {
     visibility: hidden;
     pointer-events: none;
     transform: translateY(-10px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                visibility 0s 0.3s, 
+                transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1000;
 }
 
@@ -46,6 +48,9 @@ body {
     visibility: visible;
     pointer-events: auto;
     transform: translateY(0);
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                visibility 0s 0s, 
+                transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Dropdown item styling - Equal width horizontal layout */

@@ -79,23 +79,26 @@
         
         .logo-text {
             font-size: 24px;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             color: #fff;
-            font-weight: 700;
+            font-weight: 800;
             display: block;
             text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
             text-align: center;
+            font-family: 'Montserrat', sans-serif;
         }
         
         .logo-tagline {
             font-size: 10px;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
             color: #fff;
             display: block;
             margin-top: 1px;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
             text-align: center;
             opacity: 0.95;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
         }
         
         .site-header.scrolled .logo-text {

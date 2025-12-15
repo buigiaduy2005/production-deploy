@@ -128,11 +128,13 @@ if (!function_exists('virical_render_navigation_menu')) {
                             if (function_exists('virical_get_category_logo')) {
                                 $logo_url = virical_get_category_logo($category->term_id);
                             }
-                            // Generate proper link for both real and demo categories
-                            if (isset($category->slug)) {
-                                $category_link = home_url('/san-pham/?category=' . $category->slug);
-                            } else {
+                            // Generate proper link for product categories
+                            if (isset($category->taxonomy)) {
+                                // Real category from database
                                 $category_link = get_term_link($category);
+                            } else {
+                                // Demo/fallback category - use direct URL
+                                $category_link = home_url('/product-category/' . $category->slug . '/');
                             }
                             
                             echo '<a href="' . esc_url($category_link) . '" class="dropdown-item">';

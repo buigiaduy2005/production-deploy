@@ -59,9 +59,12 @@
     <!-- Newsletter Section -->
     <section class="newsletter-section">
         <div class="ast-container">
-            <div class="newsletter-content">
+            <div id="footer-contact-form-container" class="newsletter-content">
                 <h3>Nhận thông tin tư vấn từ chúng tôi</h3>
-                <form class="newsletter-form-main" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post">
+                <form id="footer-phone-capture-form">
+                    <input type="hidden" name="action" value="virical_contact_form">
+                    <input type="hidden" name="source" value="Footer Phone Form">
+                    <input type="hidden" name="subject" value="Yêu cầu tư vấn qua điện thoại (Footer)">
                     <div class="form-group">
                         <input type="text" name="phone" placeholder="Nhập số điện thoại" required>
                         <button type="submit" class="btn-submit">Gửi đi</button>
@@ -89,8 +92,8 @@
                             <a href="<?php echo esc_url(virical_get_social_link('youtube')); ?>" target="_blank" rel="noopener">
                                 <i class="fab fa-youtube"></i>
                             </a>
-                            <a href="<?php echo esc_url(virical_get_social_link('zalo', 'https://zalo.me/virical')); ?>" target="_blank" rel="noopener">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/zalo-icon.png" alt="Zalo" style="width: 16px; height: 16px;">
+                            <a href="<?php echo esc_url(virical_get_social_link('zalo', 'https://zalo.me/virical')); ?>" target="_blank" rel="noopener" style="font-weight: 700; font-size: 16px; display: flex; align-items: center; justify-content: center;">
+                                Z
                             </a>
                             <a href="<?php echo esc_url(virical_get_social_link('instagram')); ?>" target="_blank" rel="noopener">
                                 <i class="fab fa-instagram"></i>
@@ -566,6 +569,38 @@
 </div><!-- #page -->
 
 <?php wp_footer(); ?>
+
+<script>
+jQuery(document).ready(function($) {
+    $('#footer-phone-capture-form').on('submit', function(e) {
+        e.preventDefault();
+        var form = $(this);
+        var submitButton = form.find('.btn-submit');
+        var originalButtonText = submitButton.text();
+
+        submitButton.text('Đang gửi...').prop('disabled', true);
+
+        $.ajax({
+            url: '<?php echo admin_url('admin-ajax.php'); ?>',
+            type: 'POST',
+            data: form.serialize(),
+            success: function(response) {
+                var container = $('#footer-contact-form-container');
+                if (response.success) {
+                    container.html('<h3>Cảm ơn bạn!</h3><p>' + response.data + '</p>');
+                } else {
+                    alert('Lỗi: ' + response.data);
+                    submitButton.text(originalButtonText).prop('disabled', false);
+                }
+            },
+            error: function() {
+                alert('Đã có lỗi xảy ra, vui lòng thử lại.');
+                submitButton.text(originalButtonText).prop('disabled', false);
+            }
+        });
+    });
+});
+</script>
 
 </body>
 </html>
