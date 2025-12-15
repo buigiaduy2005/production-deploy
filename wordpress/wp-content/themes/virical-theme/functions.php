@@ -102,6 +102,11 @@ function virical_init_configuration_system() {
         require_once get_template_directory() . '/includes/class-outdoor-admin-manager.php';
     }
     
+    // Include About Page Admin
+    if (file_exists(get_template_directory() . '/includes/about-page-admin.php')) {
+        require_once get_template_directory() . '/includes/about-page-admin.php';
+    }
+    
     // Initialize the managers
     if (class_exists('ViricalAdminMenuManager')) {
         $GLOBALS['virical_menu_manager'] = new ViricalAdminMenuManager();

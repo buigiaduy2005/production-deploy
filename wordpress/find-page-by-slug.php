@@ -5,7 +5,12 @@ require_once( __DIR__ . '/wp-load.php' );
 header('Content-Type: text/plain; charset=utf-8');
 
 // --- Configuration ---
-$page_slug = 'giai-phap-thong-minh';
+// Get slug from command-line arguments
+if ($argc < 2) {
+    echo "Usage: php find-page-by-slug.php <page_slug>\n";
+    exit(1);
+}
+$page_slug = $argv[1];
 // ---------------------
 
 echo "Searching for page with slug: '{$page_slug}'\n\n";

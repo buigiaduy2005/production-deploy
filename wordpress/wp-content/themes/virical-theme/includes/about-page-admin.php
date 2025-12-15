@@ -46,7 +46,7 @@ function aura_about_page_admin_menu() {
         30
     );
 }
-// add_action('admin_menu', 'aura_about_page_admin_menu');
+add_action('admin_menu', 'aura_about_page_admin_menu');
 // 
 // Admin page content
 function aura_about_page_admin_page() {

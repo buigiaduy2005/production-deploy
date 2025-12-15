@@ -151,11 +151,11 @@ get_header(); ?>
 <section class="content-section about-section">
     <div class="container">
         <div class="section-header">
-            <h3 class="section-subtitle"><?php echo esc_html( get_theme_mod( 'aura_about_subtitle', 'VỀ CHÚNG TÔI' ) ); ?></h3>
-            <h2 class="section-title"><?php echo esc_html( get_theme_mod( 'aura_about_title', 'VIRICAL - FEELING LIGHT' ) ); ?></h2>
+            <h3 class="section-subtitle"><?php echo esc_html( get_option( 'aura_about_intro_title', 'VỀ VIRICAL' ) ); ?></h3>
+            <h2 class="section-title"><?php echo esc_html( get_option( 'aura_about_hero_subtitle', 'Virical - SMARTHOME' ) ); ?></h2>
             <div class="section-divider"></div>
             <div class="section-desc">
-                <?php echo wp_kses_post( get_theme_mod( 'aura_about_content', 'VIRICAL là thương hiệu đèn chiếu sáng cao cấp, mang đến những giải pháp ánh sáng hoàn hảo cho mọi không gian. Với công nghệ tiên tiến và thiết kế sang trọng, chúng tôi tạo nên những trải nghiệm ánh sáng độc đáo và ấn tượng.' ) ); ?>
+                <?php echo wp_kses_post( get_option( 'aura_about_intro_content', 'VIRICAL là thương hiệu đèn chiếu sáng cao cấp, mang đến những giải pháp ánh sáng hoàn hảo cho mọi không gian. Với công nghệ tiên tiến và thiết kế sang trọng, chúng tôi tạo nên những trải nghiệm ánh sáng độc đáo và ấn tượng.' ) ); ?>
             </div>
             <div class="section-divider"></div>
         </div>
