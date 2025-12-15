@@ -216,133 +216,13 @@ get_header(); ?>
             </div>
         </div>
 
-<!-- Featured Products Tabs Section -->
-        <div class="featured-products-tabs-section">
-            <h2 class="section-title">Sản phẩm tiêu biểu</h2>
-            
-            <div class="product-category-tabs">
-                <button class="tab-btn active">Khóa Cửa Thông Minh</button>
-                <button class="tab-btn">Điện Chiếu Sáng Thông Minh</button>
-                <button class="tab-btn">Động Cơ Rèm Thông Minh</button>
-                <button class="tab-btn">Cảm Biến Khói</button>
-                <button class="tab-btn">Chiếu Sáng Thông Minh</button>
-                <button class="tab-btn">Bộ Điều Khiển Trung Tâm</button>
-                <button class="tab-btn">Cảm Biến Nhà Thông Minh</button>
-            </div>
-
-            <div class="products-tab-content">
-                <div class="product-grid-row">
-                    <!-- Product 1 -->
-                    <div class="product-card-item">
-                        <div class="product-card-img">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder.jpg" alt="Smart Lock">
-                            <span class="discount-badge">-15%</span>
-                        </div>
-                        <h3 class="product-card-title">Khóa Cửa Thông Minh Smart Lock Aqara A100</h3>
-                        <div class="product-card-prices">
-                            <span class="old-price">5.500.000₫</span>
-                            <span class="new-price">4.690.000₫</span>
-                        </div>
-                        <div class="product-card-actions">
-                            <a href="#" class="btn-detail">Xem chi tiết</a>
-                            <a href="#" class="btn-buy">Mua ngay</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Product 2 -->
-                    <div class="product-card-item">
-                        <div class="product-card-img">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder.jpg" alt="Smart Lock Zigbee">
-                        </div>
-                        <h3 class="product-card-title">Khóa Thông Minh Aqara K100 Zigbee Bản Quốc Tế</h3>
-                        <div class="product-card-prices">
-                             <span class="old-price">4.500.000₫</span>
-                            <span class="new-price">3.850.000₫</span>
-                        </div>
-                        <div class="product-card-actions">
-                            <a href="#" class="btn-detail">Xem chi tiết</a>
-                            <a href="#" class="btn-buy">Mua ngay</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Product 3 -->
-                    <div class="product-card-item">
-                        <div class="product-card-img">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder.jpg" alt="Remote Lock">
-                            <span class="discount-badge">-10%</span>
-                        </div>
-                        <h3 class="product-card-title">Khóa Thông Minh Aqara D200</h3>
-                        <div class="product-card-prices">
-                            <span class="old-price">6.000.000₫</span>
-                            <span class="new-price">5.400.000₫</span>
-                        </div>
-                        <div class="product-card-actions">
-                            <a href="#" class="btn-detail">Xem chi tiết</a>
-                            <a href="#" class="btn-buy">Mua ngay</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Product 4 -->
-                    <div class="product-card-item">
-                        <div class="product-card-img">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder.jpg" alt="Face ID Lock">
-                        </div>
-                        <h3 class="product-card-title">Khóa Thông Minh Mở Khóa Khuôn Mặt Aqara D200i</h3>
-                        <div class="product-card-prices">
-                            <span class="old-price">12.500.000₫</span>
-                            <span class="new-price">11.500.000₫</span>
-                        </div>
-                        <div class="product-card-actions">
-                            <a href="#" class="btn-detail">Xem chi tiết</a>
-                            <a href="#" class="btn-buy">Mua ngay</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Ecosystem Support Section -->
-        <div class="ecosystem-support-section">
-            <h2 class="section-title">Hỗ trợ hầu hết<br>Hệ sinh thái nhà thông minh trên toàn cầu</h2>
-            
-            <div class="ecosystem-logos">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ecosystem-banner.png" alt="Smart Home Ecosystems" style="width: 100%; height: auto; display: block;">
-            </div>
-        </div>
-
-        <!-- Why Choose Us -->
-        <div class="why-choose-section">
-            <h3 class="why-title">Tại Sao Chọn VIRICAL?</h3>
-            <div class="why-content">
-                <div class="why-col">
-                    <ul class="why-list">
-                        <li><i class="fa fa-check-circle"></i> <strong>Đại lý chính thức</strong> của các thương hiệu chiếu sáng hàng đầu thế giới</li>
-                        <li><i class="fa fa-check-circle"></i> <strong>Showroom rộng 500m²</strong> trưng bày hàng ngàn mẫu đèn cao cấp</li>
-                        <li><i class="fa fa-check-circle"></i> <strong>Tư vấn thiết kế miễn phí</strong> bởi đội ngũ chuyên gia lighting designer</li>
-                    </ul>
-                </div>
-                <div class="why-col">
-                    <ul class="why-list">
-                        <li><i class="fa fa-check-circle"></i> <strong>Bảo hành dài hạn</strong> lên đến 5 năm cho tất cả sản phẩm</li>
-                        <li><i class="fa fa-check-circle"></i> <strong>Dịch vụ sau bán hàng</strong> chuyên nghiệp, nhanh chóng 24/7</li>
-                        <li><i class="fa fa-check-circle"></i> <strong>Giá cạnh tranh nhất</strong>  chính sách ưu đãi hấp dẫn cho dự án lớn</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Products Section -->
+<!-- Featured Products Section (Dynamically from gemini-product-manager) -->
 <?php
 $products_args = array(
-    'post_type'      => 'aura_product',
+    'post_type'      => 'product', // Correct: Use 'product' CPT from gemini-product-manager
     'posts_per_page' => 8,
-    'meta_key'       => '_featured',
-    'orderby'        => array(
-        'meta_value' => 'DESC',
-        'date'       => 'DESC'
-    ),
+    'orderby'        => 'date',
+    'order'          => 'DESC',
     'post_status'    => 'publish'
 );
 
@@ -351,30 +231,31 @@ $products_query = new WP_Query( $products_args );
 if ( $products_query->have_posts() ) : ?>
     <section class="products-section">
         <div class="container">
-            <h2 class="section-title"><?php echo esc_html( get_theme_mod( 'aura_products_title', 'SẢN PHẨM NỔI BẬT' ) ); ?></h2>
+            <h2 class="section-title">Sản phẩm tiêu biểu</h2>
             <div class="products-grid">
                 <?php while ( $products_query->have_posts() ) : $products_query->the_post(); ?>
                     <div class="product-card">
                         <a href="<?php the_permalink(); ?>" class="product-link">
                             <div class="product-image">
                                 <?php if ( has_post_thumbnail() ) : ?>
-                                    <?php the_post_thumbnail( 'aura-product-thumb' ); ?>
+                                    <?php the_post_thumbnail( 'medium' ); // Changed to medium for consistency ?>
                                 <?php else : ?>
                                     <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder.jpg" alt="<?php the_title(); ?>">
                                 <?php endif; ?>
                             </div>
                             <h3 class="product-name"><?php the_title(); ?></h3>
                             <?php 
-                            $product_code = get_post_meta( get_the_ID(), '_product_code', true );
-                            if ( $product_code ) : ?>
-                                <p class="product-code"><?php echo esc_html( $product_code ); ?></p>
+                            // Display price if available from gemini-product-manager
+                            $price = get_post_meta( get_the_ID(), '_price', true );
+                            if ( $price ) : ?>
+                                <p class="product-price"><?php echo esc_html( number_format($price) ); ?>đ</p>
                             <?php endif; ?>
                         </a>
                     </div>
                 <?php endwhile; ?>
             </div>
             <div class="products-cta">
-                <a href="<?php echo get_post_type_archive_link( 'aura_product' ); ?>" class="btn-view-all">
+                <a href="<?php echo get_post_type_archive_link( 'product' ); ?>" class="btn-view-all">
                     Xem tất cả sản phẩm
                 </a>
             </div>
