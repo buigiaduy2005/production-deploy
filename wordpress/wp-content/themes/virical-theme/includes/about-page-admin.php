@@ -136,7 +136,7 @@ function aura_about_page_admin_page() {
     // Get current values
     $hero_image = get_option('aura_about_hero_image', '');
     $hero_title = get_option('aura_about_hero_title', 'CHÚNG TÔI');
-    $hero_subtitle = get_option('aura_about_hero_subtitle', 'Virical - Feeling Light');
+    $hero_subtitle = get_option('aura_about_hero_subtitle', 'Virical - SMARTHOME');
     $intro_title = get_option('aura_about_intro_title', 'VỀ VIRICAL');
     $intro_content = get_option('aura_about_intro_content', 'Virical là công ty chuyên thiết kế và cung cấp giải pháp chiếu sáng cao cấp cho các công trình kiến trúc, nội thất tại Việt Nam.');
     $intro_image = get_option('aura_about_intro_image', '');

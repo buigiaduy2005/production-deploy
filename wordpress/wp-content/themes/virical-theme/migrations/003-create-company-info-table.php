@@ -39,7 +39,7 @@ dbDelta($sql);
 // Insert default company info
 $default_info = array(
     array('info_key' => 'company_name', 'info_value' => 'Virical Lighting', 'info_type' => 'text'),
-    array('info_key' => 'tagline', 'info_value' => 'Feeling Light', 'info_type' => 'text'),
+    array('info_key' => 'tagline', 'info_value' => 'SMARTHOME', 'info_type' => 'text'),
     array('info_key' => 'company_description', 'info_value' => 'Thương hiệu đèn chiếu sáng hàng đầu Việt Nam với các giải pháp chiếu sáng thông minh và hiện đại.', 'info_type' => 'text'),
     array('info_key' => 'hotline', 'info_value' => '1900 6888', 'info_type' => 'text'),
     array('info_key' => 'phone', 'info_value' => '024.6656.2688', 'info_type' => 'text'),

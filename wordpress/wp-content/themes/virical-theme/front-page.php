@@ -64,6 +64,88 @@ get_header(); ?>
     </div>
 </section>
 
+<!-- Promo Grid Section -->
+<section class="promo-grid-section">
+    <div class="container">
+        <div class="promo-grid">
+            <!-- Row 1, Column 1: December Promo -->
+            <div class="promo-item promo-highlight">
+                <div class="promo-content">
+                    <h3 class="promo-title" style="color: #e31e24; font-weight: 700; text-transform: uppercase;">CHƯƠNG TRÌNH KHUYẾN MẠI THÁNG 12</h3>
+                    <p class="promo-desc">Tặng ngay Xiaomi Lockin & Aqara Smart Locks</p>
+                    <div class="promo-badges">
+                        <span class="promo-badge">Trị giá 5.500k</span>
+                        <span class="promo-badge">Trị giá 15.500k</span>
+                    </div>
+                    <p class="promo-terms">Áp dụng từ: 01/12 đến 31/12/2025</p>
+                </div>
+            </div>
+            
+            <!-- Row 1, Column 2: Smart Locks -->
+            <div class="promo-item">
+                <div class="promo-image-placeholder placeholder-bg-1">
+                    <div class="promo-overlay">
+                        <h3>KHÓA THÔNG MINH</h3>
+                        <p>A100 & D100 ZIGBEE - U50</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Row 2, Column 1: Hubs -->
+            <div class="promo-item">
+                <div class="promo-image-placeholder placeholder-bg-2">
+                    <div class="promo-overlay">
+                        <h3>AQARA HUB</h3>
+                        <p>M3 & M2 CENTER</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Row 2, Column 2: Doorbell -->
+            <div class="promo-item">
+                <div class="promo-image-placeholder placeholder-bg-3">
+                    <div class="promo-overlay">
+                        <h3>CHUÔNG CỬA THÔNG MINH</h3>
+                        <p>G4 VIDEO DOORBELL</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Row 3, Column 1 -->
+            <div class="promo-item">
+                <div class="promo-content">
+                    <h3>GIẢI PHÁP CHIẾU SÁNG</h3>
+                    <p>Thiết kế ánh sáng chuyên nghiệp</p>
+                </div>
+            </div>
+            
+            <!-- Row 3, Column 2 -->
+            <div class="promo-item">
+                <div class="promo-content">
+                    <h3>CÔNG TẮC THÔNG MINH</h3>
+                    <p>Điều khiển mọi thứ trong tầm tay</p>
+                </div>
+            </div>
+            
+            <!-- Row 4, Column 1 -->
+            <div class="promo-item">
+                <div class="promo-content">
+                    <h3>RÈM CỬA TỰ ĐỘNG</h3>
+                    <p>Tiện nghi và sang trọng</p>
+                </div>
+            </div>
+            
+            <!-- Row 4, Column 2 -->
+            <div class="promo-item">
+                <div class="promo-content">
+                    <h3>CẢM BIẾN AN NINH</h3>
+                    <p>Bảo vệ ngôi nhà bạn 24/7</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- About Section - Enhanced -->
 
 <section class="content-section about-section">
@@ -131,6 +213,107 @@ get_header(); ?>
                 </div>
                 <h3 class="value-title">Tư Vấn Chuyên Nghiệp</h3>
                 <p class="value-desc">Đội ngũ chuyên gia giàu kinh nghiệm, luôn sẵn sàng tư vấn và thiết kế giải pháp chiếu sáng phù hợp nhất cho từng dự án.</p>
+            </div>
+        </div>
+
+<!-- Featured Products Tabs Section -->
+        <div class="featured-products-tabs-section">
+            <h2 class="section-title">Sản phẩm tiêu biểu</h2>
+            
+            <div class="product-category-tabs">
+                <button class="tab-btn active">Khóa Cửa Thông Minh</button>
+                <button class="tab-btn">Điện Chiếu Sáng Thông Minh</button>
+                <button class="tab-btn">Động Cơ Rèm Thông Minh</button>
+                <button class="tab-btn">Cảm Biến Khói</button>
+                <button class="tab-btn">Chiếu Sáng Thông Minh</button>
+                <button class="tab-btn">Bộ Điều Khiển Trung Tâm</button>
+                <button class="tab-btn">Cảm Biến Nhà Thông Minh</button>
+            </div>
+
+            <div class="products-tab-content">
+                <div class="product-grid-row">
+                    <!-- Product 1 -->
+                    <div class="product-card-item">
+                        <div class="product-card-img">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder.jpg" alt="Smart Lock">
+                            <span class="discount-badge">-15%</span>
+                        </div>
+                        <h3 class="product-card-title">Khóa Cửa Thông Minh Smart Lock Aqara A100</h3>
+                        <div class="product-card-prices">
+                            <span class="old-price">5.500.000₫</span>
+                            <span class="new-price">4.690.000₫</span>
+                        </div>
+                        <div class="product-card-actions">
+                            <a href="#" class="btn-detail">Xem chi tiết</a>
+                            <a href="#" class="btn-buy">Mua ngay</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 2 -->
+                    <div class="product-card-item">
+                        <div class="product-card-img">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder.jpg" alt="Smart Lock Zigbee">
+                        </div>
+                        <h3 class="product-card-title">Khóa Thông Minh Aqara K100 Zigbee Bản Quốc Tế</h3>
+                        <div class="product-card-prices">
+                             <span class="old-price">4.500.000₫</span>
+                            <span class="new-price">3.850.000₫</span>
+                        </div>
+                        <div class="product-card-actions">
+                            <a href="#" class="btn-detail">Xem chi tiết</a>
+                            <a href="#" class="btn-buy">Mua ngay</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 3 -->
+                    <div class="product-card-item">
+                        <div class="product-card-img">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder.jpg" alt="Remote Lock">
+                            <span class="discount-badge">-10%</span>
+                        </div>
+                        <h3 class="product-card-title">Khóa Thông Minh Aqara D200</h3>
+                        <div class="product-card-prices">
+                            <span class="old-price">6.000.000₫</span>
+                            <span class="new-price">5.400.000₫</span>
+                        </div>
+                        <div class="product-card-actions">
+                            <a href="#" class="btn-detail">Xem chi tiết</a>
+                            <a href="#" class="btn-buy">Mua ngay</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 4 -->
+                    <div class="product-card-item">
+                        <div class="product-card-img">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder.jpg" alt="Face ID Lock">
+                        </div>
+                        <h3 class="product-card-title">Khóa Thông Minh Mở Khóa Khuôn Mặt Aqara D200i</h3>
+                        <div class="product-card-prices">
+                            <span class="old-price">12.500.000₫</span>
+                            <span class="new-price">11.500.000₫</span>
+                        </div>
+                        <div class="product-card-actions">
+                            <a href="#" class="btn-detail">Xem chi tiết</a>
+                            <a href="#" class="btn-buy">Mua ngay</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ecosystem Support Section -->
+        <div class="ecosystem-support-section">
+            <h2 class="section-title">Hỗ trợ hầu hết<br>Hệ sinh thái nhà thông minh trên toàn cầu</h2>
+            
+            <div class="ecosystem-logos">
+                <div class="eco-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Matter_logo.svg/1200px-Matter_logo.svg.png" alt="Matter"></div>
+                <div class="eco-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Apple-logo.png/640px-Apple-logo.png" alt="Apple Home"> <span>Apple Home</span></div>
+                 <div class="eco-logo"><span>Works with</span> <strong>Alexa</strong></div>
+                 <div class="eco-logo"><span>Works with</span> <strong>Google Home</strong></div>
+                <div class="eco-logo"><span>SmartThings</span></div>
+                 <div class="eco-logo"><span>CLOVA</span></div>
+                 <div class="eco-logo"><span>IFTTT</span></div>
+                  <div class="eco-logo"><span>Home Connect Plus</span></div>
             </div>
         </div>
 
@@ -225,103 +408,282 @@ endif; ?>
     </a>
 </section>
 
-<!-- Projects -->
+<!-- Projects Grid Section -->
 <?php
 $projects_args = array(
-    'post_type'      => 'aura_project',
-    'posts_per_page' => -1,
-    'meta_key'       => '_featured',
-    'orderby'        => array(
-        'meta_value' => 'DESC',
-        'date'       => 'DESC'
+    'post_type'      => 'blog_post',
+    'posts_per_page' => 4,
+    'tax_query'      => array(
+        array(
+            'taxonomy' => 'blog_category',
+            'field'    => 'slug',
+            'terms'    => 'cong-trinh', // Slug for Projects category
+        ),
     ),
+    'orderby'        => 'date',
+    'order'          => 'DESC',
     'post_status'    => 'publish'
 );
-
 $projects_query = new WP_Query( $projects_args );
-
-if ( $projects_query->have_posts() ) : ?>
-    <section class="featured-projects-section">
-        <div class="container">
-            <div class="section-header">
-                <h3 class="section-subtitle">PROJECTS</h3>
-                <h2 class="section-title"><?php echo esc_html( get_theme_mod( 'aura_projects_title', 'DỰ ÁN TIÊU BIỂU' ) ); ?></h2>
-                <div class="section-divider"></div>
-            </div>
-            
-            <div class="projects-slider-wrapper">
-                <div class="projects-slider owl-carousel">
-                    <?php while ( $projects_query->have_posts() ) : $projects_query->the_post(); 
-                        $project_location = get_post_meta( get_the_ID(), '_project_location', true );
-                        $project_year = get_post_meta( get_the_ID(), '_project_year', true );
-                        $project_image = get_the_post_thumbnail_url( get_the_ID(), 'full' );
-                    ?>
-                        <div class="project-slide">
-                            <div class="project-slide-container">
-                                <div class="project-slide-bg" style="background-image: url('<?php echo esc_url( $project_image ?: get_template_directory_uri() . '/assets/images/placeholder-project.jpg' ); ?>');">
-                                    <div class="project-slide-overlay"></div>
-                                </div>
-                                
-                                <div class="project-slide-content">
-                                    <div class="project-meta">
-                                        <span class="project-category">Dự án</span>
-                                    </div>
-                                    <h2 class="project-slide-title"><?php the_title(); ?></h2>
-                                    
-                                    <?php if ( has_excerpt() ) : ?>
-                                        <div class="project-slide-desc">
-                                            <?php echo get_the_excerpt(); ?>
-                                        </div>
-                                    <?php endif; ?>
-                                    
-                                    <div class="project-slide-info">
-                                        <div class="info-row">
-                                            <div class="info-item">
-                                                <div class="info-divider-top"></div>
-                                                <div class="info-content">
-                                                    <span class="info-label">CHỦ ĐẦU TƯ</span>
-                                                    <span class="info-value"><?php echo esc_html( $project_location ?: 'N/A' ); ?></span>
-                                                </div>
-                                                <div class="info-divider-bottom"></div>
-                                            </div>
-                                            
-                                            <div class="info-item">
-                                                <div class="info-divider-top"></div>
-                                                <div class="info-content">
-                                                    <span class="info-label">NĂM</span>
-                                                    <span class="info-value"><?php echo esc_html( $project_year ?: date('Y') ); ?></span>
-                                                </div>
-                                                <div class="info-divider-bottom"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <a href="<?php the_permalink(); ?>" class="project-slide-link">
-                                        <span>Xem chi tiết</span>
-                                        <i class="fa fa-arrow-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endwhile; ?>
+?>
+<section class="projects-grid-section">
+    <div class="container">
+        <h2 class="section-title text-center">Công trình tiêu biểu</h2>
+        
+        <div class="grid-row-4">
+            <?php if ( $projects_query->have_posts() ) : 
+                while ( $projects_query->have_posts() ) : $projects_query->the_post(); 
+                $thumb = get_the_post_thumbnail_url( get_the_ID(), 'medium_large' );
+            ?>
+                <div class="grid-card">
+                    <div class="grid-card-img">
+                         <img src="<?php echo $thumb ? $thumb : get_template_directory_uri().'/assets/images/placeholder-project.jpg'; ?>" alt="<?php the_title(); ?>">
+                    </div>
+                    <div class="grid-card-content">
+                        <h3 class="grid-card-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+                        <p class="grid-card-desc"><?php echo wp_trim_words( get_the_excerpt(), 12 ); ?></p>
+                    </div>
                 </div>
-                
-                <!-- Custom Navigation -->
-                <div class="projects-nav">
-                    <button class="projects-prev"><i class="fa fa-chevron-left"></i></button>
-                    <button class="projects-next"><i class="fa fa-chevron-right"></i></button>
+            <?php endwhile; wp_reset_postdata(); else: 
+                // Placeholders if no projects found
+                for($i=1; $i<=4; $i++): ?>
+                <div class="grid-card">
+                    <div class="grid-card-img">
+                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder.jpg" style="background:#eee;" alt="Project <?php echo $i; ?>">
+                    </div>
+                    <div class="grid-card-content">
+                        <h3 class="grid-card-title">Công trình mẫu <?php echo $i; ?></h3>
+                        <p class="grid-card-desc">Mô tả ngắn về công trình tiêu biểu này.</p>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="projects-cta">
-                <a href="<?php echo get_post_type_archive_link( 'aura_project' ); ?>" class="btn-view-all">
-                    Xem tất cả dự án
-                </a>
-            </div>
+            <?php endfor; endif; ?>
         </div>
-    </section>
-    <?php wp_reset_postdata();
-endif; ?>
+    </div>
+</section>
+
+<!-- News Section -->
+<?php
+$news_args = array(
+    'post_type'      => 'blog_post',
+    'posts_per_page' => 4,
+    'tax_query'      => array(
+        array(
+            'taxonomy' => 'blog_category',
+            'field'    => 'slug',
+            'terms'    => 'tin-tuc', // Slug for News category
+        ),
+    ),
+    'orderby'        => 'date',
+    'order'          => 'DESC',
+    'post_status'    => 'publish'
+);
+$news_query = new WP_Query( $news_args );
+?>
+<section class="news-grid-section">
+    <div class="container">
+        <h2 class="section-title text-center">Tin tức</h2>
+        
+        <div class="grid-row-4">
+            <?php if ( $news_query->have_posts() ) : 
+                while ( $news_query->have_posts() ) : $news_query->the_post(); 
+                $thumb = get_the_post_thumbnail_url( get_the_ID(), 'medium_large' );
+            ?>
+                <div class="grid-card">
+                    <div class="grid-card-img">
+                         <img src="<?php echo $thumb ? $thumb : get_template_directory_uri().'/assets/images/placeholder.jpg'; ?>" alt="<?php the_title(); ?>">
+                    </div>
+                    <div class="grid-card-content">
+                        <h3 class="grid-card-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+                        <p class="grid-card-desc"><?php echo wp_trim_words( get_the_excerpt(), 12 ); ?></p>
+                    </div>
+                </div>
+            <?php endwhile; wp_reset_postdata(); else: 
+                 // Placeholders if no news found
+                for($i=1; $i<=4; $i++): ?>
+                <div class="grid-card">
+                    <div class="grid-card-img">
+                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder.jpg" style="background:#eee;" alt="News <?php echo $i; ?>">
+                    </div>
+                    <div class="grid-card-content">
+                        <h3 class="grid-card-title">Bài viết tin tức <?php echo $i; ?></h3>
+                        <p class="grid-card-desc">Tóm tắt nội dung tin tức mới nhất về công nghệ.</p>
+                    </div>
+                </div>
+            <?php endfor; endif; ?>
+        </div>
+    </div>
+</section>
+
+<!-- Guarantee Section Removed -->
+
+<!-- Consulting Section Removed -->
+
+<style>
+/* Grid Styles for Projects & News */
+.projects-grid-section, .news-grid-section {
+    padding: 60px 0;
+    background: #fff;
+}
+.grid-row-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+}
+.grid-card {
+    transition: transform 0.3s;
+}
+.grid-card:hover {
+    transform: translateY(-5px);
+}
+.grid-card-img {
+    height: 180px;
+    overflow: hidden;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+.grid-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.5s;
+}
+.grid-card:hover .grid-card-img img {
+    transform: scale(1.1);
+}
+.grid-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+.grid-card-title a {
+    color: #333;
+    text-decoration: none;
+}
+.grid-card-desc {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Consulting Form Styles */
+.consulting-section {
+    padding: 60px 0 100px;
+    background: #fff;
+    text-align: center;
+}
+.consulting-title {
+    margin-bottom: 30px;
+    font-size: 24px;
+    font-weight: 600;
+}
+.consulting-form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+.form-group {
+    display: flex;
+    gap: 15px;
+}
+.form-input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 15px;
+    outline: none;
+}
+.form-input:focus {
+    border-color: #007bff;
+}
+.btn-submit {
+    background: #007bff; /* Blue button */
+    color: #fff;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.btn-submit:hover {
+    background: #0056b3;
+}
+
+/* Guarantee Strip Styles */
+.guarantee-section {
+    padding: 40px 0;
+    background: #f9f9f9; /* Light grey background to separate */
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+.guarantee-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+.guarantee-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+.guarantee-icon-wrapper {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.guarantee-icon-wrapper i {
+    font-size: 20px;
+    color: #555;
+}
+.guarantee-content {
+    flex: 1;
+}
+.guarantee-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: #333;
+}
+.guarantee-desc {
+    font-size: 13px;
+    color: #777;
+    line-height: 1.4;
+    margin: 0;
+}
+
+@media (max-width: 992px) {
+    .grid-row-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .guarantee-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+@media (max-width: 576px) {
+    .grid-row-4 {
+        grid-template-columns: 1fr;
+    }
+    .guarantee-grid {
+        grid-template-columns: 1fr;
+    }
+    .form-group {
+        flex-direction: column;
+    }
+    .btn-submit {
+        width: 100%;
+    }
+}
+</style>
 
 <!-- Styles specific to this page -->
 <style>
@@ -1265,4 +1627,275 @@ jQuery(document).ready(function($) {
 });
 </script>
 
+<style>
+/* Promo Grid Styles */
+.promo-grid-section {
+    padding: 60px 0;
+    background: #fff;
+    border-bottom: 1px solid #eaeaea;
+}
+.promo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 Columns as requested */
+    gap: 20px;
+    margin-top: 40px;
+}
+.promo-item {
+    background: #f8f9fa;
+    border-radius: 8px;
+    overflow: hidden;
+    min-height: 350px;
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.promo-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+.promo-content {
+    padding: 40px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.promo-highlight {
+    background: #fff;
+    border: 2px solid #e31e24; /* Red border for promo */
+}
+.promo-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+    line-height: 1.4;
+    color: #222;
+}
+.promo-desc {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+.promo-badges {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.promo-badge {
+    background: #e31e24;
+    color: #fff;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+.promo-terms {
+    font-size: 13px;
+    color: #999;
+}
+.promo-image-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: #ddd;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+}
+.promo-image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.5s;
+}
+.promo-item:hover .promo-image-placeholder img {
+    transform: scale(1.05);
+}
+.promo-overlay {
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    width: 100%;
+    padding: 30px;
+    color: #fff;
+}
+.promo-overlay h3 {
+    font-size: 22px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #fff !important;
+}
+.promo-overlay p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.9);
+}
+
+@media (max-width: 768px) {
+    .promo-grid {
+        grid-template-columns: 1fr; /* Stack on mobile */
+    }
+}
+</style>
+
+<style>
+/* Featured Products Tabs Styles */
+.featured-products-tabs-section {
+    padding: 60px 0 20px;
+    background: #fff;
+    text-align: center;
+}
+.product-category-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+.tab-btn {
+    padding: 8px 20px;
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+.tab-btn:hover, .tab-btn.active {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+}
+.products-tab-content {
+    margin-top: 40px;
+}
+.product-grid-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+.product-card-item {
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.3s;
+}
+.product-card-item:hover {
+    transform: translateY(-5px);
+}
+.product-card-img {
+    position: relative;
+    margin-bottom: 15px;
+    height: 200px; /* Fixed height for consistency */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.product-card-img img {
+    max-height: 100%;
+    max-width: 100%;
+}
+.discount-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #e31e24; /* Red discount */
+    color: #fff;
+    padding: 2px 8px;
+    font-size: 12px;
+    border-radius: 4px;
+}
+.product-card-title {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    min-height: 40px; /* Ensure alignment */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.product-card-prices {
+    margin-bottom: 15px;
+}
+.old-price {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 13px;
+    margin-right: 10px;
+}
+.new-price {
+    color: #0056b3; /* Blue price */
+    font-weight: 700;
+    font-size: 16px;
+}
+.product-card-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.btn-detail, .btn-buy {
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 13px;
+    text-decoration: none;
+    font-weight: 500;
+}
+.btn-detail {
+    border: 1px solid #333;
+    color: #333;
+}
+.btn-buy {
+    background: #0056b3;
+    color: #fff;
+    border: 1px solid #0056b3;
+}
+
+/* Ecosystem Support Styles */
+.ecosystem-support-section {
+    padding: 40px 0 80px;
+    text-align: center;
+    background: #fff;
+}
+.ecosystem-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+.eco-logo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 20px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background: #fff;
+}
+.eco-logo img {
+    height: 25px;
+    width: auto;
+}
+.eco-logo strong {
+    font-weight: 700;
+}
+
+@media (max-width: 992px) {
+    .product-grid-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 576px) {
+    .product-grid-row {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
 <?php get_footer(); ?>

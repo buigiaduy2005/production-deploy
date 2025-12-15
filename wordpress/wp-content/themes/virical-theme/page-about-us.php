@@ -15,7 +15,7 @@ if (!defined('AURA_THEME_URI')) {
 // Get custom fields from WordPress options
 $hero_image = get_option('aura_about_hero_image', AURA_THEME_URI . '/assets/images/about-default.jpg');
 $hero_title = get_option('aura_about_hero_title', 'CHÚNG TÔI');
-$hero_subtitle = get_option('aura_about_hero_subtitle', 'Virical - Feeling Light');
+$hero_subtitle = get_option('aura_about_hero_subtitle', 'Virical - SMARTHOME');
 
 // Company intro
 $intro_title = get_option('aura_about_intro_title', 'VỀ VIRICAL');

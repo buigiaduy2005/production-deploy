@@ -56,7 +56,7 @@ function virical_register_company_settings() {
         'virical_text_field_callback',
         'virical-company-settings',
         'virical_contact_section',
-        array('field' => 'tagline', 'default' => 'Feeling Light')
+        array('field' => 'tagline', 'default' => 'SMARTHOME')
     );
     
     add_settings_field(
@@ -291,7 +291,7 @@ function virical_get_company_info($field, $default = '') {
     // Default values
     $defaults = array(
         'company_name' => 'Virical Lighting',
-        'tagline' => 'Feeling Light',
+        'tagline' => 'SMARTHOME',
         'company_description' => 'Thương hiệu đèn chiếu sáng hàng đầu Việt Nam với các giải pháp chiếu sáng thông minh và hiện đại.',
         'hotline' => '1900 xxxx',
         'phone' => '024.6656.2688',
@@ -325,7 +325,7 @@ function virical_init_company_settings() {
     if (!$options) {
         $defaults = array(
             'company_name' => 'Virical Lighting',
-            'tagline' => 'Feeling Light',
+            'tagline' => 'SMARTHOME',
             'company_description' => 'Thương hiệu đèn chiếu sáng hàng đầu Việt Nam với các giải pháp chiếu sáng thông minh và hiện đại.',
             'hotline' => '1900 xxxx',
             'phone' => '024.6656.2688',

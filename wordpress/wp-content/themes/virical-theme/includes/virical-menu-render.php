@@ -60,6 +60,12 @@ if (!function_exists('virical_render_navigation_menu')) {
 
         foreach ($menu_tree as $parent_id) {
             $parent = $menu_items[$parent_id];
+
+            // Normalize "Sản phẩm đèn" to "Sản phẩm" to match logic and user request
+            if (trim($parent->item_title) === 'Sản phẩm đèn') {
+                $parent->item_title = 'Sản phẩm';
+            }
+
             $has_children = !empty($parent->children);
             
             // Special case: "Sản phẩm" menu always has dropdown

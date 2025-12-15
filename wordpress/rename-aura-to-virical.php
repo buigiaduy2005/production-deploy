@@ -27,7 +27,7 @@ $updates = [
     
     // Update site title and tagline
     "UPDATE wp_options SET option_value = 'Virical' WHERE option_name = 'blogname'",
-    "UPDATE wp_options SET option_value = 'Feeling Light' WHERE option_name = 'blogdescription'"
+    "UPDATE wp_options SET option_value = 'SMARTHOME' WHERE option_name = 'blogdescription'"
 ];
 
 foreach ($updates as $query) {
@@ -40,7 +40,7 @@ foreach ($updates as $query) {
 
 // Get and update specific options
 $specific_updates = [
-    'aura_about_hero_subtitle' => 'Virical - Feeling Light',
+    'aura_about_hero_subtitle' => 'Virical - SMARTHOME',
     'aura_about_intro_title' => 'VỀ VIRICAL',
     'aura_about_intro_content' => '<p>Virical là công ty hàng đầu chuyên thiết kế và cung cấp giải pháp chiếu sáng cao cấp cho các công trình kiến trúc, nội thất tại Việt Nam. Với đội ngũ chuyên gia giàu kinh nghiệm và đam mê sáng tạo, chúng tôi mang đến những giải pháp chiếu sáng độc đáo, kết hợp hoàn hảo giữa nghệ thuật và công nghệ.</p>'
 ];

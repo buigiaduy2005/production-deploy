@@ -360,7 +360,7 @@
     <div class="header-container">
         <a href="<?php echo home_url('/'); ?>" class="site-logo">
             <div class="logo-text">VIRICAL</div>
-            <div class="logo-tagline">Feeling Light</div>
+            <div class="logo-tagline">SMARTHOME</div>
         </a>
         <nav class="main-navigation">
             <?php

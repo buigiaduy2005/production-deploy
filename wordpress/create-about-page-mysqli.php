@@ -81,7 +81,7 @@ if ($result && $result->num_rows > 0) {
 // Initialize default options for the About page
 $default_options = [
     'aura_about_hero_title' => 'CHÚNG TÔI',
-    'aura_about_hero_subtitle' => 'Aura Lighting - Feeling Light',
+    'aura_about_hero_subtitle' => 'Aura Lighting - SMARTHOME',
     'aura_about_intro_title' => 'VỀ AURA LIGHTING',
     'aura_about_intro_content' => '<p>Aura Lighting là công ty hàng đầu chuyên thiết kế và cung cấp giải pháp chiếu sáng cao cấp cho các công trình kiến trúc, nội thất tại Việt Nam. Với đội ngũ chuyên gia giàu kinh nghiệm và đam mê sáng tạo, chúng tôi mang đến những giải pháp chiếu sáng độc đáo, kết hợp hoàn hảo giữa nghệ thuật và công nghệ.</p>',
     'aura_about_hero_image' => 'http://localhost:8000/wp-content/uploads/about-hero.jpg',
