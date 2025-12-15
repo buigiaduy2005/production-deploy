@@ -12,17 +12,19 @@ jQuery(document).ready(function($) {
 
     // ====[ Main Product Loading Function ]====
     function loadProducts() {
-        productTableBody.html('<tr><td colspan="8">Đang tải sản phẩm...</td></tr>');
+        productTableBody.html('<tr><td colspan="9">Đang tải sản phẩm...</td></tr>');
         $.ajax({
             url: gpm_ajax.ajax_url, type: 'POST', data: { action: 'gpm_get_products', nonce: gpm_ajax.nonce },
             success: function(response) {
                 productTableBody.empty();
                 if (response.success && response.data.length > 0) {
                     response.data.forEach(function(product) {
+                        const featuredIcon = product.is_featured ? '⭐' : '';
                         const productRow = `
                             <tr id="product-${product.id}">
                                 <td><img src="${product.thumbnail}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;"></td>
                                 <td><strong>${product.name}</strong></td>
+                                <td class="featured-column">${featuredIcon}</td>
                                 <td>${product.classification}</td>
                                 <td>${product.categories}</td>
                                 <td>${product.stock_status}</td>
@@ -36,11 +38,11 @@ jQuery(document).ready(function($) {
                         productTableBody.append(productRow);
                     });
                 } else {
-                    productTableBody.html('<tr><td colspan="8">Không tìm thấy sản phẩm nào.</td></tr>');
+                    productTableBody.html('<tr><td colspan="9">Không tìm thấy sản phẩm nào.</td></tr>');
                 }
             },
             error: function() {
-                productTableBody.html('<tr><td colspan="8">Lỗi khi tải sản phẩm.</td></tr>');
+                productTableBody.html('<tr><td colspan="9">Lỗi khi tải sản phẩm.</td></tr>');
             }
         });
     }
@@ -52,6 +54,7 @@ jQuery(document).ready(function($) {
     $('#gpm-add-new-btn').on('click', function() {
         formTitle.text('Thêm sản phẩm mới');
         productForm[0].reset();
+        $('#gpm-is-featured').prop('checked', false);
         productIdField.val('');
         galleryContainer.empty();
         galleryIdsField.val('');
@@ -88,6 +91,7 @@ jQuery(document).ready(function($) {
                     $('#gpm-product-classification').val(product.classification);
                     $('#gpm-product-status').val(product.status);
                     $('#gpm-stock-status').val(product.stock_status);
+                    $('#gpm-is-featured').prop('checked', product.is_featured);
                     renderGallery(product.gallery_images);
                 } else {
                     alert('Lỗi: Không thể tải dữ liệu sản phẩm.');
@@ -169,6 +173,7 @@ jQuery(document).ready(function($) {
             classification: $('#gpm-product-classification').val(),
             status: $('#gpm-product-status').val(),
             stock_status: $('#gpm-stock-status').val(),
+            is_featured: $('#gpm-is-featured').is(':checked'),
             gallery_ids: galleryIdsField.val()
         };
 

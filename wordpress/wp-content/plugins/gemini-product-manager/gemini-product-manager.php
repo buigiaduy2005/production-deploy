@@ -88,7 +88,7 @@ class GeminiProductManager_Complete {
             <div class="gpm-main-content">
                 <div class="gpm-product-list-container">
                     <table id="gpm-product-table" class="wp-list-table widefat fixed striped">
-                        <thead><tr><th>Ảnh</th><th>Tên sản phẩm</th><th>Phân loại</th><th>Danh mục</th><th>Tình trạng kho</th><th>Trạng thái</th><th>Ngày cập nhật</th><th>Hành động</th></tr></thead>
+                        <thead><tr><th>Ảnh</th><th>Tên sản phẩm</th><th>Nổi bật</th><th>Phân loại</th><th>Danh mục</th><th>Tình trạng kho</th><th>Trạng thái</th><th>Ngày cập nhật</th><th>Hành động</th></tr></thead>
                         <tbody></tbody>
                     </table>
                 </div>
@@ -145,6 +145,10 @@ class GeminiProductManager_Complete {
                             </select>
                         </div>
                         <div class="form-field">
+                            <label for="gpm-is-featured">Sản phẩm tiêu biểu</label>
+                            <input type="checkbox" id="gpm-is-featured">
+                        </div>
+                        <div class="form-field">
                             <label>Thư viện ảnh</label>
                             <div id="gpm-gallery-container" class="gpm-gallery-container"></div>
                             <input type="hidden" id="gpm-product-gallery-ids" value="">
@@ -184,6 +188,7 @@ class GeminiProductManager_Complete {
                     'id' => $product_id,
                     'name' => get_the_title(),
                     'thumbnail' => get_the_post_thumbnail_url($product_id, 'thumbnail') ?: GPM_PLUGIN_URL . 'img/placeholder.png',
+                    'is_featured' => get_post_meta($product_id, '_is_featured', true) == '1',
                     'classification' => get_post_meta($product_id, '_product_classification', true),
                     'categories' => implode(', ', $category_names),
                     'stock_status' => get_post_meta($product_id, '_stock_status', true) == 'instock' ? 'Còn hàng' : 'Hết hàng',
@@ -218,6 +223,7 @@ class GeminiProductManager_Complete {
             'price' => get_post_meta($product_id, '_price', true),
             'status' => $post->post_status,
             'category_id' => $category_id,
+            'is_featured' => get_post_meta($product_id, '_is_featured', true) == '1',
             'classification' => get_post_meta($product_id, '_product_classification', true),
             'stock_status' => get_post_meta($product_id, '_stock_status', true),
             'gallery_images' => $gallery_images
@@ -242,6 +248,7 @@ class GeminiProductManager_Complete {
             error_log('GPM Save POST data: ' . print_r($_POST, true));
             if (isset($_POST['price'])) update_post_meta($result, '_price', sanitize_text_field($_POST['price']));
             if (isset($_POST['stock_status'])) update_post_meta($result, '_stock_status', sanitize_text_field($_POST['stock_status']));
+            if (isset($_POST['is_featured'])) update_post_meta($result, '_is_featured', $_POST['is_featured'] === 'true' ? '1' : '0');
             if (isset($_POST['category_id']) && !empty($_POST['category_id'])) {
                 $category_ids = is_array($_POST['category_id']) ? array_map('intval', $_POST['category_id']) : array(intval($_POST['category_id']));
                 $term_exists = term_exists($category_ids[0], 'category');

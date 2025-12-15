@@ -219,8 +219,10 @@ get_header(); ?>
 <!-- Featured Products Section (Dynamically from gemini-product-manager) -->
 <?php
 $products_args = array(
-    'post_type'      => 'product', // Correct: Use 'product' CPT from gemini-product-manager
+    'post_type'      => 'product',
     'posts_per_page' => 8,
+    'meta_key'       => '_is_featured',
+    'meta_value'     => '1',
     'orderby'        => 'date',
     'order'          => 'DESC',
     'post_status'    => 'publish'
