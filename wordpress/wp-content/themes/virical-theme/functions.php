@@ -1402,3 +1402,77 @@ function virical_save_featured_project_data($post_id) {
     update_post_meta($post_id, '_is_featured_project', $is_featured);
 }
 add_action('save_post', 'virical_save_featured_project_data');
+
+// ========== Company Information Settings Page ==========
+
+// 1. Add the admin menu
+function virical_company_info_menu() {
+    add_menu_page(
+        'Thông tin Công ty',
+        'Thông tin Công ty',
+        'manage_options',
+        'virical-company-info',
+        'virical_company_info_page_html',
+        'dashicons-building',
+        25
+    );
+}
+add_action('admin_menu', 'virical_company_info_menu');
+
+// 2. Render the settings page HTML
+function virical_company_info_page_html() {
+    if (!current_user_can('manage_options')) {
+        return;
+    }
+    ?>
+    <div class="wrap">
+        <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
+        <form action="options.php" method="post">
+            <?php
+            settings_fields('virical_company_info_options');
+            do_settings_sections('virical-company-info');
+            submit_button('Lưu thay đổi');
+            ?>
+        </form>
+    </div>
+    <?php
+}
+
+// 3. Register settings, sections, and fields
+function virical_company_info_settings_init() {
+    // Register the main setting group
+    register_setting('virical_company_info_options', 'virical_company_phone');
+    // Add more settings here if needed, e.g., register_setting('virical_company_info_options', 'virical_company_email');
+
+    // Add a section
+    add_settings_section(
+        'virical_contact_info_section',
+        'Thông tin liên hệ',
+        'virical_contact_info_section_callback',
+        'virical-company-info'
+    );
+
+    // Add the phone number field
+    add_settings_field(
+        'virical_company_phone',
+        'Số điện thoại',
+        'virical_phone_field_callback',
+        'virical-company-info',
+        'virical_contact_info_section'
+    );
+}
+add_action('admin_init', 'virical_company_info_settings_init');
+
+// 4. Section callback (can be empty)
+function virical_contact_info_section_callback() {
+    echo '<p>Nhập các thông tin liên hệ của công ty vào các trường dưới đây.</p>';
+}
+
+// 5. Field callback for the phone number
+function virical_phone_field_callback() {
+    $option = get_option('virical_company_phone');
+    ?>
+    <input type="text" name="virical_company_phone" value="<?php echo isset($option) ? esc_attr($option) : ''; ?>" class="regular-text">
+    <p class="description">Số điện thoại chính của công ty.</p>
+    <?php
+}
