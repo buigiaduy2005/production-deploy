@@ -41,6 +41,7 @@ jQuery(document).ready(function($) {
         }
     });
     
+    /*
     // Ensure dropdown menus work on hover for desktop
     $('.menu-item-has-children').hover(
         function() {
@@ -56,6 +57,7 @@ jQuery(document).ready(function($) {
             }
         }
     );
+    */
     
     // Smooth scroll for anchor links
     $('a[href*="#"]').not('[href="#"]').not('[href="#0"]').click(function(event) {
