@@ -305,6 +305,20 @@ $projects_args = array(
     'post_status'    => 'publish'
 );
 $projects_query = new WP_Query( $projects_args );
+
+// DEBUGGING OUTPUT
+echo "<!-- DEBUG: Featured Projects Query Args -->\n";
+echo "<!--\n";
+print_r($projects_args);
+echo "\n-->\n";
+echo "<!-- DEBUG: Found " . $projects_query->post_count . " featured projects. -->\n";
+if ( $projects_query->have_posts() ) {
+    echo "<!-- DEBUG: Primary query has posts. Loop is starting. -->\n";
+} else {
+    echo "<!-- DEBUG: Primary query found NO featured posts. Showing placeholders. -->\n";
+}
+// END DEBUGGING OUTPUT
+
 ?>
 <section class="projects-grid-section">
     <div class="container">
