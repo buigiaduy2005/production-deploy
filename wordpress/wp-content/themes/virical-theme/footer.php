@@ -164,7 +164,16 @@
                     </div>
                     <div class="footer-notification-logo">
                         <a href="http://online.gov.vn/Home/WebDetails/113888" target="_blank" rel="nofollow noreferrer">
-                            <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/thongbaobocongthuonglogo.svg' ); ?>" alt="Đã thông báo Bộ Công Thương" width="150">
+                            <?php
+                            $bct_logo_id = get_option('virical_bct_logo_id');
+                            if ($bct_logo_id) {
+                                $bct_logo_url = wp_get_attachment_image_url($bct_logo_id, 'full'); // Use 'full' size or define a custom size
+                                echo '<img src="' . esc_url($bct_logo_url) . '" alt="Đã thông báo Bộ Công Thương" width="150">';
+                            } else {
+                                // Fallback to the hardcoded image if no custom logo is set
+                                echo '<img src="' . esc_url( get_template_directory_uri() . '/assets/images/thongbaobocongthuonglogo.svg' ); ?>" alt="Đã thông báo Bộ Công Thương" width="150">';
+                            }
+                            ?>
                         </a>
                     </div>
 

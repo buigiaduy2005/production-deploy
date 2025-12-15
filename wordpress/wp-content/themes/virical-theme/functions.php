@@ -1449,6 +1449,7 @@ function virical_company_info_settings_init() {
     register_setting('virical_company_info_options', 'virical_social_zalo');
     register_setting('virical_company_info_options', 'virical_social_instagram');
     register_setting('virical_company_info_options', 'virical_social_linkedin');
+    register_setting('virical_company_info_options', 'virical_bct_logo_id', 'absint'); // Register logo ID setting
 
     // Add Contact Info section
     add_settings_section(
@@ -1475,6 +1476,16 @@ function virical_company_info_settings_init() {
     add_settings_field('virical_social_zalo', 'Zalo', 'virical_social_zalo_callback', 'virical-company-info', 'virical_social_media_section');
     add_settings_field('virical_social_instagram', 'Instagram', 'virical_social_instagram_callback', 'virical-company-info', 'virical_social_media_section');
     add_settings_field('virical_social_linkedin', 'LinkedIn', 'virical_social_linkedin_callback', 'virical-company-info', 'virical_social_media_section');
+
+    // Add BCT Logo section
+    add_settings_section(
+        'virical_bct_logo_section',
+        'Logo Bộ Công Thương',
+        'virical_bct_logo_section_callback',
+        'virical-company-info'
+    );
+
+    add_settings_field('virical_bct_logo', 'Tải lên Logo', 'virical_bct_logo_field_callback', 'virical-company-info', 'virical_bct_logo_section');
 }
 add_action('admin_init', 'virical_company_info_settings_init');
 
@@ -1515,3 +1526,67 @@ function virical_social_linkedin_callback() {
     $option = get_option('virical_social_linkedin');
     echo '<input type="url" name="virical_social_linkedin" value="' . (isset($option) ? esc_url($option) : '') . '" class="regular-text" placeholder="https://www.linkedin.com/company/your-company">';
 }
+
+// Callbacks for BCT Logo
+function virical_bct_logo_section_callback() {
+    echo '<p>Tải lên logo của Bộ Công Thương để hiển thị ở chân trang.</p>';
+}
+function virical_bct_logo_field_callback() {
+    $logo_id = get_option('virical_bct_logo_id');
+    $image_src = '';
+    if ($logo_id) {
+        $image_src = wp_get_attachment_url($logo_id);
+    }
+    ?>
+    <div class="virical-bct-logo-uploader">
+        <input type="hidden" id="virical_bct_logo_id" name="virical_bct_logo_id" value="<?php echo esc_attr($logo_id); ?>" />
+        <img id="virical_bct_logo_preview" src="<?php echo esc_url($image_src); ?>" style="max-width:200px; height:auto; margin-bottom:10px; display: <?php echo $logo_id ? 'block' : 'none'; ?>;" />
+        <button type="button" class="button" id="virical_upload_bct_logo_button">Chọn hoặc Tải lên Logo</button>
+        <button type="button" class="button button-link-delete" id="virical_remove_bct_logo_button" style="display: <?php echo $logo_id ? 'inline-block' : 'none'; ?>;">Xóa Logo</button>
+        <p class="description">Chọn hình ảnh logo Bộ Công Thương (khuyến nghị định dạng SVG hoặc PNG).</p>
+    </div>
+
+    <script>
+    jQuery(document).ready(function($){
+        var mediaUploader;
+        $('#virical_upload_bct_logo_button').on('click', function(e) {
+            e.preventDefault();
+            if (mediaUploader) {
+                mediaUploader.open();
+                return;
+            }
+            mediaUploader = wp.media({
+                title: 'Chọn Logo Bộ Công Thương',
+                button: {
+                    text: 'Sử dụng Logo này'
+                },
+                multiple: false
+            });
+            mediaUploader.on('select', function() {
+                var attachment = mediaUploader.state().get('selection').first().toJSON();
+                $('#virical_bct_logo_id').val(attachment.id);
+                $('#virical_bct_logo_preview').attr('src', attachment.url).show();
+                $('#virical_remove_bct_logo_button').show();
+            });
+            mediaUploader.open();
+        });
+
+        $('#virical_remove_bct_logo_button').on('click', function(e) {
+            e.preventDefault();
+            $('#virical_bct_logo_id').val('');
+            $('#virical_bct_logo_preview').hide();
+            $(this).hide();
+        });
+    });
+    </script>
+    <?php
+}
+
+// Enqueue media scripts for Company Info page
+function virical_enqueue_company_info_media_scripts($hook) {
+    if ('toplevel_page_virical-company-info' !== $hook) {
+        return;
+    }
+    wp_enqueue_media();
+}
+add_action('admin_enqueue_scripts', 'virical_enqueue_company_info_media_scripts');
