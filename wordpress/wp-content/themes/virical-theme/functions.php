@@ -1442,7 +1442,8 @@ function virical_company_info_page_html() {
 function virical_company_info_settings_init() {
     // Register the main setting group
     register_setting('virical_company_info_options', 'virical_company_phone');
-    // Add more settings here if needed, e.g., register_setting('virical_company_info_options', 'virical_company_email');
+    register_setting('virical_company_info_options', 'virical_company_address');
+    register_setting('virical_company_info_options', 'virical_company_email');
 
     // Add a section
     add_settings_section(
@@ -1460,6 +1461,24 @@ function virical_company_info_settings_init() {
         'virical-company-info',
         'virical_contact_info_section'
     );
+
+    // Add the address field
+    add_settings_field(
+        'virical_company_address',
+        'Địa chỉ',
+        'virical_address_field_callback',
+        'virical-company-info',
+        'virical_contact_info_section'
+    );
+
+    // Add the email field
+    add_settings_field(
+        'virical_company_email',
+        'Email',
+        'virical_email_field_callback',
+        'virical-company-info',
+        'virical_contact_info_section'
+    );
 }
 add_action('admin_init', 'virical_company_info_settings_init');
 
@@ -1474,5 +1493,23 @@ function virical_phone_field_callback() {
     ?>
     <input type="text" name="virical_company_phone" value="<?php echo isset($option) ? esc_attr($option) : ''; ?>" class="regular-text">
     <p class="description">Số điện thoại chính của công ty.</p>
+    <?php
+}
+
+// 6. Field callback for the address
+function virical_address_field_callback() {
+    $option = get_option('virical_company_address');
+    ?>
+    <textarea name="virical_company_address" rows="3" class="large-text"><?php echo isset($option) ? esc_textarea($option) : ''; ?></textarea>
+    <p class="description">Địa chỉ đầy đủ của công ty.</p>
+    <?php
+}
+
+// 7. Field callback for the email
+function virical_email_field_callback() {
+    $option = get_option('virical_company_email');
+    ?>
+    <input type="email" name="virical_company_email" value="<?php echo isset($option) ? esc_attr($option) : ''; ?>" class="regular-text">
+    <p class="description">Địa chỉ email liên hệ của công ty.</p>
     <?php
 }
