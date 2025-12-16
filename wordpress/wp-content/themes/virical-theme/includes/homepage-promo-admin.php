@@ -110,6 +110,15 @@ function virical_promo_grid_page() {
             border: 1px solid #ddd;
             padding: 5px;
         }
+        .video-preview {
+            margin-top: 10px;
+            max-width: 300px;
+        }
+        .video-preview video {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+        }
         .upload-button {
             margin-top: 5px;
         }

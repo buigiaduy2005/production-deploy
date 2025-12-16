@@ -148,14 +148,14 @@ get_header();
                         </div>
 
                         <div class="grid grid-cols-1 gap-4">
-                            <a href="/lien-he/" class="px-6 py-3 text-center bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors w-full">Liên hệ</a>
+                            <button type="button" id="product-contact-btn" class="px-6 py-3 text-center bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors w-full">Liên hệ</button>
                         </div>
 
                         <div class="pt-6">
                             <p class="text-sm text-gray-600 mb-2">Để lại số điện thoại, chúng tôi sẽ gọi lại ngay</p>
                             <div class="flex">
-                                <input type="tel" placeholder="Nhập số điện thoại" class="w-full px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <button class="px-6 py-2 bg-blue-700 text-white font-semibold rounded-r-md hover:bg-blue-800 transition-colors">Gửi đi</button>
+                                <input type="tel" id="product-phone-trigger" placeholder="Nhập số điện thoại" readonly class="w-full px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500" style="cursor: pointer;">
+                                <button type="button" id="product-submit-btn" class="px-6 py-2 bg-blue-700 text-white font-semibold rounded-r-md hover:bg-blue-800 transition-colors">Gửi đi</button>
                             </div>
                         </div>
                     </div>
@@ -363,6 +363,27 @@ jQuery(document).ready(function($) {
         // Show/hide content
         $('.store-region').hide().removeClass('active');
         $('.store-region[data-region="' + region + '"]').show().addClass('active');
+    });
+
+    // Product page contact modal triggers
+    var modal = $('#contact-modal');
+    
+    // Open modal when clicking the "Liên hệ" button
+    $('#product-contact-btn').on('click', function() {
+        modal.addClass('show');
+        $('#modal-phone').focus();
+    });
+    
+    // Open modal when clicking the phone input field
+    $('#product-phone-trigger').on('click', function() {
+        modal.addClass('show');
+        $('#modal-phone').focus();
+    });
+    
+    // Open modal when clicking the "Gửi đi" button
+    $('#product-submit-btn').on('click', function() {
+        modal.addClass('show');
+        $('#modal-phone').focus();
     });
 });
 </script>

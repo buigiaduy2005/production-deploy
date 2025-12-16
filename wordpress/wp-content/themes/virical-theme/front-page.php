@@ -25,30 +25,42 @@ get_header(); ?>
         if ( $slider_query->have_posts() ) :
             while ( $slider_query->have_posts() ) : $slider_query->the_post();
                 $slide_image = get_the_post_thumbnail_url( get_the_ID(), 'full' );
+                $slide_video = get_post_meta( get_the_ID(), '_slide_video_url', true );
                 $slide_subtitle = get_post_meta( get_the_ID(), '_slide_subtitle', true );
                 $box_title = get_post_meta( get_the_ID(), '_box_title', true );
                 $slide_link = get_post_meta( get_the_ID(), '_slide_link', true );
+                ?>
                 
-                if ( $slide_image ) : ?>
-                    <div class="item" style="background-image: url('<?php echo esc_url( $slide_image ); ?>');">
-                        <?php if ( $slide_link ) : ?>
-                            <a href="<?php echo esc_url( $slide_link ); ?>" class="slide-link">
-                        <?php endif; ?>
-                        
-                        <div class="slide-overlay">
-                            <div class="slide-content">
-                                <?php if ( $slide_subtitle ) : ?>
-                                    <h2 class="slide-title"><?php echo esc_html( $slide_subtitle ); ?></h2>
-                                <?php endif; ?>
-                                
-                            </div>
+                <div class="item <?php echo $slide_video ? 'has-video' : 'has-image'; ?>">
+                    <?php if ( $slide_link ) : ?>
+                        <a href="<?php echo esc_url( $slide_link ); ?>" class="slide-link">
+                    <?php endif; ?>
+                    
+                    <?php if ( $slide_video ) : ?>
+                        <!-- Video Background -->
+                        <video class="slide-video-bg" autoplay loop muted playsinline>
+                            <source src="<?php echo esc_url( $slide_video ); ?>" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    <?php elseif ( $slide_image ) : ?>
+                        <!-- Image Background -->
+                        <div class="slide-image-bg" style="background-image: url('<?php echo esc_url( $slide_image ); ?>');"></div>
+                    <?php endif; ?>
+                    
+                    <div class="slide-overlay">
+                        <div class="slide-content">
+                            <?php if ( $slide_subtitle ) : ?>
+                                <h2 class="slide-title"><?php echo esc_html( $slide_subtitle ); ?></h2>
+                            <?php endif; ?>
                         </div>
-                        
-                        <?php if ( $slide_link ) : ?>
-                            </a>
-                        <?php endif; ?>
                     </div>
-                <?php endif;
+                    
+                    <?php if ( $slide_link ) : ?>
+                        </a>
+                    <?php endif; ?>
+                </div>
+                
+                <?php
             endwhile;
             wp_reset_postdata();
         else : ?>
@@ -83,23 +95,72 @@ $promo_order = ['promo_highlight', 'smart_lock', 'aqara_hub', 'doorbell', 'light
 
 <!-- Promo Grid Section -->
 <section class="promo-grid-section">
-    <div class="container">
-        <div class="promo-grid">
-            <?php foreach ($promo_order as $key): 
-                $item = isset($promo_data[$key]) ? $promo_data[$key] : [];
-                $title = isset($item['title']) ? $item['title'] : '';
-                $description = isset($item['description']) ? $item['description'] : '';
-                $image_url = isset($item['image_url']) ? $item['image_url'] : '';
-                $video_url = isset($item['video_url']) ? $item['video_url'] : '';
-                $link = isset($item['link']) ? $item['link'] : '';
-                $type = isset($item['type']) ? $item['type'] : 'content';
-                
-                // Special handling for promo_highlight
-                if ($key === 'promo_highlight'): ?>
-                    <div class="promo-item promo-highlight">
-                        <?php if ($link): ?><a href="<?php echo esc_url($link); ?>" class="promo-link-wrapper"><?php endif; ?>
+    <div class="promo-grid">
+        <?php foreach ($promo_order as $key): 
+            $item = isset($promo_data[$key]) ? $promo_data[$key] : [];
+            $title = isset($item['title']) ? $item['title'] : '';
+            $description = isset($item['description']) ? $item['description'] : '';
+            $image_url = isset($item['image_url']) ? $item['image_url'] : '';
+            $video_url = isset($item['video_url']) ? $item['video_url'] : '';
+            $link = isset($item['link']) ? $item['link'] : '';
+            $type = isset($item['type']) ? $item['type'] : 'content';
+            
+            // Special handling for promo_highlight
+            if ($key === 'promo_highlight'): ?>
+                <div class="promo-item promo-highlight">
+                    <?php if ($link): ?><a href="<?php echo esc_url($link); ?>" class="promo-link-wrapper"><?php endif; ?>
+                    
+                    <?php if ($type === 'video' && $video_url): ?>
+                        <div class="promo-video-container">
+                            <video class="promo-video-bg" autoplay loop muted playsinline>
+                                <source src="<?php echo esc_url($video_url); ?>" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="promo-overlay promo-highlight-overlay">
+                                <h3 class="promo-title">
+                                    <?php echo esc_html($title); ?>
+                                </h3>
+                                <p class="promo-desc"><?php echo esc_html($description); ?></p>
+                                <?php if (!empty($item['badge1']) || !empty($item['badge2'])): ?>
+                                <div class="promo-badges">
+                                    <?php if (!empty($item['badge1'])): ?>
+                                        <span class="promo-badge"><?php echo esc_html($item['badge1']); ?></span>
+                                    <?php endif; ?>
+                                    <?php if (!empty($item['badge2'])): ?>
+                                        <span class="promo-badge"><?php echo esc_html($item['badge2']); ?></span>
+                                    <?php endif; ?>
+                                </div>
+                                <?php endif; ?>
+                                <?php if (!empty($item['terms'])): ?>
+                                    <p class="promo-terms" style="color: rgba(255,255,255,0.9);"><?php echo esc_html($item['terms']); ?></p>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    <?php elseif ($type === 'image' && $image_url): ?>
+                        <div class="promo-image-placeholder" style="background-image: url('<?php echo esc_url($image_url); ?>');">
+                            <div class="promo-overlay promo-highlight-overlay">
+                                <h3 class="promo-title">
+                                    <?php echo esc_html($title); ?>
+                                </h3>
+                                <p class="promo-desc"><?php echo esc_html($description); ?></p>
+                                <?php if (!empty($item['badge1']) || !empty($item['badge2'])): ?>
+                                <div class="promo-badges">
+                                    <?php if (!empty($item['badge1'])): ?>
+                                        <span class="promo-badge"><?php echo esc_html($item['badge1']); ?></span>
+                                    <?php endif; ?>
+                                    <?php if (!empty($item['badge2'])): ?>
+                                        <span class="promo-badge"><?php echo esc_html($item['badge2']); ?></span>
+                                    <?php endif; ?>
+                                </div>
+                                <?php endif; ?>
+                                <?php if (!empty($item['terms'])): ?>
+                                    <p class="promo-terms" style="color: rgba(255,255,255,0.9);"><?php echo esc_html($item['terms']); ?></p>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    <?php else: ?>
                         <div class="promo-content">
-                            <h3 class="promo-title" style="color: #e31e24; font-weight: 700; text-transform: uppercase;">
+                            <h3 class="promo-title">
                                 <?php echo esc_html($title); ?>
                             </h3>
                             <p class="promo-desc"><?php echo esc_html($description); ?></p>
@@ -117,8 +178,10 @@ $promo_order = ['promo_highlight', 'smart_lock', 'aqara_hub', 'doorbell', 'light
                                 <p class="promo-terms"><?php echo esc_html($item['terms']); ?></p>
                             <?php endif; ?>
                         </div>
-                        <?php if ($link): ?></a><?php endif; ?>
-                    </div>
+                    <?php endif; ?>
+                    
+                    <?php if ($link): ?></a><?php endif; ?>
+                </div>
                 <?php else: ?>
                     <div class="promo-item">
                         <?php if ($link): ?><a href="<?php echo esc_url($link); ?>" class="promo-link-wrapper"><?php endif; ?>
@@ -151,7 +214,6 @@ $promo_order = ['promo_highlight', 'smart_lock', 'aqara_hub', 'doorbell', 'light
                 <?php endif;
             endforeach; ?>
         </div>
-    </div>
 </section>
 
 <!-- About Section - Enhanced -->
@@ -171,22 +233,22 @@ $promo_order = ['promo_highlight', 'smart_lock', 'aqara_hub', 'doorbell', 'light
         <!-- Company Highlights -->
         <div class="company-highlights">
             <div class="highlight-item">
-                <div class="highlight-number">15+</div>
+                <div class="highlight-number" data-target="15" data-suffix="+">0+</div>
                 <div class="highlight-label">Năm Kinh Nghiệm</div>
                 <div class="highlight-desc">Trong lĩnh vực chiếu sáng chuyên nghiệp</div>
             </div>
             <div class="highlight-item">
-                <div class="highlight-number">500+</div>
+                <div class="highlight-number" data-target="500" data-suffix="+">0+</div>
                 <div class="highlight-label">Dự Án Hoàn Thành</div>
                 <div class="highlight-desc">Các công trình lớn nhỏ trên toàn quốc</div>
             </div>
             <div class="highlight-item">
-                <div class="highlight-number">1000+</div>
+                <div class="highlight-number" data-target="1000" data-suffix="+">0+</div>
                 <div class="highlight-label">Khách Hàng Tin Tưởng</div>
                 <div class="highlight-desc">Từ dân dụng đến thương mại cao cấp</div>
             </div>
             <div class="highlight-item">
-                <div class="highlight-number">100%</div>
+                <div class="highlight-number" data-target="100" data-suffix="%">0%</div>
                 <div class="highlight-label">Cam Kết Chất Lượng</div>
                 <div class="highlight-desc">Sản phẩm chính hãng, bảo hành toàn diện</div>
             </div>
@@ -620,56 +682,104 @@ body {
     background: #fff;
 }
 
-/* Hero Slider Section */
+/* Hero Slider */
 .hero-slider-section {
     position: relative;
+    width: 100%;
     height: 100vh;
+    min-height: 600px;
     overflow: hidden;
-}
-
-.slide-title {
-    color: #ffffff !important;
-    text-transform: uppercase;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    background: #000;
 }
 
 .hero-slider .item {
     position: relative;
+    width: 100%;
     height: 100vh;
+    min-height: 600px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+/* Video Background */
+.hero-slider .item.has-video {
+    background: #000;
+}
+
+.slide-video-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: 1;
+}
+
+/* Image Background */
+.slide-image-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.slide-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.slide-content {
+    text-align: center;
+    color: #fff;
+    padding: 40px;
+    max-width: 1200px;
+}
+
+.slide-title {
+    font-size: 4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    animation: fadeInUp 1s ease;
 }
 
 .slide-link {
     display: block;
     width: 100%;
     height: 100%;
+    text-decoration: none;
+    color: inherit;
 }
 
-.slide-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.slide-content {
-    text-align: center;
-    color: #fff;
-    max-width: 1200px;
-    padding: 0 40px;
-}
-
-.slide-title {
-    font-size: 60px;
-    font-weight: 300;
-    letter-spacing: 8px;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    animation: fadeInUp 1s ease-out;
+@media (max-width: 768px) {
+    .slide-title {
+        font-size: 2.5rem;
+        letter-spacing: 2px;
+    }
+    
+    .hero-slider .item {
+        min-height: 500px;
+    }
 }
 
 
@@ -1558,14 +1668,15 @@ jQuery(document).ready(function($) {
 .promo-grid-section {
     padding: 60px 0;
     background: #f8f9fa;
+    width: 100%;
 }
 
 .promo-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;
+    padding: 0 40px; /* Padding on sides instead of max-width */
 }
 
 .promo-item {
@@ -1598,6 +1709,7 @@ jQuery(document).ready(function($) {
     height: 100%;
     min-height: 250px;
     overflow: hidden;
+    background: #000;
 }
 
 .promo-video-bg {
@@ -1621,10 +1733,9 @@ jQuery(document).ready(function($) {
     min-height: 250px;
     background-size: cover;
     background-position: center;
-    position: relative;
-    display: flex;
-    align-items: flex-end;
+    background-repeat: no-repeat;
 }
+
 .promo-image-placeholder img {
     width: 100%;
     height: 100%;
@@ -1634,26 +1745,67 @@ jQuery(document).ready(function($) {
     left: 0;
     transition: transform 0.5s;
 }
+
 .promo-item:hover .promo-image-placeholder img {
     transform: scale(1.05);
 }
+
 .promo-overlay {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     z-index: 2;
-    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-    width: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 30px;
     color: #fff;
+    text-align: center;
 }
+
 .promo-overlay h3 {
     font-size: 22px;
     margin-bottom: 5px;
-    font-weight: 600;
+    font-weight: 400;
     color: #fff !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
+
 .promo-overlay p {
     font-size: 16px;
-    color: rgba(255,255,255,0.9);
+    color: #fff;
+    font-weight: 300;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Content-only promo items */
+.promo-content {
+    padding: 40px 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 250px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.promo-content h3 {
+    font-size: 20px;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.promo-content p {
+    font-size: 14px;
+    color: #fff;
+    font-weight: 300;
 }
 
 @media (max-width: 768px) {

@@ -61,18 +61,48 @@
         <div class="ast-container">
             <div id="footer-contact-form-container" class="newsletter-content">
                 <h3>Nhận thông tin tư vấn từ chúng tôi</h3>
-                <form id="footer-phone-capture-form">
-                    <input type="hidden" name="action" value="virical_contact_form">
-                    <input type="hidden" name="source" value="Footer Phone Form">
-                    <input type="hidden" name="subject" value="Yêu cầu tư vấn qua điện thoại (Footer)">
-                    <div class="form-group">
-                        <input type="text" name="phone" placeholder="Nhập số điện thoại" required>
-                        <button type="submit" class="btn-submit">Gửi đi</button>
-                    </div>
-                </form>
+                <div class="form-group">
+                    <input type="text" id="phone-input-trigger" placeholder="Nhập số điện thoại" readonly style="cursor: pointer;">
+                    <button type="button" class="btn-submit" id="open-contact-modal">Gửi đi</button>
+                </div>
             </div>
         </div>
     </section>
+
+    <!-- Contact Modal -->
+    <div id="contact-modal" class="contact-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Nhận thông tin tư vấn từ chúng tôi</h3>
+            <form id="footer-phone-capture-form">
+                <input type="hidden" name="action" value="virical_contact_form">
+                <input type="hidden" name="source" value="Footer Phone Form">
+                <input type="hidden" name="subject" value="Yêu cầu tư vấn qua điện thoại (Footer)">
+                
+                <div class="modal-form-group">
+                    <label for="modal-name">Họ và tên</label>
+                    <input type="text" id="modal-name" name="name" placeholder="Nhập họ và tên của bạn" required>
+                </div>
+                
+                <div class="modal-form-group">
+                    <label for="modal-phone">Số điện thoại *</label>
+                    <input type="tel" id="modal-phone" name="phone" placeholder="Nhập số điện thoại" required>
+                </div>
+                
+                <div class="modal-form-group">
+                    <label for="modal-email">Email</label>
+                    <input type="email" id="modal-email" name="email" placeholder="Nhập email của bạn">
+                </div>
+                
+                <div class="modal-form-group">
+                    <label for="modal-message">Nội dung</label>
+                    <textarea id="modal-message" name="message" rows="4" placeholder="Nhập nội dung cần tư vấn"></textarea>
+                </div>
+                
+                <button type="submit" class="btn-submit-modal">Gửi thông tin</button>
+            </form>
+        </div>
+    </div>
 
     <footer id="colophon" class="site-footer" role="contentinfo">
         <div class="footer-main">
@@ -544,8 +574,138 @@
         transition: color 0.3s;
     }
 
-    .footer-links a:hover {
+        .footer-links a:hover {
         color: #d94948;
+    }
+
+    /* Contact Modal Styles */
+    .contact-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.6);
+        animation: fadeIn 0.3s ease;
+    }
+
+    .contact-modal.show {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+        from {
+            transform: translateY(-50px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .modal-content {
+        background-color: #fff;
+        margin: auto;
+        padding: 40px;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 500px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        position: relative;
+        animation: slideDown 0.3s ease;
+    }
+
+    .close-modal {
+        color: #aaa;
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        font-size: 32px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.3s;
+    }
+
+    .close-modal:hover,
+    .close-modal:focus {
+        color: #333;
+    }
+
+    .modal-content h3 {
+        color: #333;
+        font-size: 24px;
+        font-weight: 600;
+        margin: 0 0 30px 0;
+        text-align: center;
+    }
+
+    .modal-form-group {
+        margin-bottom: 20px;
+    }
+
+    .modal-form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+        font-weight: 500;
+        font-size: 14px;
+    }
+
+    .modal-form-group input,
+    .modal-form-group textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 15px;
+        outline: none;
+        transition: border-color 0.3s;
+        font-family: inherit;
+        box-sizing: border-box;
+    }
+
+    .modal-form-group input:focus,
+    .modal-form-group textarea:focus {
+        border-color: #007bff;
+    }
+
+    .modal-form-group textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    .btn-submit-modal {
+        width: 100%;
+        padding: 15px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s;
+        margin-top: 10px;
+    }
+
+    .btn-submit-modal:hover {
+        background: #0056b3;
+    }
+
+    .btn-submit-modal:disabled {
+        background: #ccc;
+        cursor: not-allowed;
     }
 
     /* Responsive */
@@ -557,6 +717,16 @@
     }
 
     @media (max-width: 768px) {
+        .modal-content {
+            padding: 30px 20px;
+            width: 95%;
+        }
+
+        .modal-content h3 {
+            font-size: 20px;
+            margin-bottom: 25px;
+        }
+
         .footer-content {
             grid-template-columns: 1fr;
             gap: 30px;
@@ -581,10 +751,46 @@
 
 <script>
 jQuery(document).ready(function($) {
+    var modal = $('#contact-modal');
+    var phoneInputTrigger = $('#phone-input-trigger');
+    var openModalBtn = $('#open-contact-modal');
+    var closeModalBtn = $('.close-modal');
+    
+    // Open modal when clicking on the phone input or button
+    phoneInputTrigger.on('click', function() {
+        modal.addClass('show');
+        $('#modal-phone').focus();
+    });
+    
+    openModalBtn.on('click', function() {
+        modal.addClass('show');
+        $('#modal-phone').focus();
+    });
+    
+    // Close modal when clicking on X button
+    closeModalBtn.on('click', function() {
+        modal.removeClass('show');
+    });
+    
+    // Close modal when clicking outside of modal content
+    $(window).on('click', function(event) {
+        if (event.target.id === 'contact-modal') {
+            modal.removeClass('show');
+        }
+    });
+    
+    // Close modal on ESC key
+    $(document).on('keydown', function(event) {
+        if (event.key === 'Escape' && modal.hasClass('show')) {
+            modal.removeClass('show');
+        }
+    });
+    
+    // Handle form submission
     $('#footer-phone-capture-form').on('submit', function(e) {
         e.preventDefault();
         var form = $(this);
-        var submitButton = form.find('.btn-submit');
+        var submitButton = form.find('.btn-submit-modal');
         var originalButtonText = submitButton.text();
 
         submitButton.text('Đang gửi...').prop('disabled', true);
@@ -594,9 +800,21 @@ jQuery(document).ready(function($) {
             type: 'POST',
             data: form.serialize(),
             success: function(response) {
-                var container = $('#footer-contact-form-container');
                 if (response.success) {
-                    container.html('<h3>Cảm ơn bạn!</h3><p>' + response.data + '</p>');
+                    // Show success message in modal
+                    $('.modal-content').html(
+                        '<span class="close-modal">&times;</span>' +
+                        '<div style="text-align: center; padding: 20px;">' +
+                        '<h3 style="color: #28a745; margin-bottom: 15px;">✓ Cảm ơn bạn!</h3>' +
+                        '<p style="color: #333; font-size: 16px;">' + response.data + '</p>' +
+                        '<button type="button" class="btn-submit-modal" style="margin-top: 20px;" onclick="jQuery(\'#contact-modal\').removeClass(\'show\')">Đóng</button>' +
+                        '</div>'
+                    );
+                    
+                    // Re-attach close button event
+                    $('.close-modal').on('click', function() {
+                        modal.removeClass('show');
+                    });
                 } else {
                     alert('Lỗi: ' + response.data);
                     submitButton.text(originalButtonText).prop('disabled', false);

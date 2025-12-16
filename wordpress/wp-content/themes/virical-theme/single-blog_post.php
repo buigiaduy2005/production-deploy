@@ -79,7 +79,17 @@ get_header();
                 <?php endif; ?>
             </div>
 
-            <?php if (has_post_thumbnail()) : ?>
+            <?php 
+            // Get detail image (custom meta field)
+            $detail_image_id = get_post_meta(get_the_ID(), '_blog_detail_image_id', true);
+            $detail_image_url = $detail_image_id ? wp_get_attachment_url($detail_image_id) : '';
+            
+            // Use detail image if available, otherwise fall back to featured image
+            if ($detail_image_url) : ?>
+                <div class="detail-image mb-8">
+                    <img src="<?php echo esc_url($detail_image_url); ?>" alt="<?php the_title_attribute(); ?>" class="w-full h-auto object-cover rounded-lg shadow-lg">
+                </div>
+            <?php elseif (has_post_thumbnail()) : ?>
                 <div class="featured-image mb-8">
                     <img src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'large'); ?>" alt="<?php the_title_attribute(); ?>" class="w-full h-auto object-cover rounded-lg shadow-lg">
                 </div>

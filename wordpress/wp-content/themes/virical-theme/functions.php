@@ -48,6 +48,7 @@ function virical_enqueue_scripts() {
 
     // Theme scripts
     wp_enqueue_script('virical-header-script', get_template_directory_uri() . '/assets/js/header.js', array('jquery'), '1.0.1', true);
+    wp_enqueue_script('virical-counter-animation', get_template_directory_uri() . '/js/counter-animation.js', array('jquery'), '1.0.0', true);
 
     
 }
@@ -110,6 +111,16 @@ function virical_init_configuration_system() {
     // Include Homepage Promo Grid Admin
     if (file_exists(get_template_directory() . '/includes/homepage-promo-admin.php')) {
         require_once get_template_directory() . '/includes/homepage-promo-admin.php';
+    }
+    
+    // Include Slider Video Meta Box
+    if (file_exists(get_template_directory() . '/includes/slider-video-meta.php')) {
+        require_once get_template_directory() . '/includes/slider-video-meta.php';
+    }
+    
+    // Include Blog Detail Image Meta Box
+    if (file_exists(get_template_directory() . '/includes/blog-detail-image-meta.php')) {
+        require_once get_template_directory() . '/includes/blog-detail-image-meta.php';
     }
     
     // Initialize the managers
@@ -1246,7 +1257,7 @@ function virical_create_blog_post_type() {
         'label'                 => 'Bài viết',
         'description'           => 'Quản lý bài viết cho website',
         'labels'                => $labels,
-        'supports'              => array('title', 'editor', 'thumbnail', 'excerpt', 'comments'),
+        'supports'              => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
         'taxonomies'            => array('blog_category', 'blog_tag'),
         'hierarchical'          => false,
         'public'                => true,
