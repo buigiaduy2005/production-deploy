@@ -171,7 +171,7 @@
                                 echo '<img src="' . esc_url($bct_logo_url) . '" alt="Đã thông báo Bộ Công Thương" width="150">';
                             } else {
                                 // Fallback to the hardcoded image if no custom logo is set
-                                echo '<img src="' . esc_url( get_template_directory_uri() . '/assets/images/thongbaobocongthuonglogo.svg' ); ?>" alt="Đã thông báo Bộ Công Thương" width="150">';
+                                echo '<img src="' . esc_url( get_template_directory_uri() . '/assets/images/thongbaobocongthuonglogo.svg' ) . '" alt="Đã thông báo Bộ Công Thương" width="150">';
                             }
                             ?>
                         </a>

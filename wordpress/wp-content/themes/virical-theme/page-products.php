@@ -37,6 +37,34 @@ nav.site-header {
 .site-header[style*="background"] {
     background: rgba(248, 249, 250, 0.95) !important;
 }
+
+/* Keep menu text black on products page */
+.main-nav a,
+.main-nav .menu-item a,
+.main-navigation a,
+.site-header a,
+header a,
+header.site-header .main-navigation a,
+.site-header .main-navigation a {
+    color: #000 !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1) !important;
+}
+
+.main-nav a:hover,
+.main-nav .menu-item a:hover,
+.main-navigation a:hover,
+.site-header .main-navigation a:hover {
+    color: #d4af37 !important;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.2) !important;
+}
+
+/* Keep logo text black too */
+.logo-text,
+.logo-tagline {
+    color: #000 !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1) !important;
+}
+
 </style>
 
 <script>
@@ -50,17 +78,36 @@ document.addEventListener('DOMContentLoaded', function() {
             header.style.setProperty('border-bottom', '1px solid rgba(0,0,0,0.2)', 'important');
             header.style.setProperty('backdrop-filter', 'blur(10px)', 'important');
         });
+        
+        // FORCE MENU TEXT COLOR TO BLACK
+        const menuLinks = document.querySelectorAll('.main-navigation a, .main-nav a, .site-header a, header a, nav a');
+        menuLinks.forEach(link => {
+            link.style.setProperty('color', '#000', 'important');
+            link.style.setProperty('text-shadow', '1px 1px 2px rgba(0,0,0,0.1)', 'important');
+        });
+        
+        // FORCE LOGO TEXT COLOR TO BLACK
+        const logoElements = document.querySelectorAll('.logo-text, .logo-tagline');
+        logoElements.forEach(elem => {
+            elem.style.setProperty('color', '#000', 'important');
+            elem.style.setProperty('text-shadow', '1px 1px 2px rgba(0,0,0,0.1)', 'important');
+        });
     }
     
     // Run immediately
     forceHeaderStyle();
     
     // Run after a delay to override any late-loading styles
+    setTimeout(forceHeaderStyle, 100);
     setTimeout(forceHeaderStyle, 500);
     setTimeout(forceHeaderStyle, 1000);
     
     // Run on scroll to override any scroll-based changes
     window.addEventListener('scroll', forceHeaderStyle);
+    
+    // Run on any DOM changes
+    const observer = new MutationObserver(forceHeaderStyle);
+    observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'class'] });
 });
 </script>
 
