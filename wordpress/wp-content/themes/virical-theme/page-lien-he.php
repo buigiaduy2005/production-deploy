@@ -238,12 +238,14 @@ get_header();
     font-size: 48px;
     margin: 0 0 15px 0;
     font-weight: 700;
+    color: white !important;
 }
 
 .page-header-section .page-subtitle {
     font-size: 18px;
     opacity: 0.9;
     margin: 0;
+    color: white !important;
 }
 
 .contact-content-section {
