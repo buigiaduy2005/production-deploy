@@ -64,84 +64,92 @@ get_header(); ?>
     </div>
 </section>
 
+<?php
+// Get promo grid data from WordPress options
+$promo_data = get_option('virical_promo_grid_data');
+
+// If no data exists, use default values
+if (!$promo_data || !is_array($promo_data)) {
+    // Load default function if not already loaded
+    if (!function_exists('virical_get_default_promo_data')) {
+        require_once get_template_directory() . '/includes/homepage-promo-admin.php';
+    }
+    $promo_data = virical_get_default_promo_data();
+}
+
+// Define the order of promo items
+$promo_order = ['promo_highlight', 'smart_lock', 'aqara_hub', 'doorbell', 'lighting', 'smart_switch', 'curtain', 'sensor'];
+?>
+
 <!-- Promo Grid Section -->
 <section class="promo-grid-section">
     <div class="container">
         <div class="promo-grid">
-            <!-- Row 1, Column 1: December Promo -->
-            <div class="promo-item promo-highlight">
-                <div class="promo-content">
-                    <h3 class="promo-title" style="color: #e31e24; font-weight: 700; text-transform: uppercase;">CHƯƠNG TRÌNH KHUYẾN MẠI THÁNG 12</h3>
-                    <p class="promo-desc">Tặng ngay Xiaomi Lockin & Aqara Smart Locks</p>
-                    <div class="promo-badges">
-                        <span class="promo-badge">Trị giá 5.500k</span>
-                        <span class="promo-badge">Trị giá 15.500k</span>
+            <?php foreach ($promo_order as $key): 
+                $item = isset($promo_data[$key]) ? $promo_data[$key] : [];
+                $title = isset($item['title']) ? $item['title'] : '';
+                $description = isset($item['description']) ? $item['description'] : '';
+                $image_url = isset($item['image_url']) ? $item['image_url'] : '';
+                $video_url = isset($item['video_url']) ? $item['video_url'] : '';
+                $link = isset($item['link']) ? $item['link'] : '';
+                $type = isset($item['type']) ? $item['type'] : 'content';
+                
+                // Special handling for promo_highlight
+                if ($key === 'promo_highlight'): ?>
+                    <div class="promo-item promo-highlight">
+                        <?php if ($link): ?><a href="<?php echo esc_url($link); ?>" class="promo-link-wrapper"><?php endif; ?>
+                        <div class="promo-content">
+                            <h3 class="promo-title" style="color: #e31e24; font-weight: 700; text-transform: uppercase;">
+                                <?php echo esc_html($title); ?>
+                            </h3>
+                            <p class="promo-desc"><?php echo esc_html($description); ?></p>
+                            <?php if (!empty($item['badge1']) || !empty($item['badge2'])): ?>
+                            <div class="promo-badges">
+                                <?php if (!empty($item['badge1'])): ?>
+                                    <span class="promo-badge"><?php echo esc_html($item['badge1']); ?></span>
+                                <?php endif; ?>
+                                <?php if (!empty($item['badge2'])): ?>
+                                    <span class="promo-badge"><?php echo esc_html($item['badge2']); ?></span>
+                                <?php endif; ?>
+                            </div>
+                            <?php endif; ?>
+                            <?php if (!empty($item['terms'])): ?>
+                                <p class="promo-terms"><?php echo esc_html($item['terms']); ?></p>
+                            <?php endif; ?>
+                        </div>
+                        <?php if ($link): ?></a><?php endif; ?>
                     </div>
-                    <p class="promo-terms">Áp dụng từ: 01/12 đến 31/12/2025</p>
-                </div>
-            </div>
-            
-            <!-- Row 1, Column 2: Smart Locks -->
-            <div class="promo-item">
-                <div class="promo-image-placeholder placeholder-bg-1">
-                    <div class="promo-overlay">
-                        <h3>KHÓA THÔNG MINH</h3>
-                        <p>A100 & D100 ZIGBEE - U50</p>
+                <?php else: ?>
+                    <div class="promo-item">
+                        <?php if ($link): ?><a href="<?php echo esc_url($link); ?>" class="promo-link-wrapper"><?php endif; ?>
+                        <?php if ($type === 'video' && $video_url): ?>
+                            <div class="promo-video-container">
+                                <video class="promo-video-bg" autoplay loop muted playsinline>
+                                    <source src="<?php echo esc_url($video_url); ?>" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <div class="promo-overlay">
+                                    <h3><?php echo esc_html($title); ?></h3>
+                                    <p><?php echo esc_html($description); ?></p>
+                                </div>
+                            </div>
+                        <?php elseif ($type === 'image' && $image_url): ?>
+                            <div class="promo-image-placeholder" style="background-image: url('<?php echo esc_url($image_url); ?>');">
+                                <div class="promo-overlay">
+                                    <h3><?php echo esc_html($title); ?></h3>
+                                    <p><?php echo esc_html($description); ?></p>
+                                </div>
+                            </div>
+                        <?php else: ?>
+                            <div class="promo-content">
+                                <h3><?php echo esc_html($title); ?></h3>
+                                <p><?php echo esc_html($description); ?></p>
+                            </div>
+                        <?php endif; ?>
+                        <?php if ($link): ?></a><?php endif; ?>
                     </div>
-                </div>
-            </div>
-            
-            <!-- Row 2, Column 1: Hubs -->
-            <div class="promo-item">
-                <div class="promo-image-placeholder placeholder-bg-2">
-                    <div class="promo-overlay">
-                        <h3>AQARA HUB</h3>
-                        <p>M3 & M2 CENTER</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Row 2, Column 2: Doorbell -->
-            <div class="promo-item">
-                <div class="promo-image-placeholder placeholder-bg-3">
-                    <div class="promo-overlay">
-                        <h3>CHUÔNG CỬA THÔNG MINH</h3>
-                        <p>G4 VIDEO DOORBELL</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Row 3, Column 1 -->
-            <div class="promo-item">
-                <div class="promo-content">
-                    <h3>GIẢI PHÁP CHIẾU SÁNG</h3>
-                    <p>Thiết kế ánh sáng chuyên nghiệp</p>
-                </div>
-            </div>
-            
-            <!-- Row 3, Column 2 -->
-            <div class="promo-item">
-                <div class="promo-content">
-                    <h3>CÔNG TẮC THÔNG MINH</h3>
-                    <p>Điều khiển mọi thứ trong tầm tay</p>
-                </div>
-            </div>
-            
-            <!-- Row 4, Column 1 -->
-            <div class="promo-item">
-                <div class="promo-content">
-                    <h3>RÈM CỬA TỰ ĐỘNG</h3>
-                    <p>Tiện nghi và sang trọng</p>
-                </div>
-            </div>
-            
-            <!-- Row 4, Column 2 -->
-            <div class="promo-item">
-                <div class="promo-content">
-                    <h3>CẢM BIẾN AN NINH</h3>
-                    <p>Bảo vệ ngôi nhà bạn 24/7</p>
-                </div>
-            </div>
+                <?php endif;
+            endforeach; ?>
         </div>
     </div>
 </section>
@@ -1549,74 +1557,68 @@ jQuery(document).ready(function($) {
 /* Promo Grid Styles */
 .promo-grid-section {
     padding: 60px 0;
-    background: #fff;
-    border-bottom: 1px solid #eaeaea;
+    background: #f8f9fa;
 }
+
 .promo-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 Columns as requested */
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    margin-top: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
+
 .promo-item {
-    background: #f8f9fa;
+    position: relative;
+    min-height: 250px;
     border-radius: 8px;
     overflow: hidden;
-    min-height: 350px;
-    position: relative;
-    transition: transform 0.3s, box-shadow 0.3s;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .promo-item:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
 }
-.promo-content {
-    padding: 40px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-.promo-highlight {
-    background: #fff;
-    border: 2px solid #e31e24; /* Red border for promo */
-}
-.promo-title {
-    font-size: 24px;
-    margin-bottom: 15px;
-    line-height: 1.4;
-    color: #222;
-}
-.promo-desc {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 20px;
-}
-.promo-badges {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-.promo-badge {
-    background: #e31e24;
-    color: #fff;
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 600;
-}
-.promo-terms {
-    font-size: 13px;
-    color: #999;
-}
-.promo-image-placeholder {
+
+.promo-link-wrapper {
+    display: block;
     width: 100%;
     height: 100%;
-    background-color: #ddd;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Video Container Styles */
+.promo-video-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 250px;
+    overflow: hidden;
+}
+
+.promo-video-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: 1;
+}
+
+/* Image Container Styles */
+.promo-image-placeholder {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 250px;
     background-size: cover;
     background-position: center;
     position: relative;

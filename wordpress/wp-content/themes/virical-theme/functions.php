@@ -107,6 +107,11 @@ function virical_init_configuration_system() {
         require_once get_template_directory() . '/includes/about-page-admin.php';
     }
     
+    // Include Homepage Promo Grid Admin
+    if (file_exists(get_template_directory() . '/includes/homepage-promo-admin.php')) {
+        require_once get_template_directory() . '/includes/homepage-promo-admin.php';
+    }
+    
     // Initialize the managers
     if (class_exists('ViricalAdminMenuManager')) {
         $GLOBALS['virical_menu_manager'] = new ViricalAdminMenuManager();
