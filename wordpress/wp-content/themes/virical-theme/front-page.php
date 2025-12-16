@@ -74,6 +74,17 @@ get_header(); ?>
             </div>
         <?php endif; ?>
     </div>
+    
+    <!-- Slider Navigation Controls -->
+    <div class="slider-controls">
+        <div class="slider-progress-bars" id="sliderProgressBars">
+            <!-- Progress bars will be generated dynamically by JavaScript -->
+        </div>
+        <button class="slider-pause-btn" id="sliderPauseBtn" aria-label="Pause slider">
+            <span class="pause-icon">||</span>
+            <span class="play-icon" style="display: none;">▶</span>
+        </button>
+    </div>
 </section>
 
 <?php
@@ -771,7 +782,112 @@ body {
     color: inherit;
 }
 
+/* Slider Navigation Controls */
+.slider-controls {
+    position: absolute;
+    bottom: 40px;
+    right: 60px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.slider-progress-bars {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.progress-bar {
+    width: 80px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar:hover {
+    background: rgba(255, 255, 255, 0.5);
+    height: 4px;
+}
+
+.progress-bar.active {
+    background: #ff6600;
+    height: 4px;
+}
+
+.progress-bar.active::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    animation: progressAnimation 5s linear;
+}
+
+@keyframes progressAnimation {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+.slider-pause-btn {
+    width: 40px;
+    height: 40px;
+    background: rgba(51, 51, 51, 0.7);
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.slider-pause-btn:hover {
+    background: rgba(51, 51, 51, 0.9);
+    transform: scale(1.05);
+}
+
+.slider-pause-btn:active {
+    transform: scale(0.95);
+}
+
 @media (max-width: 768px) {
+    .slider-controls {
+        bottom: 20px;
+        right: 20px;
+        gap: 10px;
+    }
+    
+    .progress-bar {
+        width: 50px;
+        height: 3px;
+    }
+    
+    .progress-bar:hover,
+    .progress-bar.active {
+        height: 3px;
+    }
+    
+    .slider-pause-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 12px;
+    }
+    
     .slide-title {
         font-size: 2.5rem;
         letter-spacing: 2px;
@@ -1611,7 +1727,7 @@ body .company-highlights .highlight-item:nth-child(4) { grid-column: 4 !importan
 <script>
 jQuery(document).ready(function($) {
     // Initialize Hero Slider
-    $('.hero-slider').owlCarousel({
+    var heroSlider = $('.hero-slider').owlCarousel({
         items: 1,
         loop: true,
         autoplay: true,
@@ -1622,7 +1738,57 @@ jQuery(document).ready(function($) {
         navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
         animateOut: 'fadeOut',
         animateIn: 'fadeIn',
-        smartSpeed: 1000
+        smartSpeed: 1000,
+        onInitialized: function(event) {
+            // Generate progress bars after initialization
+            var slideCount = event.item.count; // This gives the actual number of slides
+            var progressBarsContainer = $('#sliderProgressBars');
+            
+            for (var i = 0; i < slideCount; i++) {
+                progressBarsContainer.append('<div class="progress-bar" data-slide="' + i + '"></div>');
+            }
+            
+            // Set first progress bar as active
+            $('.progress-bar').first().addClass('active');
+        }
+    });
+    
+    // Slider Controls Functionality
+    var isPlaying = true;
+    var progressBarsContainer = $('#sliderProgressBars');
+    var pauseBtn = $('#sliderPauseBtn');
+    
+    // Update progress bars on slide change
+    heroSlider.on('changed.owl.carousel', function(event) {
+        var slideCount = event.item.count;
+        var currentIndex = event.item.index % slideCount;
+        $('.progress-bar').removeClass('active');
+        $('.progress-bar[data-slide="' + currentIndex + '"]').addClass('active');
+    });
+    
+    // Click on progress bar to navigate to slide
+    $(document).on('click', '.progress-bar', function() {
+        var slideIndex = $(this).data('slide');
+        heroSlider.trigger('to.owl.carousel', [slideIndex, 1000]);
+    });
+    
+    // Pause/Play button functionality
+    pauseBtn.on('click', function() {
+        if (isPlaying) {
+            // Pause the slider
+            heroSlider.trigger('stop.owl.autoplay');
+            $(this).find('.pause-icon').hide();
+            $(this).find('.play-icon').show();
+            $(this).attr('aria-label', 'Play slider');
+            isPlaying = false;
+        } else {
+            // Play the slider
+            heroSlider.trigger('play.owl.autoplay', [5000]);
+            $(this).find('.pause-icon').show();
+            $(this).find('.play-icon').hide();
+            $(this).attr('aria-label', 'Pause slider');
+            isPlaying = true;
+        }
     });
     
     // Initialize Projects Slider
