@@ -11,7 +11,7 @@ get_header(); ?>
 <section class="hero-slider-section">
     <div class="hero-slider owl-carousel">
         <?php
-        // Get slider posts
+        // Get slider posts from WordPress Admin
         $slider_args = array(
             'post_type'      => 'aura_slider',
             'posts_per_page' => -1,
@@ -20,55 +20,53 @@ get_header(); ?>
             'post_status'    => 'publish'
         );
         
-        $slider_query = new WP_Query( $slider_args );
+        $slider_query = new WP_Query($slider_args);
         
-        if ( $slider_query->have_posts() ) :
-            while ( $slider_query->have_posts() ) : $slider_query->the_post();
-                $slide_image = get_the_post_thumbnail_url( get_the_ID(), 'full' );
-                $slide_video = get_post_meta( get_the_ID(), '_slide_video_url', true );
-                $slide_subtitle = get_post_meta( get_the_ID(), '_slide_subtitle', true );
-                $box_title = get_post_meta( get_the_ID(), '_box_title', true );
-                $slide_link = get_post_meta( get_the_ID(), '_slide_link', true );
+        if ($slider_query->have_posts()) :
+            while ($slider_query->have_posts()) : $slider_query->the_post();
+                $slide_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
+                $slide_video = get_post_meta(get_the_ID(), '_slide_video_url', true);
+                $slide_subtitle = get_post_meta(get_the_ID(), '_slide_subtitle', true);
+                $slide_link = get_post_meta(get_the_ID(), '_slide_link', true);
                 ?>
                 
                 <div class="item <?php echo $slide_video ? 'has-video' : 'has-image'; ?>">
-                    <?php if ( $slide_link ) : ?>
-                        <a href="<?php echo esc_url( $slide_link ); ?>" class="slide-link">
+                    <?php if ($slide_link) : ?>
+                        <a href="<?php echo esc_url($slide_link); ?>" class="slide-link">
                     <?php endif; ?>
                     
-                    <?php if ( $slide_video ) : ?>
+                    <?php if ($slide_video) : ?>
                         <!-- Video Background -->
                         <video class="slide-video-bg" autoplay loop muted playsinline>
-                            <source src="<?php echo esc_url( $slide_video ); ?>" type="video/mp4">
+                            <source src="<?php echo esc_url($slide_video); ?>" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
-                    <?php elseif ( $slide_image ) : ?>
+                    <?php elseif ($slide_image) : ?>
                         <!-- Image Background -->
-                        <div class="slide-image-bg" style="background-image: url('<?php echo esc_url( $slide_image ); ?>');"></div>
+                        <div class="slide-image-bg" style="background-image: url('<?php echo esc_url($slide_image); ?>');"></div>
                     <?php endif; ?>
                     
                     <div class="slide-overlay">
                         <div class="slide-content">
-                            <?php if ( $slide_subtitle ) : ?>
-                                <h2 class="slide-title"><?php echo esc_html( $slide_subtitle ); ?></h2>
+                            <?php if ($slide_subtitle) : ?>
+                                <h2 class="slide-title"><?php echo esc_html($slide_subtitle); ?></h2>
                             <?php endif; ?>
                         </div>
                     </div>
                     
-                    <?php if ( $slide_link ) : ?>
+                    <?php if ($slide_link) : ?>
                         </a>
                     <?php endif; ?>
                 </div>
                 
-                <?php
-            endwhile;
+            <?php endwhile;
             wp_reset_postdata();
         else : ?>
-            <!-- Default slides if no custom slides exist -->
-            <div class="item" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/2022_collection-Aura.jpg');">
+            <!-- Fallback slide if no slides exist -->
+            <div class="item has-image" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/placeholder.jpg');">
                 <div class="slide-overlay">
                     <div class="slide-content">
-                        <h2 class="slide-title">BỘ SƯU TẬP 2022</h2>
+                        <h2 class="slide-title">VIRICAL - SMARTHOME</h2>
                     </div>
                 </div>
             </div>

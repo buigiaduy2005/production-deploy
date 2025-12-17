@@ -118,6 +118,11 @@ function virical_init_configuration_system() {
         require_once get_template_directory() . '/includes/slider-video-meta.php';
     }
     
+    // Include Slider Post Type
+    if (file_exists(get_template_directory() . '/includes/slider-post-type.php')) {
+        require_once get_template_directory() . '/includes/slider-post-type.php';
+    }
+    
     // Include Blog Detail Image Meta Box
     if (file_exists(get_template_directory() . '/includes/blog-detail-image-meta.php')) {
         require_once get_template_directory() . '/includes/blog-detail-image-meta.php';
